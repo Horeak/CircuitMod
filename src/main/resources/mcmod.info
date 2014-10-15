@@ -1,0 +1,20 @@
+[
+{
+  "modid": "Circuit",
+  "name": "Circuit",
+  "description": "",
+  "version": "${version}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [
+    "tm1990"
+  ],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]
