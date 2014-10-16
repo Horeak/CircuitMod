@@ -3,20 +3,20 @@ package com.circuit.CircuitMod.Utils.Modes;
 import com.circuit.CircuitMod.CircuitEvents.EventPacket;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 
-public class OR_Gate extends CircuitBoxMode {
+public class AND_Gate_2 extends CircuitBoxMode {
     @Override
     public String ModeName() {
-        return "OR";
+        return "AND";
     }
 
     @Override
     public String GetID() {
-        return "OR";
+        return "AND_2";
     }
 
     @Override
     public int MinInputs() {
-        return 1;
+        return 3;
     }
 
     @Override
@@ -27,6 +27,6 @@ public class OR_Gate extends CircuitBoxMode {
 
     @Override
     public void OnUpdate(TileEntityCircuitBox tile, EventPacket packet) {
-                tile.SendPacketTo(packet, tile.GetOutputSide());
+        tile.SendPacketTo(packet, tile.GetOutputSide());
     }
 }

@@ -1,7 +1,6 @@
 package com.circuit.CircuitMod.Blocks;
 
 import MiscUtils.Block.ModBlockCustomModel;
-import MiscUtils.Handlers.ChatMessageHandler;
 import com.circuit.CircuitMod.Main.ModBlocks;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
@@ -54,20 +53,9 @@ public class ModBlockCircuitBox extends ModBlockCustomModel {
                 }
 
                 tile.SetMode(CircuitBoxModeUtils.Modes.get(tile.ModeNum));
-
-                if(world.isRemote)
-                ChatMessageHandler.sendChatToPlayer(player, "Mode set to: " + tile.CurrentMode.ModeName());
             }
 
 
-        }else if(!player.isSneaking()){
-            if(world.getTileEntity(x,y,z) instanceof TileEntityCircuitBox){
-                TileEntityCircuitBox tile = (TileEntityCircuitBox)world.getTileEntity(x,y,z);
-
-
-                if(world.isRemote)
-                    ChatMessageHandler.sendChatToPlayer(player, "Current Mode:  " + tile.CurrentMode.ModeName());
-            }
         }
 
 

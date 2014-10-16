@@ -3,30 +3,29 @@ package com.circuit.CircuitMod.Utils.Modes;
 import com.circuit.CircuitMod.CircuitEvents.EventPacket;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 
-public class OR_Gate extends CircuitBoxMode {
+public class NOT_Gate extends CircuitBoxMode {
     @Override
     public String ModeName() {
-        return "OR";
+        return "NOT";
     }
 
     @Override
     public String GetID() {
-        return "OR";
+        return "NOT";
     }
 
     @Override
     public int MinInputs() {
-        return 1;
+        return 0;
     }
 
     @Override
     public int MaxInputs() {
-        return 3;
+        return 0;
     }
-
 
     @Override
     public void OnUpdate(TileEntityCircuitBox tile, EventPacket packet) {
-                tile.SendPacketTo(packet, tile.GetOutputSide());
+        tile.SendPacketTo(packet, tile.GetOutputSide());
     }
 }

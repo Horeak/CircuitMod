@@ -32,8 +32,4 @@ public class ModBlockRedstoneEmitter extends ModBlockContainer {
         return true;
     }
 
-    public int isProvidingStrongPower(IBlockAccess block, int x, int y, int z, int d)
-    {
-        return isProvidingWeakPower(block,x,y,z,d);
-    }
 }

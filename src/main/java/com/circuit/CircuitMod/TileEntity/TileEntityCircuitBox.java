@@ -22,14 +22,10 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
     public ForgeDirection[] Inputs = new ForgeDirection[3];
 
     public int Rotation = 0;
-    int ResetAt = 10;
-
-
-    //TODO Improve gate type handeling... Make inputs easier avaiable for use for things like AND gate
-    //TODO Fix AND gate. Requires to disable all inputs before it turnes off
+    int ResetAt = 20;
 
     public void SetMode(CircuitBoxMode mode){
-        this.Mode = mode.ModeName();
+        this.Mode = mode.GetID();
         CurrentMode = mode;
     }
 
@@ -86,7 +82,6 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
 
     public void SetSideState(ForgeDirection dir, boolean t){
 
-
             if(dir == ForgeDirection.NORTH) {
                 Sides[0] = t;
             }else if(dir == ForgeDirection.SOUTH) {
@@ -100,6 +95,40 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
 
     }
 
+    public int GetActiveInputs(){
+        int g = 0;
+
+        for(int i = 0; i < Inputs.length; i++){
+            if(GetInputState(i))
+                g += 1;
+        }
+
+        return g;
+    }
+
+    public boolean GetInputState(int input){
+        if(Inputs.length >= input && Inputs[input] != null)
+        return GetSideState(Inputs[input]);
+
+        return false;
+    }
+
+    public boolean GetSideState(ForgeDirection dir){
+
+        if(dir == ForgeDirection.NORTH) {
+            return Sides[0];
+        }else if(dir == ForgeDirection.SOUTH) {
+            return Sides[1];
+        }else if(dir == ForgeDirection.EAST) {
+            return Sides[2];
+        }else  if(dir == ForgeDirection.WEST) {
+            return Sides[3];
+        }
+
+        return false;
+
+    }
+
     public ForgeDirection GetOutputSide(){
         return ForgeDirection.getOrientation(Rotation);
     }
@@ -107,22 +136,18 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
     public void updateEntity(){
 
         if (CurrentMode != null) {
-            ActivatedPacket packet = new ActivatedPacket();
-            packet.LastSentFrom = GetOutputSide().getOpposite();
-            packet.Postitions.add(new Vector3d(xCoord, yCoord, zCoord));
+            if(GetActiveInputs() >= CurrentMode.MinInputs() && GetActiveInputs() <= CurrentMode.MaxInputs()) {
 
-            CurrentMode.OnUpdate(this, packet);
+                ActivatedPacket packet = new ActivatedPacket();
+                packet.LastSentFrom = GetOutputSide().getOpposite();
+                packet.Postitions.add(new Vector3d(xCoord, yCoord, zCoord));
+
+                CurrentMode.OnUpdate(this, packet);
+            }
         }
 
         if(CurrentMode == null){
-            if(ModeNum < CircuitBoxModeUtils.Modes.size()-1){
-                ModeNum += 1;
-
-            }else if(ModeNum >= CircuitBoxModeUtils.Modes.size() && ModeNum >0 ){
-                ModeNum = 0;
-
-            }
-
+            ModeNum = 0;
             SetMode(CircuitBoxModeUtils.Modes.get(ModeNum));
 
         }
@@ -143,7 +168,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
         }
 
         for(int i = 0; i < ResetCount.length; i++){
-            if(ResetCount[i] >= ResetAt){
+            if(ResetCount[i] >= ResetAt && Sides[i]){
                 ResetCount[i] = 0;
                 Sides[i] = false;
             }else{
