@@ -13,4 +13,6 @@ public abstract class CircuitBoxMode {
 
 
     public abstract void OnUpdate(TileEntityCircuitBox tile, EventPacket packet);
+
+    public abstract boolean OutputtingSignal(TileEntityCircuitBox tile);
 }

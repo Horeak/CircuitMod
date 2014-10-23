@@ -136,7 +136,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
     public void updateEntity(){
 
         if (CurrentMode != null) {
-            if(GetActiveInputs() >= CurrentMode.MinInputs() && GetActiveInputs() <= CurrentMode.MaxInputs()) {
+            if(GetActiveInputs() >= CurrentMode.MinInputs() && GetActiveInputs() <= CurrentMode.MaxInputs() && CurrentMode.OutputtingSignal(this)) {
 
                 ActivatedPacket packet = new ActivatedPacket();
                 packet.LastSentFrom = GetOutputSide().getOpposite();

@@ -148,6 +148,7 @@ public class TileEntityCircuitBoxRender extends TileEntitySpecialRenderer {
                     Strings.add("Min Inputs: " + EnumChatFormatting.GRAY + tile.CurrentMode.MinInputs() + EnumChatFormatting.RESET);
                     Strings.add("Max Inputs: " + EnumChatFormatting.GRAY + tile.CurrentMode.MaxInputs() + EnumChatFormatting.RESET);
                     Strings.add("Active Inputs: " + EnumChatFormatting.GRAY + tile.GetActiveInputs() + EnumChatFormatting.RESET);
+                    Strings.add("Outputting: " + (tile.CurrentMode.OutputtingSignal(tile) ? EnumChatFormatting.GREEN : EnumChatFormatting.RED) + tile.CurrentMode.OutputtingSignal(tile) + EnumChatFormatting.RESET);
                 }
 
                 FontRenderer fontrenderer = manager.getFontRenderer();

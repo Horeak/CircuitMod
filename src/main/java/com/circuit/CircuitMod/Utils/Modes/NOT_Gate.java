@@ -28,4 +28,9 @@ public class NOT_Gate extends CircuitBoxMode {
     public void OnUpdate(TileEntityCircuitBox tile, EventPacket packet) {
         tile.SendPacketTo(packet, tile.GetOutputSide());
     }
+
+    @Override
+    public boolean OutputtingSignal(TileEntityCircuitBox tile) {
+        return tile.GetActiveInputs() == 0;
+    }
 }
