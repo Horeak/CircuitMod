@@ -16,7 +16,7 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
 
     public void SendPacketTo(EventPacket packet,ForgeDirection dir){
 
-            if(dir != packet.LastSentFrom && dir != ForgeDirection.UNKNOWN && packet != null) {
+            if(dir != packet.LastSentFrom && dir != ForgeDirection.UNKNOWN && packet != null && !packet.TimedOut) {
                 if (worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof IEventRec) {
                     TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
 
@@ -33,14 +33,16 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
 
                                     if(!EventPacket.ContainesVactor(packet, vec)) {
 
-                                        EventPacket sendPacket = new EventPacket();
+                                        EventPacket sendPacket = new EventPacket(packet.TimeOut, packet.ByteValue);
 
                                         NBTTagCompound nbt = new NBTTagCompound();
                                         packet.SaveToNBT(nbt);
 
                                         sendPacket.LoadFromNBT(nbt);
                                         sendPacket.LastSentFrom = dir.getOpposite();
-                                        sendPacket.TimesSent += 1;
+
+                                        sendPacket.Resend();
+
                                         sendPacket.Postitions = packet.Postitions;
                                         sendPacket.Postitions.add(vec);
 
@@ -60,17 +62,22 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
                     }
                 }
 
+            }else{
+                return;
             }
 
     }
 
     public void SendPacketToAround(EventPacket packet){
-
         for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
             if(dir != packet.LastSentFrom && packet != null)
            SendPacketTo(packet, dir);
         }
     }
+
+
+
+
 
     @Override
     public abstract void OnRecived(EventPacket packet);

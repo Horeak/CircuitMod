@@ -137,7 +137,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
         if (CurrentMode != null) {
             if(GetActiveInputs() >= CurrentMode.MinInputs() && GetActiveInputs() <= CurrentMode.MaxInputs() && CurrentMode.OutputtingSignal(this)) {
 
-                EventPacket packet = new EventPacket();
+                EventPacket packet = new EventPacket(CurrentMode.SignalTimeout(), CurrentMode.OutputByte(this));
                 packet.LastSentFrom = GetOutputSide().getOpposite();
                 packet.Postitions.add(new Vector3d(xCoord, yCoord, zCoord));
 
@@ -200,7 +200,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
 
     @Override
     public void OnRecived(EventPacket packet) {
-        if(packet.LastSentFrom != GetOutputSide()) {
+        if(packet.LastSentFrom != GetOutputSide() && packet.ByteValue == CurrentMode.RequiredByteInput()) {
             SetSideState(packet.LastSentFrom, true);
 
         }

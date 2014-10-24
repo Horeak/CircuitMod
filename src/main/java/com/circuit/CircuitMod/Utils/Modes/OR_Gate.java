@@ -1,5 +1,6 @@
 package com.circuit.CircuitMod.Utils.Modes;
 
+import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 
@@ -24,6 +25,11 @@ public class OR_Gate extends CircuitBoxMode {
         return 3;
     }
 
+    @Override
+    public byte OutputByte(TileEntityCircuitBox tile) {
+        return ByteValues.OnSignal.Value();
+    }
+
 
     @Override
     public void OnUpdate(TileEntityCircuitBox tile, EventPacket packet) {
@@ -33,5 +39,10 @@ public class OR_Gate extends CircuitBoxMode {
     @Override
     public boolean OutputtingSignal(TileEntityCircuitBox tile) {
         return tile.GetActiveInputs() > 0 && tile.GetActiveInputs() <= 3;
+    }
+
+    @Override
+    public byte RequiredByteInput() {
+        return ByteValues.OnSignal.Value();
     }
 }

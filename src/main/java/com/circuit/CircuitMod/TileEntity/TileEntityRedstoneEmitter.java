@@ -1,6 +1,7 @@
 package com.circuit.CircuitMod.TileEntity;
 
 import MiscUtils.TileEntity.ModTileEntity;
+import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.TileEntity.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.TileEntity.CircuitUtils.IEventRec;
@@ -9,7 +10,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileEntityRedstoneEmitter extends ModTileEntity implements IEventRec, ICircuitConnector {
 
-    public static int Finish = 5;
+    public static int Finish = 3;
     public int Do = Finish;
 
     public void updateEntity(){
@@ -31,9 +32,11 @@ public class TileEntityRedstoneEmitter extends ModTileEntity implements IEventRe
 
     @Override
     public void OnRecived(EventPacket packet) {
-        Do = 0;
-        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
-        worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+        if(packet.ByteValue == ByteValues.OnSignal.Value()) {
+            Do = 0;
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
+            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+        }
     }
 
     @Override

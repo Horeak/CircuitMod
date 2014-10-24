@@ -11,8 +11,15 @@ public abstract class CircuitBoxMode {
     public abstract int MinInputs();
     public abstract int MaxInputs();
 
+    public abstract byte RequiredByteInput();
+    public abstract byte OutputByte(TileEntityCircuitBox tile);
+
 
     public abstract void OnUpdate(TileEntityCircuitBox tile, EventPacket packet);
 
     public abstract boolean OutputtingSignal(TileEntityCircuitBox tile);
+
+    public int SignalTimeout(){
+        return -1;
+    }
 }

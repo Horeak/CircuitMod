@@ -1,5 +1,6 @@
 package com.circuit.CircuitMod.TileEntity;
 
+import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -10,7 +11,7 @@ public class TileEntityRedstoneReciver extends TileEntityEventSender {
 
         if(worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)){
 
-            SendPacketToAround(new EventPacket());
+            SendPacketToAround(new EventPacket(-1, ByteValues.OnSignal.Value()));
         }
     }
 
