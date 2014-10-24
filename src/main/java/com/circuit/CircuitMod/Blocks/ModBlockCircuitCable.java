@@ -37,6 +37,10 @@ public class ModBlockCircuitCable extends ModBlockCustomModel {
         }
     }
 
+
+
+
+
     public void setBlockBoundsBasedOnState(IBlockAccess block, int x, int y, int z) {
 
 

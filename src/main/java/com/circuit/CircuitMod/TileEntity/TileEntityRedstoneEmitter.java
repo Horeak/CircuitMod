@@ -1,10 +1,11 @@
 package com.circuit.CircuitMod.TileEntity;
 
 import MiscUtils.TileEntity.ModTileEntity;
-import com.circuit.CircuitMod.CircuitEvents.EventPacket;
+import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.TileEntity.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.TileEntity.CircuitUtils.IEventRec;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileEntityRedstoneEmitter extends ModTileEntity implements IEventRec, ICircuitConnector {
 
@@ -24,7 +25,7 @@ public class TileEntityRedstoneEmitter extends ModTileEntity implements IEventRe
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile) {
+    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
         return true;
     }
 

@@ -1,4 +1,4 @@
-package com.circuit.CircuitMod.CircuitEvents;
+package com.circuit.CircuitMod.Utils;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -6,8 +6,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 import javax.vecmath.Vector3d;
 import java.util.ArrayList;
 
-public abstract class EventPacket {
+public class EventPacket {
 
+
+    //TODO Add Bytes in the packets? Allows for byte specific recivers and senders.
+    //TODO Add timeout for packets
 
     public ArrayList<Vector3d> Postitions = new ArrayList<Vector3d>();
 
@@ -22,7 +25,13 @@ public abstract class EventPacket {
     }
 
     public ForgeDirection LastSentFrom = ForgeDirection.UNKNOWN;
-    public abstract String ID();
+
+
+    public String ID(){
+        return "PACKET";
+    }
+
+
     public int TimesSent = 0;
 
     public void SaveToNBT(NBTTagCompound nbt) {
@@ -40,7 +49,6 @@ public abstract class EventPacket {
 
     }
 
-    public abstract EventPacket GetInstance();
 
 
 }

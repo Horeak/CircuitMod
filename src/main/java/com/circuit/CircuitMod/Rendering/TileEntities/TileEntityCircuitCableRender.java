@@ -149,12 +149,22 @@ public class TileEntityCircuitCableRender extends TileEntitySpecialRenderer {
     public boolean Check(World world, int x, int y, int z, TileEntityCircuitCable tile){
         if(tile instanceof ICircuitConnector) {
             ICircuitConnector ic = (ICircuitConnector) tile;
-            if(world.getTileEntity(x,y,z) instanceof TileEntityCircuitCable){
-                TileEntityCircuitCable ci = (TileEntityCircuitCable)world.getTileEntity(x,y,z);
-                return world.getTileEntity(x, y, z) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(x, y, z)).CanConnectToTile(tile) && ic.CanConnectToTile(world.getTileEntity(x, y, z)) && ci.Direction == tile.Direction;
+
+            ForgeDirection di = ForgeDirection.UNKNOWN;
+
+            for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
+                if(tile.xCoord + dir.offsetX == x &&  tile.yCoord + dir.offsetY == y && tile.zCoord + dir.offsetZ == z){
+                    di = dir;
+                    break;
+                }
             }
 
-            return world.getTileEntity(x, y, z) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(x, y, z)).CanConnectToTile(tile) && ic.CanConnectToTile(world.getTileEntity(x, y, z));
+            if(world.getTileEntity(x,y,z) instanceof TileEntityCircuitCable){
+                TileEntityCircuitCable ci = (TileEntityCircuitCable)world.getTileEntity(x,y,z);
+                return world.getTileEntity(x, y, z) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(x, y, z)).CanConnectToTile(tile, di.getOpposite()) && ic.CanConnectToTile(world.getTileEntity(x, y, z), di) && ci.Direction == tile.Direction;
+            }
+
+            return world.getTileEntity(x, y, z) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(x, y, z)).CanConnectToTile(tile, di.getOpposite()) && ic.CanConnectToTile(world.getTileEntity(x, y, z), di);
 
         }
 

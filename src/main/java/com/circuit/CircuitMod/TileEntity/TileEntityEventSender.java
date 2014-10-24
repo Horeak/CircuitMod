@@ -1,7 +1,7 @@
 package com.circuit.CircuitMod.TileEntity;
 
 import MiscUtils.TileEntity.ModTileEntity;
-import com.circuit.CircuitMod.CircuitEvents.EventPacket;
+import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.TileEntity.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.TileEntity.CircuitUtils.IEventRec;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,7 +21,9 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
                     TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
 
                     if (tile instanceof ICircuitConnector) {
-                        if (((ICircuitConnector) tile).CanConnectToTile(this) && CanConnectToTile(tile)) {
+
+
+                        if (((ICircuitConnector) tile).CanConnectToTile(this, dir.getOpposite()) && CanConnectToTile(tile, dir)) {
 
 
                             if (tile instanceof IEventRec) {
@@ -31,7 +33,7 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
 
                                     if(!EventPacket.ContainesVactor(packet, vec)) {
 
-                                        EventPacket sendPacket = packet.GetInstance();
+                                        EventPacket sendPacket = new EventPacket();
 
                                         NBTTagCompound nbt = new NBTTagCompound();
                                         packet.SaveToNBT(nbt);
@@ -79,5 +81,5 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
     }
 
     @Override
-    public abstract boolean CanConnectToTile(TileEntity tile);
+    public abstract boolean CanConnectToTile(TileEntity tile, ForgeDirection dir);
 }

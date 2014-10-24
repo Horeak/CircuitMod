@@ -1,7 +1,6 @@
 package com.circuit.CircuitMod.TileEntity;
 
-import com.circuit.CircuitMod.CircuitEvents.ActivatedPacket;
-import com.circuit.CircuitMod.CircuitEvents.EventPacket;
+import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
 import com.circuit.CircuitMod.Utils.Modes.CircuitBoxMode;
 import net.minecraft.nbt.NBTTagCompound;
@@ -138,7 +137,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
         if (CurrentMode != null) {
             if(GetActiveInputs() >= CurrentMode.MinInputs() && GetActiveInputs() <= CurrentMode.MaxInputs() && CurrentMode.OutputtingSignal(this)) {
 
-                ActivatedPacket packet = new ActivatedPacket();
+                EventPacket packet = new EventPacket();
                 packet.LastSentFrom = GetOutputSide().getOpposite();
                 packet.Postitions.add(new Vector3d(xCoord, yCoord, zCoord));
 
@@ -183,7 +182,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile) {
+    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
         int metaZ = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
         int metaX = tile.getWorldObj().getBlockMetadata(tile.xCoord, tile.yCoord, tile.zCoord);
         boolean t = tile instanceof TileEntityCircuitCable ? ((TileEntityCircuitCable)tile).Direction == ForgeDirection.UP : true;

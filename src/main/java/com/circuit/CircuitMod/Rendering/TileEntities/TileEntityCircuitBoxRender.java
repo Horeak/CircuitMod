@@ -97,17 +97,17 @@ public class TileEntityCircuitBoxRender extends TileEntitySpecialRenderer {
             if (te instanceof ICircuitConnector) {
                 ICircuitConnector ic = (ICircuitConnector) te;
 
-                if (world.getTileEntity(te.xCoord, te.yCoord, te.zCoord - 1) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(te.xCoord, te.yCoord, te.zCoord - 1)).CanConnectToTile(te) && ic.CanConnectToTile(world.getTileEntity(te.xCoord, te.yCoord, te.zCoord - 1)))
+                if (world.getTileEntity(te.xCoord, te.yCoord, te.zCoord - 1) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(te.xCoord, te.yCoord, te.zCoord - 1)).CanConnectToTile(te, null) && ic.CanConnectToTile(world.getTileEntity(te.xCoord, te.yCoord, te.zCoord - 1), null))
                     Front = true;
 
-                if (world.getTileEntity(te.xCoord, te.yCoord, te.zCoord + 1) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(te.xCoord, te.yCoord, te.zCoord + 1)).CanConnectToTile(te) && ic.CanConnectToTile(world.getTileEntity(te.xCoord, te.yCoord, te.zCoord + 1)))
+                if (world.getTileEntity(te.xCoord, te.yCoord, te.zCoord + 1) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(te.xCoord, te.yCoord, te.zCoord + 1)).CanConnectToTile(te, null) && ic.CanConnectToTile(world.getTileEntity(te.xCoord, te.yCoord, te.zCoord + 1), null))
                     Back = true;
 
 
-                if (world.getTileEntity(te.xCoord + 1, te.yCoord, te.zCoord) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(te.xCoord + 1, te.yCoord, te.zCoord)).CanConnectToTile(te) && ic.CanConnectToTile(world.getTileEntity(te.xCoord + 1, te.yCoord, te.zCoord)))
+                if (world.getTileEntity(te.xCoord + 1, te.yCoord, te.zCoord) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(te.xCoord + 1, te.yCoord, te.zCoord)).CanConnectToTile(te, null) && ic.CanConnectToTile(world.getTileEntity(te.xCoord + 1, te.yCoord, te.zCoord), null))
                     Right = true;
 
-                if (world.getTileEntity(te.xCoord - 1, te.yCoord, te.zCoord) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(te.xCoord - 1, te.yCoord, te.zCoord)).CanConnectToTile(te) && ic.CanConnectToTile(world.getTileEntity(te.xCoord - 1, te.yCoord, te.zCoord)))
+                if (world.getTileEntity(te.xCoord - 1, te.yCoord, te.zCoord) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(te.xCoord - 1, te.yCoord, te.zCoord)).CanConnectToTile(te, null) && ic.CanConnectToTile(world.getTileEntity(te.xCoord - 1, te.yCoord, te.zCoord), null))
                     Left = true;
 
 

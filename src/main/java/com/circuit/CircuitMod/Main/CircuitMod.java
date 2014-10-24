@@ -1,7 +1,6 @@
 package com.circuit.CircuitMod.Main;
 
 import MiscUtils.Network.ChannelUtils;
-import com.circuit.CircuitMod.Gui.GuiHandler;
 import com.circuit.CircuitMod.Proxy.ServerProxy;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
 import com.circuit.CircuitMod.Utils.Config;
@@ -11,7 +10,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
@@ -62,8 +60,6 @@ public class CircuitMod {
     @Mod.EventHandler
     public void Init(FMLInitializationEvent event){
 
-
-        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
 
     }
 

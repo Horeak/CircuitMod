@@ -1,6 +1,6 @@
 package com.circuit.CircuitMod.TileEntity;
 
-import com.circuit.CircuitMod.CircuitEvents.EventPacket;
+import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -27,7 +27,7 @@ public class TileEntityCircuitCable extends TileEntityEventSender {
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile) {
+    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
         if(tile == null)
             return false;
 
@@ -36,7 +36,9 @@ public class TileEntityCircuitCable extends TileEntityEventSender {
         boolean t = tile instanceof TileEntityCircuitCable || tile instanceof TileEntityCircuitBox;
         boolean g = metaZ == 0 && metaX == 0 || metaZ == metaX;
 
-        return t && g || !t;
+        boolean j = dir != ForgeDirection.UNKNOWN ? dir != Direction && dir != Direction.getOpposite() : false;
+
+        return t && g && j || !t && j;
     }
     public ForgeDirection Direction = ForgeDirection.UP;
 

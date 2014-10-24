@@ -1,6 +1,6 @@
 package com.circuit.CircuitMod.Utils.Modes;
 
-import com.circuit.CircuitMod.CircuitEvents.EventPacket;
+import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 
 public class OR_Gate extends CircuitBoxMode {

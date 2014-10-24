@@ -1,6 +1,6 @@
 package com.circuit.CircuitMod.TileEntity.CircuitUtils;
 
-import com.circuit.CircuitMod.CircuitEvents.EventPacket;
+import com.circuit.CircuitMod.Utils.EventPacket;
 
 public interface IEventRec {
 
