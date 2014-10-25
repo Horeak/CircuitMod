@@ -8,6 +8,7 @@ import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockRedstoneReciver;
 import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Blocks.ModBlockCircuitBox;
 import com.circuit.CircuitMod.Blocks.ModBlockCircuitCable;
+import com.circuit.CircuitMod.Blocks.ModBlockSignalGate;
 import com.circuit.CircuitMod.Items.ItemBlockCircuitCable;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityRedstoneEmitter;
@@ -16,13 +17,14 @@ import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityRedstoneReciver;
 import com.circuit.CircuitMod.TileEntity.TileEntityCableConnectionPoint;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
+import com.circuit.CircuitMod.TileEntity.TileEntitySignalGate;
 import com.circuit.CircuitMod.Utils.Ref;
 import net.minecraft.block.Block;
 
 public class ModBlocks {
 
 
-    public static Block CircuitBox, CircuitCable, CableConnectionPoint;
+    public static Block CircuitBox, CircuitCable, CableConnectionPoint, SignalGate;
     public static Block RedstoneReciver, RedstoneEmitter;
     public static Block OneDigitDisplay, OneDigitConstant;
 
@@ -39,6 +41,9 @@ public class ModBlocks {
 
         CableConnectionPoint = new ModBlockCableConnectionPoint().setCreativeTab(CircuitMod.CreativeTab).setBlockTextureName(Ref.ModId.toLowerCase() + ":CableConnectionPoint");
         Utils.Register(CableConnectionPoint, "CableConnectionPoint", TileEntityCableConnectionPoint.class);
+
+        SignalGate = new ModBlockSignalGate().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(SignalGate, "SignalGate", TileEntitySignalGate.class);
 
         OneDigitConstant = new ModBlockOneDigitConstant().setCreativeTab(CircuitMod.CreativeTab);
         Utils.Register(OneDigitConstant, "OneDigitConstant", TileEntityOneDigitConstant.class);

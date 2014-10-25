@@ -3,6 +3,7 @@ itemGroup.tabCircuit=Circuit Mod
 tile.circuitbox.name=Circuit Box
 tile.circuitcable.name=Circuit Cable
 tile.cableconnectionpoint.name=Cable Connection Point
+tile.signalgate.name=Signal Gate
 tile.redstonereciver.name=Redstone Receiver
 tile.redstoneemitter.name=Redstone Emitter
 tile.onedigitdisplay.name=One Digit Display

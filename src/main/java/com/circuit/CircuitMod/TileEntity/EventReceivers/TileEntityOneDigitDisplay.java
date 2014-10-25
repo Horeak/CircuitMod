@@ -59,6 +59,10 @@ public class TileEntityOneDigitDisplay extends ModTileEntity implements IEventRe
     @Override
     public void OnRecived(EventPacket packet) {
         if(packet.ByteValue == ByteValues.OneDigitNumber.Value()){
+            if(DisplayNumber != -1){
+                if(packet.NBT.getInteger("StoredNumber") != DisplayNumber)
+                    return;
+            }
             DisplayNumber = packet.NBT.getInteger("StoredNumber");
             Reset = 0;
 
