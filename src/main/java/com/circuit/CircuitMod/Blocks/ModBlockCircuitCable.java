@@ -19,7 +19,7 @@ public class ModBlockCircuitCable extends ModBlockCustomModel {
 
 
     public ModBlockCircuitCable() {
-        super(Material.iron);
+        super(Material.ground);
     }
 
     @Override

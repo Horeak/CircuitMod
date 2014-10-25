@@ -12,7 +12,6 @@ public class EventPacket {
 
     //Finished adding function to allow nbt data saved in each packet and byte specific handling.
     //TODO Add other byte specific event senders to test system. (Event sender with number? Event sender with random output number? Toggleable event sender?)
-    //TODO Add byte and nbt specific event receivers like for example digital number display
 
     public ArrayList<Vector3d> Postitions = new ArrayList<Vector3d>();
 
@@ -34,39 +33,14 @@ public class EventPacket {
 
     public boolean TimedOut;
 
-    public NBTTagCompound nbt;
+    public NBTTagCompound NBT;
+
 
     public EventPacket(int TimeOut, byte Value){
         this.TimeOut = TimeOut;
         this.ByteValue = Value;
         TimedOut = false;
-        nbt = new NBTTagCompound();
-
-    }
-
-    public void SaveToNBT(NBTTagCompound nbt) {
-
-        nbt.setInteger("DIR", LastSentFrom.ordinal());
-        nbt.setInteger("TimeOutValue", TimeOutValue);
-        nbt.setInteger("TimeOut", TimeOut);
-        nbt.setByte("ByteValue", ByteValue);
-        nbt.setBoolean("TimedOut", TimedOut);
-
-        nbt.setTag("SavedData", nbt);
-
-
-    }
-
-    public void LoadFromNBT(NBTTagCompound nbt) {
-
-        LastSentFrom = ForgeDirection.getOrientation(nbt.getInteger("DIR"));
-        TimeOutValue = nbt.getInteger("TimeOutValue");
-        TimeOut = nbt.getInteger("TimeOut");
-        ByteValue = nbt.getByte("ByteValue");
-        TimedOut = nbt.getBoolean("TimedOut");
-
-        this.nbt = (NBTTagCompound)nbt.getTag("SavedData");
-
+        NBT = new NBTTagCompound();
 
     }
 

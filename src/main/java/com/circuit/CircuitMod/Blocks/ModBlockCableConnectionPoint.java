@@ -10,6 +10,7 @@ public class ModBlockCableConnectionPoint extends ModBlockContainer{
 
     public ModBlockCableConnectionPoint() {
         super(Material.iron);
+        setHardness(1F);
     }
 
     @Override

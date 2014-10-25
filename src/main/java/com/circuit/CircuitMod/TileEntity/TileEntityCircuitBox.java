@@ -1,5 +1,6 @@
 package com.circuit.CircuitMod.TileEntity;
 
+import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
 import com.circuit.CircuitMod.Utils.Modes.CircuitBoxMode;
@@ -16,12 +17,14 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
     public int ModeNum = 0;
     public boolean[] Sides;
     public ForgeDirection[] SidesDir = new ForgeDirection[]{ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST};
-    public int[] ResetCount;
+    public int[] ResetCount = new int[4];
     public CircuitBoxMode CurrentMode;
     public ForgeDirection[] Inputs = new ForgeDirection[3];
 
+
+
     public int Rotation = 0;
-    int ResetAt = 20;
+    int ResetAt = 2;
 
     public void SetMode(CircuitBoxMode mode){
         this.Mode = mode.GetID();
@@ -76,19 +79,30 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
 
     public TileEntityCircuitBox(){
         Sides = new boolean[4];
-        ResetCount = new int[4];
     }
 
     public void SetSideState(ForgeDirection dir, boolean t){
 
             if(dir == ForgeDirection.NORTH) {
                 Sides[0] = t;
+
+                if(ResetCount != null && ResetCount[0] > 0)
+                ResetCount[0] = 0;
             }else if(dir == ForgeDirection.SOUTH) {
                 Sides[1] = t;
+
+                if(ResetCount != null && ResetCount[1] > 0)
+                ResetCount[1] = 0;
             }else if(dir == ForgeDirection.EAST) {
                 Sides[2] = t;
+
+                if(ResetCount != null && ResetCount[2] > 0)
+                ResetCount[2] = 0;
             }else  if(dir == ForgeDirection.WEST) {
                 Sides[3] = t;
+
+                if(ResetCount != null && ResetCount[3] > 0)
+                ResetCount[3] = 0;
             }
 
 
@@ -129,6 +143,9 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
     }
 
     public ForgeDirection GetOutputSide(){
+        if(Rotation == 0)
+            return ForgeDirection.UNKNOWN;
+
         return ForgeDirection.getOrientation(Rotation);
     }
 
@@ -137,7 +154,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
         if (CurrentMode != null) {
             if(GetActiveInputs() >= CurrentMode.MinInputs() && GetActiveInputs() <= CurrentMode.MaxInputs() && CurrentMode.OutputtingSignal(this)) {
 
-                EventPacket packet = new EventPacket(CurrentMode.SignalTimeout(), CurrentMode.OutputByte(this));
+                EventPacket packet = new EventPacket(CurrentMode.SignalTimeout(), ByteValues.OnSignal.Value());
                 packet.LastSentFrom = GetOutputSide().getOpposite();
                 packet.Postitions.add(new Vector3d(xCoord, yCoord, zCoord));
 
@@ -168,7 +185,6 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
 
         for(int i = 0; i < ResetCount.length; i++){
             if(ResetCount[i] >= ResetAt && Sides[i]){
-                ResetCount[i] = 0;
                 Sides[i] = false;
             }else{
 
@@ -190,7 +206,6 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
         boolean j = tile instanceof TileEntityCircuitCable || tile instanceof TileEntityCircuitBox;
 
         if(j){
-
             return t && g;
         }
 
@@ -200,14 +215,14 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
 
     @Override
     public void OnRecived(EventPacket packet) {
-        if(packet.LastSentFrom != GetOutputSide() && packet.ByteValue == CurrentMode.RequiredByteInput()) {
+        if(GetOutputSide() != null && GetOutputSide() != ForgeDirection.UNKNOWN
+                && packet.LastSentFrom != GetOutputSide()) {
             SetSideState(packet.LastSentFrom, true);
-
         }
     }
 
     @Override
     public boolean CanRecive(EventPacket packet) {
-        return true;
+        return packet.ByteValue == ByteValues.OnSignal.Value();
     }
 }

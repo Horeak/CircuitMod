@@ -1,7 +1,7 @@
-package com.circuit.CircuitMod.Blocks;
+package com.circuit.CircuitMod.Blocks.EventRecivers;
 
 import MiscUtils.Block.ModBlockContainer;
-import com.circuit.CircuitMod.TileEntity.TileEntityRedstoneEmitter;
+import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityRedstoneEmitter;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 public class ModBlockRedstoneEmitter extends ModBlockContainer {
     public ModBlockRedstoneEmitter() {
         super(Material.iron);
+        setHardness(1F);
     }
 
     @Override

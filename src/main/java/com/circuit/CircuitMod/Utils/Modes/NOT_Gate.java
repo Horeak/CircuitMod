@@ -1,8 +1,7 @@
 package com.circuit.CircuitMod.Utils.Modes;
 
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
-import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
+import com.circuit.CircuitMod.Utils.EventPacket;
 
 public class NOT_Gate extends CircuitBoxMode {
     @Override
@@ -35,13 +34,4 @@ public class NOT_Gate extends CircuitBoxMode {
         return tile.GetActiveInputs() == 0;
     }
 
-    @Override
-    public byte OutputByte(TileEntityCircuitBox tile) {
-        return ByteValues.OnSignal.Value();
-    }
-
-    @Override
-    public byte RequiredByteInput() {
-        return ByteValues.OnSignal.Value();
-    }
 }

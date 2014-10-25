@@ -29,7 +29,7 @@ public class ItemBlockCircuitCable extends ItemBlock {
         return ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer p_77648_2_, World world, int x, int y, int z, int side, float p_77648_8_, float p_77648_9_, float p_77648_10_)
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float p_77648_8_, float p_77648_9_, float p_77648_10_)
     {
 
       ForgeDirection dir = ForgeDirection.getOrientation(side).getOpposite();
@@ -55,6 +55,9 @@ public class ItemBlockCircuitCable extends ItemBlock {
 
         if(world.getTileEntity(xCord,yCord,zCord) instanceof TileEntityCircuitCable)
           ((TileEntityCircuitCable)world.getTileEntity(xCord,yCord,zCord)).Direction = dir;
+
+            if(!player.capabilities.isCreativeMode)
+            player.inventory.getCurrentItem().stackSize -= 1;
 
             return true;
 

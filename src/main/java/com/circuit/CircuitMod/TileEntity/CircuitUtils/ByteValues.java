@@ -2,7 +2,8 @@ package com.circuit.CircuitMod.TileEntity.CircuitUtils;
 
 public enum ByteValues {
 
-    OnSignal((byte)0);
+    OnSignal((byte)0),
+    OneDigitNumber((byte)1);
 
 
 

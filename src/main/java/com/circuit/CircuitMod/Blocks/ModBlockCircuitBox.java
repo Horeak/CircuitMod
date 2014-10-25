@@ -16,11 +16,19 @@ import net.minecraft.world.World;
 
 public class ModBlockCircuitBox extends ModBlockCustomModel {
     public ModBlockCircuitBox() {
-        super(Material.iron);
+        super(Material.ground);
 
+        setHardness(0.1F);
         float f = 0.25F;
 
         this.setBlockBounds(f, 0.0F, f, 1F - f, 0.87F, 1F - f);
+    }
+
+    @Override
+    public void breakBlock(World World, int x, int y, int z, Block id, int meta)
+    {
+        super.breakBlock(World,x,y,z,id,meta);
+
     }
 
     @Override
