@@ -15,7 +15,6 @@ public class TileEntityCircuitCable extends TileEntityEventSender {
     public void OnRecived(EventPacket packet) {
 
         ForgeDirection dk = packet.LastSentFrom;
-
         for(ForgeDirection dkk : ForgeDirection.VALID_DIRECTIONS){
             if(dkk != dk && dkk != Direction && dkk != Direction.getOpposite()){
                 SendPacketTo(packet, dkk);

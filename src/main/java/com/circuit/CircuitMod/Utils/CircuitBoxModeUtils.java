@@ -3,6 +3,7 @@ package com.circuit.CircuitMod.Utils;
 import com.circuit.CircuitMod.Utils.Modes.AND_Gate;
 import com.circuit.CircuitMod.Utils.Modes.AND_Gate_2;
 import com.circuit.CircuitMod.Utils.Modes.CircuitBoxMode;
+import com.circuit.CircuitMod.Utils.Modes.NAND_Gate;
 import com.circuit.CircuitMod.Utils.Modes.NOT_Gate;
 import com.circuit.CircuitMod.Utils.Modes.OR_Gate;
 
@@ -24,6 +25,7 @@ public class CircuitBoxModeUtils {
         RegisterMode(new AND_Gate());
         RegisterMode(new AND_Gate_2());
         RegisterMode(new NOT_Gate());
+        RegisterMode(new NAND_Gate());
     }
 
     public static CircuitBoxMode GetMode(String Id){

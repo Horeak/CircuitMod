@@ -1,9 +1,10 @@
 package com.circuit.CircuitMod.TileEntity;
 
 import MiscUtils.TileEntity.ModTileEntity;
+import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.TileEntity.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.TileEntity.CircuitUtils.IEventRec;
-import com.circuit.CircuitMod.Utils.EventPacket;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -31,12 +32,23 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
                                     Vector3d vec = new Vector3d(tile.xCoord, tile.yCoord, tile.zCoord);
 
                                     if(!EventPacket.ContainesVactor(packet, vec)) {
-                                        packet.LastSentFrom = dir.getOpposite();
-                                        packet.Resend();
-                                        packet.Postitions.add(vec);
+
+                                        EventPacket sendPacket = new EventPacket(packet.TimeOut, packet.ByteValue);
+
+                                        NBTTagCompound nbt = new NBTTagCompound();
+                                        packet.SaveToNBT(nbt);
+
+                                        sendPacket.NBT = packet.NBT;
+                                        sendPacket.LoadFromNBT(nbt);
+                                        sendPacket.LastSentFrom = dir.getOpposite();
+
+                                        sendPacket.Resend();
+
+                                        sendPacket.Postitions = packet.Postitions;
+                                        sendPacket.Postitions.add(vec);
 
 
-                                        tileE.OnRecived(packet);
+                                        tileE.OnRecived(sendPacket);
 
                                     }
 

@@ -19,6 +19,8 @@ import net.minecraft.item.ItemBlock;
 @Mod(modid = Ref.ModId, name = Ref.ModName, version = Ref.Version, dependencies = "required-after:MiscUtils")
 public class CircuitMod {
 
+    //TODO Add multi-digit blocks
+
     @Mod.Instance(Ref.ModId)
     public static CircuitMod instance = new CircuitMod();
 
