@@ -14,6 +14,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+
+
 public class ModBlockCircuitBox extends ModBlockCustomModel {
     public ModBlockCircuitBox() {
         super(Material.ground);
@@ -24,12 +26,7 @@ public class ModBlockCircuitBox extends ModBlockCustomModel {
         this.setBlockBounds(f, 0.0F, f, 1F - f, 0.87F, 1F - f);
     }
 
-    @Override
-    public void breakBlock(World World, int x, int y, int z, Block id, int meta)
-    {
-        super.breakBlock(World,x,y,z,id,meta);
 
-    }
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {

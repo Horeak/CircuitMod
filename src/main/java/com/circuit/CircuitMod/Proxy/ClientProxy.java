@@ -6,6 +6,7 @@ import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemOneDigitConstantR
 import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemOneDigitCounterRender;
 import com.circuit.CircuitMod.Rendering.Items.ItemCircuitBoxRender;
 import com.circuit.CircuitMod.Rendering.Items.ItemCircuitCableRender;
+import com.circuit.CircuitMod.Rendering.Items.ItemConnectionPointRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TileEntityOneDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityOneDigitConstantRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityOneDigitCounterRender;
@@ -33,6 +34,7 @@ public class ClientProxy extends ServerProxy  implements ProxyInterface {
 
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.CircuitCable), new ItemCircuitCableRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.CircuitBox), new ItemCircuitBoxRender());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.CableConnectionPoint), new ItemConnectionPointRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.OneDigitDisplay), new ItemOneDigitDisplayRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.OneDigitConstant), new ItemOneDigitConstantRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.OneDigitCounter), new ItemOneDigitCounterRender());

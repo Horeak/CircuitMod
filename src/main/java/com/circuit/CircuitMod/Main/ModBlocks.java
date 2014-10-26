@@ -10,6 +10,7 @@ import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Blocks.ModBlockCircuitBox;
 import com.circuit.CircuitMod.Blocks.ModBlockCircuitCable;
 import com.circuit.CircuitMod.Blocks.ModBlockSignalGate;
+import com.circuit.CircuitMod.Items.ItemBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Items.ItemBlockCircuitCable;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityRedstoneEmitter;
@@ -42,7 +43,7 @@ public class ModBlocks {
         Utils.Register(CircuitCable, ItemBlockCircuitCable.class, "CircuitCable",  TileEntityCircuitCable.class);
 
         CableConnectionPoint = new ModBlockCableConnectionPoint().setCreativeTab(CircuitMod.CreativeTab).setBlockTextureName(Ref.ModId.toLowerCase() + ":CableConnectionPoint");
-        Utils.Register(CableConnectionPoint, "CableConnectionPoint", TileEntityCableConnectionPoint.class);
+        Utils.Register(CableConnectionPoint, ItemBlockCableConnectionPoint.class, "CableConnectionPoint", TileEntityCableConnectionPoint.class);
 
         SignalGate = new ModBlockSignalGate().setCreativeTab(CircuitMod.CreativeTab);
         Utils.Register(SignalGate, "SignalGate", TileEntitySignalGate.class);

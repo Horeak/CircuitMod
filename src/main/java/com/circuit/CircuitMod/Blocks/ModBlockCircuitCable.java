@@ -17,6 +17,15 @@ import java.util.List;
 
 public class ModBlockCircuitCable extends ModBlockCustomModel {
 
+    public int damageDropped(int meta)
+    {
+        return meta;
+    }
+
+    public int getDamageValue(World world, int x, int y, int z)
+    {
+        return world.getBlockMetadata(x,y,z);
+    }
 
     public ModBlockCircuitCable() {
         super(Material.ground);

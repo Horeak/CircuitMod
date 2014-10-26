@@ -38,7 +38,7 @@ public class TileEntityOneDigitCounter extends TileEntityEventSender {
         }
 
         if(t)
-            if(ResetCountInput >= ResetCountAt * 15){
+            if(ResetCountInput >= ResetCountAt){
                 t = false;
                 ResetCountInput = 0;
             }else{
@@ -89,9 +89,13 @@ public class TileEntityOneDigitCounter extends TileEntityEventSender {
             ResetCount = 0;
         }
 
-        if(packet.ByteValue == ByteValues.OnSignal.Value() && !t){
-            IncreaseNumber();
-            packet.TimeOut();
+        if(packet.ByteValue == ByteValues.OnSignal.Value()){
+            ResetCountInput = 0;
+
+            if(!t) {
+                IncreaseNumber();
+                packet.TimeOut();
+            }
         }
 
 
