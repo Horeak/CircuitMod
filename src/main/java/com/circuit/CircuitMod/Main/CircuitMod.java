@@ -55,6 +55,7 @@ public class CircuitMod {
 
         proxy.RegisterRenderThings();
 
+
         CircuitBoxModeUtils.RegisterModes();
 
     }
@@ -79,5 +80,6 @@ public class CircuitMod {
 
 
     }
+
 
     }

@@ -1,17 +1,20 @@
 package com.circuit.CircuitMod.TileEntity;
 
+import MiscUtils.TileEntity.IBlockInfo;
 import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
 import com.circuit.CircuitMod.Utils.Modes.CircuitBoxMode;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import javax.vecmath.Vector3d;
 import java.util.ArrayList;
 
-public class TileEntityCircuitBox extends TileEntityEventSender{
+public class TileEntityCircuitBox extends TileEntityEventSender implements IBlockInfo{
 
     public String Mode = "EMPTY";
     public int ModeNum = 0;
@@ -224,5 +227,17 @@ public class TileEntityCircuitBox extends TileEntityEventSender{
     @Override
     public boolean CanRecive(EventPacket packet) {
         return packet.ByteValue == ByteValues.OnSignal.Value();
+    }
+
+    @Override
+    public void Info(ArrayList<String> Strings) {
+        Strings.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("tile.circuitbox.name"));
+        if (CurrentMode != null) {
+            Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.mode").replace("$Mode", (EnumChatFormatting.GRAY + CurrentMode.ModeName() + EnumChatFormatting.RESET)));
+            Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.mininputs").replace("$Number", (EnumChatFormatting.GRAY + "" + CurrentMode.MinInputs() + EnumChatFormatting.RESET)));
+            Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.maxinputs").replace("$Number", (EnumChatFormatting.GRAY + "" + CurrentMode.MaxInputs() + EnumChatFormatting.RESET)));
+            Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.activeinputs").replace("$Number", (EnumChatFormatting.GRAY + "" + GetActiveInputs() + EnumChatFormatting.RESET)));
+            Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.outputting").replace("$Value", (CurrentMode.OutputtingSignal(this) ? EnumChatFormatting.GREEN : EnumChatFormatting.RED) + "" + CurrentMode.OutputtingSignal(this) + EnumChatFormatting.RESET));
+        }
     }
 }

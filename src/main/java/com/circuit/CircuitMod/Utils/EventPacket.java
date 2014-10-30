@@ -8,12 +8,6 @@ import java.util.ArrayList;
 
 public class EventPacket {
 
-
-
-    //Finished adding function to allow nbt data saved in each packet and byte specific handling.
-    //TODO Add other byte specific event senders to test system. (Event sender with number? Event sender with random output number? Toggleable event sender?)
-    //TODO Add byte and nbt specific event receivers like for example digital number display
-
     public ArrayList<Vector3d> Postitions = new ArrayList<Vector3d>();
 
     public static boolean ContainesVactor(EventPacket packet, Vector3d vec){

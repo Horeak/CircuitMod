@@ -1,21 +1,17 @@
 package com.circuit.CircuitMod.Rendering.TileEntities.EventSenders;
 
-import MiscUtils.Render.RenderHelper;
+import MiscUtils.Render.TileEntityBlockInfoRender;
 import com.circuit.CircuitMod.Rendering.Models.DefaultCircuitBlockModel;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitConstant;
 import com.circuit.CircuitMod.Utils.Ref;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.util.ArrayList;
 
-public class TileEntityOneDigitConstantRender  extends TileEntitySpecialRenderer {
+public class TileEntityOneDigitConstantRender  extends TileEntityBlockInfoRender {
 
     public final DefaultCircuitBlockModel model;
     public static ResourceLocation rs = new ResourceLocation(Ref.ModId.toLowerCase(), "textures/models/DefaultCircuitBlockModel.png");
@@ -31,7 +27,7 @@ public class TileEntityOneDigitConstantRender  extends TileEntitySpecialRenderer
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale) {
-
+        super.renderTileEntityAt(te,x,y,z,scale);
 
 
         if (te instanceof TileEntityOneDigitConstant) {
@@ -53,12 +49,6 @@ public class TileEntityOneDigitConstantRender  extends TileEntitySpecialRenderer
 
             GL11.glPushMatrix();
 
-            ArrayList<String> Strings = new ArrayList<String>();
-            Strings.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("tile.onedigitconstant.name") + EnumChatFormatting.RESET);
-            Strings.add("Constant: " + EnumChatFormatting.GRAY + tile.Constant + EnumChatFormatting.RESET);
-
-
-            RenderHelper.RenderInfoTagOverTileEntity(tile, Strings, x, y, z);
 
             GL11.glPopMatrix();
 

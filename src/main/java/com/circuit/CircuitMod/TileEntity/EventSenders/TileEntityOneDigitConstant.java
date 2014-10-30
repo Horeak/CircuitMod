@@ -1,15 +1,20 @@
 package com.circuit.CircuitMod.TileEntity.EventSenders;
 
 import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ICircuitConnector;
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.IEventRec;
+import MiscUtils.TileEntity.IBlockInfo;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileEntityOneDigitConstant extends TileEntityEventSender implements IEventRec, ICircuitConnector {
+import java.util.ArrayList;
+
+public class TileEntityOneDigitConstant extends TileEntityEventSender implements IBlockInfo {
+
+
 
     public int Constant = 0;
     public void updateEntity(){
@@ -52,6 +57,15 @@ public class TileEntityOneDigitConstant extends TileEntityEventSender implements
         super.writeToNBT(nbtTagCompound);
 
         nbtTagCompound.setInteger("Const", Constant);
+
+    }
+
+
+    @Override
+    public void Info(ArrayList<String> Strings) {
+
+            Strings.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("tile.onedigitconstant.name") + EnumChatFormatting.RESET);
+            Strings.add(StatCollector.translateToLocal("blockinfo.constant.constant").replace("$Number", (EnumChatFormatting.GRAY + "" + Constant + EnumChatFormatting.RESET)));
 
     }
 }

@@ -1,6 +1,7 @@
 package com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers;
 
-import com.circuit.CircuitMod.Rendering.Models.EventReceivers.OneDigitDisplayModel;
+import com.circuit.CircuitMod.Rendering.Models.DefaultCircuitBlockModel;
+import com.circuit.CircuitMod.Rendering.Models.DigitDisplayModel;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
 import com.circuit.CircuitMod.Utils.Ref;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -9,14 +10,22 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
+
 public class TileEntityOneDigitDisplayRender extends TileEntitySpecialRenderer {
 
-    public final OneDigitDisplayModel model;
+    public final DigitDisplayModel model;
     public static ResourceLocation rs = new ResourceLocation(Ref.ModId.toLowerCase(), "textures/models/NumberDisplay.png");
 
+    public final DefaultCircuitBlockModel model1;
+    public static ResourceLocation rs1 = new ResourceLocation(Ref.ModId.toLowerCase(), "textures/models/DefaultCircuitBlockModel.png");
+
+    public static Color Def = new Color(0,0,0);
+    public static Color Border = new Color(21, 96, 30);
 
     public TileEntityOneDigitDisplayRender() {
-        this.model = new OneDigitDisplayModel();
+        this.model = new DigitDisplayModel();
+        this.model1 = new DefaultCircuitBlockModel();
     }
 
 
@@ -28,8 +37,6 @@ public class TileEntityOneDigitDisplayRender extends TileEntitySpecialRenderer {
 
             GL11.glPushMatrix();
             GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
-
-            bindTexture(rs);
 
 
             GL11.glPushMatrix();
@@ -116,7 +123,11 @@ public class TileEntityOneDigitDisplayRender extends TileEntitySpecialRenderer {
 
             }
 
+            bindTexture(rs1);
+            this.model1.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, Def, Border);
 
+
+            bindTexture(rs);
             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, Num1, Num2, Num3, Num4, Num5, Num6, Num7);
 
             GL11.glPopMatrix();

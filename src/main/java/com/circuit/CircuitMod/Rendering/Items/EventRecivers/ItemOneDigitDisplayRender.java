@@ -1,6 +1,8 @@
 package com.circuit.CircuitMod.Rendering.Items.EventRecivers;
 
-import com.circuit.CircuitMod.Rendering.Models.EventReceivers.OneDigitDisplayModel;
+import com.circuit.CircuitMod.Rendering.Models.DefaultCircuitBlockModel;
+import com.circuit.CircuitMod.Rendering.Models.DigitDisplayModel;
+import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TileEntityOneDigitDisplayRender;
 import com.circuit.CircuitMod.Utils.Ref;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -9,14 +11,22 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
+
 public class ItemOneDigitDisplayRender  implements IItemRenderer {
 
-    public final OneDigitDisplayModel model;
+    public final DigitDisplayModel model;
     public static ResourceLocation rs = new ResourceLocation(Ref.ModId.toLowerCase(), "textures/models/NumberDisplay.png");
 
+    public final DefaultCircuitBlockModel model1;
+    public static ResourceLocation rs1 = new ResourceLocation(Ref.ModId.toLowerCase(), "textures/models/DefaultCircuitBlockModel.png");
+
+    public static Color Def = TileEntityOneDigitDisplayRender.Def;
+    public static Color Border = TileEntityOneDigitDisplayRender.Border;
 
     public ItemOneDigitDisplayRender() {
-        this.model = new OneDigitDisplayModel();
+        this.model = new DigitDisplayModel();
+        this.model1 = new DefaultCircuitBlockModel();
     }
 
     @Override
@@ -60,6 +70,9 @@ public class ItemOneDigitDisplayRender  implements IItemRenderer {
 
         Minecraft.getMinecraft().renderEngine.bindTexture(rs);
         this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, false, false, false, false, false, false, false);
+
+        Minecraft.getMinecraft().renderEngine.bindTexture(rs1);
+        this.model1.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, Def, Border);
 
 
 

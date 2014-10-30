@@ -1,42 +1,38 @@
-package com.circuit.CircuitMod.Blocks;
+package com.circuit.CircuitMod.Blocks.EventSenders;
 
 import com.circuit.CircuitMod.Blocks.Utils.ModBlockTwoSidedEventChecker;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntitySignalGate;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityDigitEquals;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class ModBlockSignalGate extends ModBlockTwoSidedEventChecker {
-
-
-
-    public ModBlockSignalGate() {
+public class ModBlockDigitEquals extends ModBlockTwoSidedEventChecker {
+    public ModBlockDigitEquals() {
         super(Material.iron);
     }
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileEntitySignalGate();
+        return new TileEntityDigitEquals();
     }
-
 
     @Override
     public String FrontIcon() {
-        return "PacketGateFront";
+        return "DigitEqualsFront";
     }
 
     @Override
     public String BackIcon() {
-        return "PacketGateBlank";
+        return "DigitEqualsBack";
     }
 
     @Override
     public String SideAIcon() {
-        return "PacketGateGreen";
+        return "DigitEqualsSide";
     }
 
     @Override
     public String SideBIcon() {
-        return "PacketGateRed";
+        return "DigitEqualsSide";
     }
 }

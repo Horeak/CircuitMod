@@ -29,7 +29,7 @@ public class ModBlockOneDigitCounter extends ModBlockCustomModel {
             if(world.getTileEntity(x,y,z) instanceof TileEntityOneDigitCounter){
                 TileEntityOneDigitCounter tile = (TileEntityOneDigitCounter)world.getTileEntity(x,y,z);
 
-                if(tile.ResetAt >= TileEntityOneDigitCounter.DefReset){
+                if(tile.ResetAt >= tile.DefReset()){
                     tile.ResetAt = 1;
                 }else{
                     tile.ResetAt += 1;

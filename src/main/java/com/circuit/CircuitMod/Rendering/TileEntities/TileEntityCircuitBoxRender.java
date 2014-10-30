@@ -1,25 +1,22 @@
 package com.circuit.CircuitMod.Rendering.TileEntities;
 
+import MiscUtils.Render.TileEntityBlockInfoRender;
 import com.circuit.CircuitMod.Rendering.Models.CircuitBoxModel;
 import com.circuit.CircuitMod.Rendering.Models.CircuitCableModel;
 import com.circuit.CircuitMod.TileEntity.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
 import com.circuit.CircuitMod.Utils.Ref;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemDye;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.util.ArrayList;
 
-public class TileEntityCircuitBoxRender extends TileEntitySpecialRenderer {
+public class TileEntityCircuitBoxRender extends TileEntityBlockInfoRender {
 
     public final CircuitBoxModel model;
     public static ResourceLocation rs = new ResourceLocation(Ref.ModId.toLowerCase() , "textures/models/CircuitBox.png");
@@ -35,6 +32,7 @@ public class TileEntityCircuitBoxRender extends TileEntitySpecialRenderer {
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale) {
+        super.renderTileEntityAt(te,x,y,z,scale);
 
         if (te instanceof TileEntityCircuitBox) {
             TileEntityCircuitBox tile = (TileEntityCircuitBox) te;
@@ -112,21 +110,6 @@ public class TileEntityCircuitBoxRender extends TileEntitySpecialRenderer {
 
             GL11.glPopMatrix();
             GL11.glPopMatrix();
-
-            ArrayList<String> Strings = new ArrayList<String>();
-            Strings.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("tile.circuitbox.name"));
-            if (tile.CurrentMode != null) {
-                Strings.add("Mode: " + EnumChatFormatting.GRAY + tile.CurrentMode.ModeName() + EnumChatFormatting.RESET);
-                Strings.add("Min Inputs: " + EnumChatFormatting.GRAY + tile.CurrentMode.MinInputs() + EnumChatFormatting.RESET);
-                Strings.add("Max Inputs: " + EnumChatFormatting.GRAY + tile.CurrentMode.MaxInputs() + EnumChatFormatting.RESET);
-                Strings.add("Active Inputs: " + EnumChatFormatting.GRAY + tile.GetActiveInputs() + EnumChatFormatting.RESET);
-                Strings.add("Outputting: " + (tile.CurrentMode.OutputtingSignal(tile) ? EnumChatFormatting.GREEN : EnumChatFormatting.RED) + tile.CurrentMode.OutputtingSignal(tile) + EnumChatFormatting.RESET);
-            }
-
-
-
-            MiscUtils.Render.RenderHelper.RenderInfoTagOverTileEntity(tile, Strings, x, y, z);
-
 
 
             }
