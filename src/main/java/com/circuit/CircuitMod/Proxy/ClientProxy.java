@@ -4,6 +4,7 @@ import com.circuit.CircuitMod.Main.ModBlocks;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemMultiDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemOneDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemMultiDigitConstantRender;
+import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemMultiDigitCounterRender;
 import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemOneDigitConstantRender;
 import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemOneDigitCounterRender;
 import com.circuit.CircuitMod.Rendering.Items.ItemCircuitBoxRender;
@@ -12,6 +13,7 @@ import com.circuit.CircuitMod.Rendering.Items.ItemConnectionPointRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TIleEntityMultiDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TileEntityOneDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityMultiDigitConstantRender;
+import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityMultiDigitCounterRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityOneDigitConstantRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityOneDigitCounterRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.TileEntityCircuitBoxRender;
@@ -19,6 +21,7 @@ import com.circuit.CircuitMod.Rendering.TileEntities.TileEntityCircuitCableRende
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitConstant;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitCounter;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitConstant;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitCounter;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
@@ -41,6 +44,7 @@ public class ClientProxy extends ServerProxy  implements ProxyInterface {
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMultiDigitDisplay.class, new TIleEntityMultiDigitDisplayRender());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMultiDigitConstant.class, new TileEntityMultiDigitConstantRender());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMultiDigitCounter.class, new TileEntityMultiDigitCounterRender());
 
 
 
@@ -54,6 +58,7 @@ public class ClientProxy extends ServerProxy  implements ProxyInterface {
 
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.MultiDigitDisplay), new ItemMultiDigitDisplayRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.MultiDigitConstant), new ItemMultiDigitConstantRender());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.MultiDigitCounter), new ItemMultiDigitCounterRender());
 
     }
 }

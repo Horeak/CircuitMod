@@ -15,6 +15,7 @@ tile.onedigitcounter.name=One-Digit Counter
 
 tile.multidigitdisplay.name=Multi-Digit Display
 tile.multidigitconstant.name=Multi-Digit Constant
+tile.multidigitcounter.name=Multi-Digit Counter
 
 
 blockinfo.constant.constant=Constant: $Number

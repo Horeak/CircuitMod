@@ -3,6 +3,7 @@ package com.circuit.CircuitMod.Main;
 import MiscUtils.Network.ChannelUtils;
 import com.circuit.CircuitMod.Gui.GuiHandler;
 import com.circuit.CircuitMod.Packets.MultiDigitConstantValueChanged;
+import com.circuit.CircuitMod.Packets.MultiDigitCounterValueChanged;
 import com.circuit.CircuitMod.Proxy.ServerProxy;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
 import com.circuit.CircuitMod.Utils.Config;
@@ -83,6 +84,7 @@ public class CircuitMod {
     public static void RegisterPackets(){
 
         Utils.handler.RegisterPacket(MultiDigitConstantValueChanged.class);
+        Utils.handler.RegisterPacket(MultiDigitCounterValueChanged.class);
 
     }
 

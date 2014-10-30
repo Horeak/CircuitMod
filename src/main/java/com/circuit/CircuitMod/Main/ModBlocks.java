@@ -6,6 +6,7 @@ import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockOneDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockRedstoneEmitter;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockDigitEquals;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiDigitConstant;
+import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiDigitCounter;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockOneDigitConstant;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockOneDigitCounter;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockRedstoneReciver;
@@ -20,6 +21,7 @@ import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDispla
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityRedstoneEmitter;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityDigitEquals;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitConstant;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitCounter;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitConstant;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitCounter;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityRedstoneReciver;
@@ -37,7 +39,7 @@ public class ModBlocks {
     public static Block SignalGate, DigitEquals;
     public static Block RedstoneReciver, RedstoneEmitter;
     public static Block OneDigitDisplay, OneDigitConstant, OneDigitCounter;
-    public static Block MultiDigitDisplay, MultiDigitConstant;
+    public static Block MultiDigitDisplay, MultiDigitConstant, MultiDigitCounter;
 
 
     public static void RegisterBlocks(){
@@ -93,6 +95,9 @@ public class ModBlocks {
 
         MultiDigitConstant = new ModBlockMultiDigitConstant().setCreativeTab(CircuitMod.CreativeTab);
         Utils.Register(MultiDigitConstant, "MultiDigitConstant", TileEntityMultiDigitConstant.class);
+
+        MultiDigitCounter = new ModBlockMultiDigitCounter().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(MultiDigitCounter, "MultiDigitCounter", TileEntityMultiDigitCounter.class);
 
 
 

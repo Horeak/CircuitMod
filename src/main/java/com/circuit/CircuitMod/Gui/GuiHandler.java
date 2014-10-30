@@ -1,6 +1,7 @@
 package com.circuit.CircuitMod.Gui;
 
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitConstant;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitCounter;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -31,6 +32,10 @@ public class GuiHandler implements IGuiHandler{
 
         if(tile instanceof TileEntityMultiDigitConstant)
             return new GuiMultiDigitConstant((TileEntityMultiDigitConstant)tile);
+
+
+        if(tile instanceof TileEntityMultiDigitCounter)
+            return new GuiMultiDigitCounter((TileEntityMultiDigitCounter)tile);
 
 
         return null;

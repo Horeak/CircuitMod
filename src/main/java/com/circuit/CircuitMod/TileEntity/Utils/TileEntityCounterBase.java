@@ -54,7 +54,7 @@ public abstract class TileEntityCounterBase extends TileEntityEventSender  imple
 
 
 
-        if(Change > ResetChangeToBase())
+        if(Change > ResetChangeToBase() || Change <= 0)
             if(ResetCount >= ResetCountTimer()){
                 Change = ResetChangeToBase();
                 ResetCount = 0;
@@ -62,6 +62,7 @@ public abstract class TileEntityCounterBase extends TileEntityEventSender  imple
             }else{
                 ResetCount += 1;
             }
+
 
 
 
@@ -121,7 +122,7 @@ public abstract class TileEntityCounterBase extends TileEntityEventSender  imple
     @Override
     public void OnRecived(EventPacket packet) {
 
-        if(packet.ByteValue == InputValue()){
+        if(InputValue() != -1 && packet.ByteValue == InputValue() || InputValue() == -1){
             Change = packet.NBT.getInteger("StoredNumber");
             ResetCount = 0;
         }

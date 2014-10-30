@@ -21,6 +21,7 @@ public class TileEntityDigitEquals extends TileEntityTwoSidedEventChecker {
         if(packetA != null && packetB != null){
             if(packetA.ByteValue == ByteValues.OneDigitNumber.Value() || packetA.ByteValue == ByteValues.MultiDigitNumber.Value()){
                 if(packetB.ByteValue == ByteValues.OneDigitNumber.Value() || packetB.ByteValue == ByteValues.MultiDigitNumber.Value()){
+
                     if(packetA.NBT.getInteger("StoredNumber") == packetB.NBT.getInteger("StoredNumber")){
                         return new EventPacket(-1, ByteValues.OnSignal.Value());
                     }
