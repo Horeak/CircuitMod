@@ -1,7 +1,7 @@
 package com.circuit.CircuitMod.Blocks.EventRecivers;
 
 import MiscUtils.Block.ModBlockCustomModel;
-import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
+import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -9,19 +9,20 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class ModBlockOneDigitDisplay extends ModBlockCustomModel{
+public class ModBlockMultiDigitDisplay extends ModBlockCustomModel {
 
 
 
-    public ModBlockOneDigitDisplay() {
+    public ModBlockMultiDigitDisplay() {
         super(Material.iron);
         setHardness(1F);
     }
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileEntityOneDigitDisplay();
+        return new TileEntityMultiDigitDisplay();
     }
+
 
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
     {
@@ -50,8 +51,8 @@ public class ModBlockOneDigitDisplay extends ModBlockCustomModel{
         }
 
 
-        if(world.getTileEntity(x,y,z) instanceof TileEntityOneDigitDisplay){
-            TileEntityOneDigitDisplay tile = (TileEntityOneDigitDisplay)world.getTileEntity(x,y,z);
+        if(world.getTileEntity(x,y,z) instanceof TileEntityMultiDigitDisplay){
+            TileEntityMultiDigitDisplay tile = (TileEntityMultiDigitDisplay)world.getTileEntity(x,y,z);
             tile.Rotation = g;
         }
     }

@@ -47,88 +47,18 @@ public class TileEntityOneDigitDisplayRender extends TileEntitySpecialRenderer {
 
             GL11.glRotatef(((face) * 90F), 0.0F, 1.0F, 0.0F);
 
-            boolean Num1 = false,
-                    Num2 = false,
-                    Num3 = false,
-                    Num4 = false,
-                    Num5 = false,
-                    Num6 = false,
-                    Num7 = false;
-
-
             int Number = tile.DisplayNumber;
 
+            boolean[] Num = TIleEntityMultiDigitDisplayRender.GetStateForNumber(Number);
 
-            if(Number == 1){
-                Num3 = true;
-                Num6 = true;
 
-            }else if(Number == 2){
-                Num1 = true;
-                Num2 = true;
-                Num4 = true;
-                Num6 = true;
-                Num7 = true;
-
-            }else if(Number == 3){
-                Num1 = true;
-                Num3 = true;
-                Num4 = true;
-                Num6 = true;
-                Num7 = true;
-
-            }else if(Number == 4){
-                Num3 = true;
-                Num4 = true;
-                Num5 = true;
-                Num6 = true;
-
-            }else if(Number == 5){
-                Num1 = true;
-                Num3 = true;
-                Num4 = true;
-                Num5 = true;
-                Num7 = true;
-
-            }else if(Number == 6){
-                Num1 = true;
-                Num2 = true;
-                Num3 = true;
-                Num4 = true;
-                Num5 = true;
-                Num7 = true;
-
-            }else if(Number == 7){
-                Num7 = true;
-                Num6 = true;
-                Num3 = true;
-
-            }else if(Number == 8){
-                Num1 = Num2 = Num3 = Num4 = Num5 = Num6 = Num7 = true;
-
-            }else if(Number == 9){
-                Num3 = true;
-                Num4 = true;
-                Num5 = true;
-                Num6 = true;
-                Num7 = true;
-
-            }else if(Number == 0){
-                Num1 = true;
-                Num2 = true;
-                Num3 = true;
-                Num5 = true;
-                Num6 = true;
-                Num7 = true;
-
-            }
 
             bindTexture(rs1);
             this.model1.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, Def, Border);
 
 
             bindTexture(rs);
-            this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, Num1, Num2, Num3, Num4, Num5, Num6, Num7);
+            this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, Num[0], Num[1], Num[2], Num[3], Num[4], Num[5], Num[6]);
 
             GL11.glPopMatrix();
             GL11.glPopMatrix();

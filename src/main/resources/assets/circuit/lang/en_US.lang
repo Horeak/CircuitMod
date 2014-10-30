@@ -9,9 +9,13 @@ tile.equalsgate.name=Number Equals Gate
 
 tile.redstonereciver.name=Redstone Receiver
 tile.redstoneemitter.name=Redstone Emitter
-tile.onedigitdisplay.name=One Digit Display
-tile.onedigitconstant.name=One Digit Constant
-tile.onedigitcounter.name=One Digit Counter
+tile.onedigitdisplay.name=One-Digit Display
+tile.onedigitconstant.name=One-Digit Constant
+tile.onedigitcounter.name=One-Digit Counter
+
+tile.multidigitdisplay.name=Multi-Digit Display
+tile.multidigitconstant.name=Multi-Digit Constant
+
 
 blockinfo.constant.constant=Constant: $Number
 blockinfo.counter.currentcount=Current count: $Number
@@ -23,3 +27,5 @@ blockinfo.circuitbox.mininputs=Min Inputs: $Number
 blockinfo.circuitbox.maxinputs=Max Inputs: $Number
 blockinfo.circuitbox.activeinputs=Active Inputs: $Number
 blockinfo.circuitbox.outputting=Outputting: $Value
+
+gui.mulitidigitconstant.setvalue=Set Value
