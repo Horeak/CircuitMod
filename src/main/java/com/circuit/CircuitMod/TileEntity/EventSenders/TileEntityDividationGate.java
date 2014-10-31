@@ -22,7 +22,13 @@ public class TileEntityDividationGate   extends TileEntityTwoSidedEventChecker {
             if(packetA.ByteValue == ByteValues.OneDigitNumber.Value() || packetA.ByteValue == ByteValues.MultiDigitNumber.Value()){
                 if(packetB.ByteValue == ByteValues.OneDigitNumber.Value() || packetB.ByteValue == ByteValues.MultiDigitNumber.Value()){
 
-                    int total = packetA.NBT.getInteger("StoredNumber") / packetB.NBT.getInteger("StoredNumber");
+                    int total = 0;
+
+                    if(packetB.NBT.getInteger("StoredNumber") <= 0 || packetA.NBT.getInteger("StoredNumber") <= 0)
+                        total = 0;
+
+                    else
+                    total = packetA.NBT.getInteger("StoredNumber") / packetB.NBT.getInteger("StoredNumber");
 
                     if(total > 9999)
                         total = 9999;

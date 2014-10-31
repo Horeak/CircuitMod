@@ -62,6 +62,8 @@ public class MultiDigitCounterValueChanged extends AbstractPacket{
                 PacketHandler.sendToAll(new MultiDigitCounterValueChanged(tile, value), CircuitMod.Utils.channels);
             }
 
+            world.notifyBlocksOfNeighborChange(x,y,z, world.getBlock(x,y,z));
+
         }
 
 

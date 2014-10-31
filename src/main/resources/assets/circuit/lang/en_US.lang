@@ -10,8 +10,11 @@ tile.redstoneemitter.name=Redstone Emitter
 tile.variable.name=Variable
 tile.randomnumbercomponent.name=Random Number Component
 
-tile.signalgate.name=Signal Gate
 tile.equalsgate.name=Number Equals Gate
+tile.greatergate.name=Number Greater Gate
+tile.lessgate.name=Number Less Gate
+
+tile.signalgate.name=Signal Gate
 tile.additiongate.name=Addition Component
 tile.subtractiongate.name=Subtraction Component
 tile.multiplicationgate.name=Multiplication Component

@@ -8,6 +8,8 @@ import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockVariable;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockAddittionGate;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockDigitEquals;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockDividationGate;
+import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockGreaterGate;
+import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockLessGate;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiDigitConstant;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiDigitCounter;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiplicationGate;
@@ -29,6 +31,8 @@ import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityVariable;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityAdditionGate;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityDigitEquals;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityDividationGate;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityGreaterGate;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityLessGate;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitConstant;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitCounter;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiplicationGate;
@@ -49,7 +53,8 @@ public class ModBlocks {
 
     public static Block CircuitBox, CircuitCable, CableConnectionPoint;
     public static Block Variable, RandomNumberComponent;
-    public static Block SignalGate, DigitEquals, AdditionGate, SubtractionGate, MultiplicationGate, DividationGate;
+    public static Block DigitEquals, GreaterGate, LessGate;
+    public static Block SignalGate, AdditionGate, SubtractionGate, MultiplicationGate, DividationGate;
     public static Block RedstoneReciver, RedstoneEmitter;
     public static Block OneDigitDisplay, OneDigitConstant, OneDigitCounter;
     public static Block MultiDigitDisplay, MultiDigitConstant, MultiDigitCounter;
@@ -88,11 +93,18 @@ public class ModBlocks {
 
 
         //Gates
-        SignalGate = new ModBlockSignalGate().setCreativeTab(CircuitMod.CreativeTab);
-        Utils.Register(SignalGate, "SignalGate", TileEntitySignalGate.class);
-
         DigitEquals = new ModBlockDigitEquals().setCreativeTab(CircuitMod.CreativeTab);
         Utils.Register(DigitEquals, "EqualsGate", TileEntityDigitEquals.class);
+
+        GreaterGate = new ModBlockGreaterGate().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(GreaterGate, "Greatergate", TileEntityGreaterGate.class);
+
+        LessGate = new ModBlockLessGate().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(LessGate, "LessGate", TileEntityLessGate.class);
+
+
+        SignalGate = new ModBlockSignalGate().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(SignalGate, "SignalGate", TileEntitySignalGate.class);
 
         AdditionGate = new ModBlockAddittionGate().setCreativeTab(CircuitMod.CreativeTab);
         Utils.Register(AdditionGate, "AdditionGate", TileEntityAdditionGate.class);

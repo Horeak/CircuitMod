@@ -20,11 +20,13 @@ public class TileEntityRandomNumber extends TileEntityEventSender implements IBl
     public boolean IsPowered = false;
     public int ResetCountInput = 0;
     public int Reset = 4;
+    public int CurrentOutput = -1;
 
     public void updateEntity(){
 
         if(IsPowered)
             if(ResetCountInput >= Reset){
+                CurrentOutput = -1;
                 IsPowered = false;
                 ResetCountInput = 0;
             }else{
@@ -32,13 +34,40 @@ public class TileEntityRandomNumber extends TileEntityEventSender implements IBl
             }
 
 
+        if(IsPowered){
+            if(CurrentOutput != -1){
+
+                EventPacket pack = new EventPacket(-1, CurrentOutput > 9 ? ByteValues.MultiDigitNumber.Value() : ByteValues.OneDigitNumber.Value());
+                pack.NBT.setInteger("StoredNumber", CurrentOutput);
+
+                SendPacketToAround(pack);
+
+
+            }else{
+
+                if(MaxValue < 1)
+                    MaxValue = 1;
+
+               Random rand = new Random();
+               CurrentOutput = rand.nextInt(MaxValue + 1);
+
+
+                if(CurrentOutput < 1)
+                    CurrentOutput = 1;
+
+
+            }
+
+
+        }
+
     }
 
     @Override
     public void Info(ArrayList<String> Strings) {
 
         Strings.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("tile.randomnumbercomponent.name") + EnumChatFormatting.RESET);
-        Strings.add(StatCollector.translateToLocal("blockinfo.randomnumbercomponent.posnum").replace("$Number", (EnumChatFormatting.GRAY + "1 ->" + MaxValue + EnumChatFormatting.RESET)));
+        Strings.add(StatCollector.translateToLocal("blockinfo.randomnumbercomponent.posnum").replace("$Number", (EnumChatFormatting.GRAY + "1 -> " + MaxValue + EnumChatFormatting.RESET)));
 
     }
 
@@ -54,28 +83,7 @@ public class TileEntityRandomNumber extends TileEntityEventSender implements IBl
             IsPowered = true;
             packet.TimeOut();
 
-
-            if(MaxValue < 1)
-                MaxValue = 1;
-
-        Random rand = new Random();
-        int num = rand.nextInt(MaxValue);
-
-        System.out.println(num);
-
-            if(num < 1)
-            num = 1;
-
-
-        EventPacket pack = new EventPacket(-1, num > 9 ? ByteValues.MultiDigitNumber.Value() : ByteValues.OneDigitNumber.Value());
-        pack.NBT.setInteger("StoredNumber", num);
-
-        SendPacketToAround(pack);
-
-
-            }
-
-
+        }
     }
 
     @Override

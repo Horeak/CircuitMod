@@ -60,6 +60,8 @@ public class MultiDigitConstantValueChanged extends AbstractPacket{
                 PacketHandler.sendToAll(new MultiDigitConstantValueChanged(tile, value), CircuitMod.Utils.channels);
             }
 
+            world.notifyBlocksOfNeighborChange(x,y,z, world.getBlock(x,y,z));
+
         }
 
 

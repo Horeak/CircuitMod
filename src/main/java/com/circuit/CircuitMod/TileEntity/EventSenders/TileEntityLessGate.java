@@ -4,7 +4,7 @@ import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.Utils.TileEntityTwoSidedEventChecker;
 import com.circuit.CircuitMod.Utils.EventPacket;
 
-public class TileEntityDigitEquals extends TileEntityTwoSidedEventChecker {
+public class TileEntityLessGate  extends TileEntityTwoSidedEventChecker {
     @Override
     public byte InputPacketA() {
         return -1;
@@ -18,16 +18,17 @@ public class TileEntityDigitEquals extends TileEntityTwoSidedEventChecker {
     @Override
     public EventPacket OutPutPacket() {
 
-            if(packetA != null && packetB != null){
-                    int a = packetA.NBT.getInteger("StoredNumber");
-                    int b = packetB.NBT.getInteger("StoredNumber");
+        if(packetA != null && packetB != null){
+            if(packetA.ByteValue == ByteValues.OneDigitNumber.Value() || packetA.ByteValue == ByteValues.MultiDigitNumber.Value()){
+                if(packetB.ByteValue == ByteValues.OneDigitNumber.Value() || packetB.ByteValue == ByteValues.MultiDigitNumber.Value()){
 
-                    if(a == b){
+                    if(packetA.NBT.getInteger("StoredNumber") < packetB.NBT.getInteger("StoredNumber")){
                         return new EventPacket(-1, ByteValues.OnSignal.Value());
                     }
 
+                }
+            }
         }
-
 
 
         return null;

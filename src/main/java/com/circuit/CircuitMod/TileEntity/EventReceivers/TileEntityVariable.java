@@ -18,7 +18,7 @@ public class TileEntityVariable extends TileEntityEventSender implements IBlockI
 
     public void updateEntity(){
 
-        EventPacket packet = new EventPacket(-1, ByteValues.MultiDigitNumber.Value());
+        EventPacket packet = new EventPacket(-1, StoredNumber > 9 ? ByteValues.MultiDigitNumber.Value() : ByteValues.OneDigitNumber.Value());
         packet.NBT.setInteger("StoredNumber", StoredNumber);
 
         SendPacketToAround(packet);
@@ -54,10 +54,10 @@ public class TileEntityVariable extends TileEntityEventSender implements IBlockI
 
     @Override
     public void OnRecived(EventPacket packet) {
-        if(packet.ByteValue == ByteValues.MultiDigitNumber.Value() || packet.ByteValue == ByteValues.OneDigitNumber.Value()){
+        if(packet.ByteValue == ByteValues.MultiDigitNumber.Value() || packet.ByteValue == ByteValues.OneDigitNumber.Value())
             StoredNumber = packet.NBT.getInteger("StoredNumber");
 
-        }
+
 
     }
 

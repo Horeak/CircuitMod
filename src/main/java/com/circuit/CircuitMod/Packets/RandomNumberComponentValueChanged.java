@@ -63,6 +63,8 @@ public class RandomNumberComponentValueChanged extends AbstractPacket{
                 PacketHandler.sendToAll(new RandomNumberComponentValueChanged(tile, value), CircuitMod.Utils.channels);
             }
 
+
+            world.notifyBlocksOfNeighborChange(x,y,z, world.getBlock(x,y,z));
         }
 
 
