@@ -55,6 +55,9 @@ public class MultiDigitCounterValueChanged extends AbstractPacket{
             TileEntityMultiDigitCounter tile = (TileEntityMultiDigitCounter)world.getTileEntity(x,y,z);
             tile.ResetAt = value;
 
+            if(tile.ResetAt <= 0)
+                tile.ResetAt = 1;
+
             if(side == Side.SERVER){
                 PacketHandler.sendToAll(new MultiDigitCounterValueChanged(tile, value), CircuitMod.Utils.channels);
             }

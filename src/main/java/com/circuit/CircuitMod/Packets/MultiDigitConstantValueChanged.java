@@ -55,6 +55,7 @@ public class MultiDigitConstantValueChanged extends AbstractPacket{
             TileEntityMultiDigitConstant tile = (TileEntityMultiDigitConstant)world.getTileEntity(x,y,z);
             tile.Constant = value;
 
+
             if(side == Side.SERVER){
                 PacketHandler.sendToAll(new MultiDigitConstantValueChanged(tile, value), CircuitMod.Utils.channels);
             }

@@ -4,12 +4,16 @@ import MiscUtils.Register.BlockRegister;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockMultiDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockOneDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockRedstoneEmitter;
+import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockAddittionGate;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockDigitEquals;
+import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockDividationGate;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiDigitConstant;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiDigitCounter;
+import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiplicationGate;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockOneDigitConstant;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockOneDigitCounter;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockRedstoneReciver;
+import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockSubtractionGate;
 import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Blocks.ModBlockCircuitBox;
 import com.circuit.CircuitMod.Blocks.ModBlockCircuitCable;
@@ -19,13 +23,17 @@ import com.circuit.CircuitMod.Items.ItemBlockCircuitCable;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityRedstoneEmitter;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityAdditionGate;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityDigitEquals;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityDividationGate;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitConstant;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitCounter;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiplicationGate;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitConstant;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitCounter;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityRedstoneReciver;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntitySignalGate;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntitySubtractionGate;
 import com.circuit.CircuitMod.TileEntity.TileEntityCableConnectionPoint;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
@@ -36,7 +44,7 @@ public class ModBlocks {
 
 
     public static Block CircuitBox, CircuitCable, CableConnectionPoint;
-    public static Block SignalGate, DigitEquals;
+    public static Block SignalGate, DigitEquals, AdditionGate, SubtractionGate, MultiplicationGate, DividationGate;
     public static Block RedstoneReciver, RedstoneEmitter;
     public static Block OneDigitDisplay, OneDigitConstant, OneDigitCounter;
     public static Block MultiDigitDisplay, MultiDigitConstant, MultiDigitCounter;
@@ -73,6 +81,18 @@ public class ModBlocks {
 
         DigitEquals = new ModBlockDigitEquals().setCreativeTab(CircuitMod.CreativeTab);
         Utils.Register(DigitEquals, "EqualsGate", TileEntityDigitEquals.class);
+
+        AdditionGate = new ModBlockAddittionGate().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(AdditionGate, "AdditionGate", TileEntityAdditionGate.class);
+
+        SubtractionGate = new ModBlockSubtractionGate().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(SubtractionGate, "SubtractionGate", TileEntitySubtractionGate.class);
+
+        MultiplicationGate = new ModBlockMultiplicationGate().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(MultiplicationGate, "MultiplicationGate", TileEntityMultiplicationGate.class);
+
+        DividationGate = new ModBlockDividationGate().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(DividationGate, "DividationGate", TileEntityDividationGate.class);
 
 
 

@@ -6,6 +6,10 @@ tile.cableconnectionpoint.name=Cable Connection Point
 
 tile.signalgate.name=Signal Gate
 tile.equalsgate.name=Number Equals Gate
+tile.additiongate.name=Addition Component
+tile.subtractiongate.name=Subtraction Component
+tile.multiplicationgate.name=Multiplication Component
+tile.dividationgate.name=Dividation Component
 
 tile.redstonereciver.name=Redstone Receiver
 tile.redstoneemitter.name=Redstone Emitter
