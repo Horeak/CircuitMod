@@ -4,6 +4,7 @@ import MiscUtils.Network.ChannelUtils;
 import com.circuit.CircuitMod.Gui.GuiHandler;
 import com.circuit.CircuitMod.Packets.MultiDigitConstantValueChanged;
 import com.circuit.CircuitMod.Packets.MultiDigitCounterValueChanged;
+import com.circuit.CircuitMod.Packets.RandomNumberComponentValueChanged;
 import com.circuit.CircuitMod.Proxy.ServerProxy;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
 import com.circuit.CircuitMod.Utils.Config;
@@ -85,6 +86,7 @@ public class CircuitMod {
 
         Utils.handler.RegisterPacket(MultiDigitConstantValueChanged.class);
         Utils.handler.RegisterPacket(MultiDigitCounterValueChanged.class);
+        Utils.handler.RegisterPacket(RandomNumberComponentValueChanged.class);
 
     }
 

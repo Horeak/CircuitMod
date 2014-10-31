@@ -85,6 +85,7 @@ public abstract class TileEntityCounterBase extends TileEntityEventSender  imple
         ResetAt = nbtTagCompound.getInteger("Reset");
         ResetCount = nbtTagCompound.getInteger("ResetC");
         ResetCountInput = nbtTagCompound.getInteger("ResetCountInput");
+        IsPowered = nbtTagCompound.getBoolean("Powered");
 
 
     }
@@ -97,6 +98,7 @@ public abstract class TileEntityCounterBase extends TileEntityEventSender  imple
         nbtTagCompound.setInteger("Reset", ResetAt);
         nbtTagCompound.setInteger("ResetC", ResetCount);
         nbtTagCompound.setInteger("ResetCountInput", ResetCountInput);
+        nbtTagCompound.setBoolean("Powered", IsPowered);
 
     }
 

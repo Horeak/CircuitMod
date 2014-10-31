@@ -4,6 +4,7 @@ import MiscUtils.Register.BlockRegister;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockMultiDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockOneDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockRedstoneEmitter;
+import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockVariable;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockAddittionGate;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockDigitEquals;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockDividationGate;
@@ -12,6 +13,7 @@ import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiDigitCounter;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiplicationGate;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockOneDigitConstant;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockOneDigitCounter;
+import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockRandomNumberComponent;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockRedstoneReciver;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockSubtractionGate;
 import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
@@ -23,6 +25,7 @@ import com.circuit.CircuitMod.Items.ItemBlockCircuitCable;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityRedstoneEmitter;
+import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityVariable;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityAdditionGate;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityDigitEquals;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityDividationGate;
@@ -31,6 +34,7 @@ import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitCounte
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiplicationGate;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitConstant;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitCounter;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityRandomNumber;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityRedstoneReciver;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntitySignalGate;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntitySubtractionGate;
@@ -44,6 +48,7 @@ public class ModBlocks {
 
 
     public static Block CircuitBox, CircuitCable, CableConnectionPoint;
+    public static Block Variable, RandomNumberComponent;
     public static Block SignalGate, DigitEquals, AdditionGate, SubtractionGate, MultiplicationGate, DividationGate;
     public static Block RedstoneReciver, RedstoneEmitter;
     public static Block OneDigitDisplay, OneDigitConstant, OneDigitCounter;
@@ -73,6 +78,13 @@ public class ModBlocks {
         RedstoneEmitter = new ModBlockRedstoneEmitter().setCreativeTab(CircuitMod.CreativeTab).setBlockTextureName(Ref.ModId.toLowerCase() + ":RedstoneEmitter");
         Utils.Register(RedstoneEmitter, "RedstoneEmitter", TileEntityRedstoneEmitter.class);
 
+
+        //Random things
+        Variable = new ModBlockVariable().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(Variable, "Variable", TileEntityVariable.class);
+
+        RandomNumberComponent = new ModBlockRandomNumberComponent().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(RandomNumberComponent, "RandomNumberComponent", TileEntityRandomNumber.class);
 
 
         //Gates

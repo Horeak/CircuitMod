@@ -2,8 +2,8 @@ package com.circuit.CircuitMod.Gui;
 
 import MiscUtils.Network.PacketHandler;
 import com.circuit.CircuitMod.Main.CircuitMod;
-import com.circuit.CircuitMod.Packets.MultiDigitConstantValueChanged;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitConstant;
+import com.circuit.CircuitMod.Packets.RandomNumberComponentValueChanged;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityRandomNumber;
 import com.circuit.CircuitMod.Utils.Ref;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -12,24 +12,24 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
-public class GuiMultiDigitConstant extends GuiScreen
+public class GuiRandomNumberComponent extends GuiScreen
 {
 	private final ResourceLocation Texture = new ResourceLocation(Ref.ModId.toLowerCase() , "textures/gui/MultiDigitSetGui.png");
-	
-	
+
+
     public static final int xSizeOfTexture = 164;
     public static final int ySizeOfTexture = 83;
 
     int Number1 = 0, Number2 = 0, Number3 = 0, Number4 = 0;
 
-    TileEntityMultiDigitConstant tile;
-	
-	public GuiMultiDigitConstant(TileEntityMultiDigitConstant tile){
+    TileEntityRandomNumber tile;
+
+	public GuiRandomNumberComponent(TileEntityRandomNumber tile){
         this.tile = tile;
-            Number4 = tile.Constant / 1000;
-            Number3 = (tile.Constant / 100) - (Number4 * 10);
-            Number2 = (tile.Constant / 10) - ((Number4 * 100) + (Number3 * 10));
-            Number1 = (tile.Constant) - ((Number4 * 1000) + (Number3 * 100) + (Number2 * 10));
+            Number4 = tile.MaxValue / 1000;
+            Number3 = (tile.MaxValue / 100) - (Number4 * 10);
+            Number2 = (tile.MaxValue / 10) - ((Number4 * 100) + (Number3 * 10));
+            Number1 = (tile.MaxValue) - ((Number4 * 1000) + (Number3 * 100) + (Number2 * 10));
 
 
 	}
@@ -136,7 +136,7 @@ public class GuiMultiDigitConstant extends GuiScreen
             if(id == 1){
 
                 int total = (Number4 * 1000) + (Number3 * 100) + (Number2 * 10) + Number1;
-                PacketHandler.sendToServer(new MultiDigitConstantValueChanged(tile, total), CircuitMod.Utils.channels);
+                PacketHandler.sendToServer(new RandomNumberComponentValueChanged(tile, total), CircuitMod.Utils.channels);
 
             }
 
