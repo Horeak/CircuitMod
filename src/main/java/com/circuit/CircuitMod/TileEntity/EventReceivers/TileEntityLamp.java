@@ -19,14 +19,17 @@ public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuit
     public void updateEntity(){
 
         if(worldObj.isBlockIndirectlyGettingPowered(xCoord,yCoord, zCoord)){
-            Powered = true;
             Reset = 0;
+
+            if(!Powered){
+                SetState(true);
+            }
 
         }
 
         if(Powered) {
             if (Reset >= ResetAt) {
-                Powered = false;
+                SetState(false);
                 Reset = 0;
             }else{
                 Reset += 1;
@@ -63,7 +66,9 @@ public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuit
     @Override
     public void OnRecived(EventPacket packet) {
         if(packet.ByteValue == ByteValues.OnSignal.Value()){
-            Powered = true;
+            if(!Powered) {
+                SetState(true);
+            }
             Reset = 0;
 
         }
@@ -73,6 +78,16 @@ public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuit
     @Override
     public boolean CanRecive(EventPacket packet) {
         return packet.ByteValue == ByteValues.OnSignal.Value();
+
+    }
+
+
+    public void SetState(boolean t){
+        Powered = t;
+
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+
 
     }
     }

@@ -27,7 +27,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
 
 
     public int Rotation = 0;
-    int ResetAt = 2;
+    int ResetAt = 1;
 
     public void SetMode(CircuitBoxMode mode){
         this.Mode = mode.GetID();

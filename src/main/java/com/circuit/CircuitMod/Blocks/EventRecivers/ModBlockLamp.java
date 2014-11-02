@@ -9,6 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -44,5 +45,16 @@ public class ModBlockLamp extends ModBlockCustomModel {
         {
             p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));
         }
+    }
+
+    public int getLightValue(IBlockAccess world, int x, int y, int z)
+    {
+        if(world.getTileEntity(x,y,z) instanceof TileEntityLamp){
+            TileEntityLamp tile = (TileEntityLamp)world.getTileEntity(x,y,z);
+
+            return tile.Powered ? 15 : 0;
+        }
+
+        return getLightValue();
     }
 }
