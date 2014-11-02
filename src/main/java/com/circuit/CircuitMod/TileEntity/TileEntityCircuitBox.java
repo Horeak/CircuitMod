@@ -234,6 +234,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
         Strings.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("tile.circuitbox.name"));
         if (CurrentMode != null) {
             Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.mode").replace("$Mode", (EnumChatFormatting.GRAY + CurrentMode.ModeName() + EnumChatFormatting.RESET)));
+            Strings.add(StatCollector.translateToLocal("blockinfo.all.shiftchange"));
             Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.mininputs").replace("$Number", (EnumChatFormatting.GRAY + "" + CurrentMode.MinInputs() + EnumChatFormatting.RESET)));
             Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.maxinputs").replace("$Number", (EnumChatFormatting.GRAY + "" + CurrentMode.MaxInputs() + EnumChatFormatting.RESET)));
             Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.activeinputs").replace("$Number", (EnumChatFormatting.GRAY + "" + GetActiveInputs() + EnumChatFormatting.RESET)));

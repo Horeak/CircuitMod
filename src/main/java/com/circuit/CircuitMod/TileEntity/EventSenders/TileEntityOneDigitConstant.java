@@ -66,6 +66,7 @@ public class TileEntityOneDigitConstant extends TileEntityEventSender implements
 
             Strings.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("tile.onedigitconstant.name") + EnumChatFormatting.RESET);
             Strings.add(StatCollector.translateToLocal("blockinfo.constant.constant").replace("$Number", (EnumChatFormatting.GRAY + "" + Constant + EnumChatFormatting.RESET)));
+            Strings.add(StatCollector.translateToLocal("blockinfo.all.shiftchange"));
 
     }
 }

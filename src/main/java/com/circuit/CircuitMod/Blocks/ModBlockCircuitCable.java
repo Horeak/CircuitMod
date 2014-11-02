@@ -4,8 +4,10 @@ import MiscUtils.Block.ModBlockCustomModel;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -29,6 +31,7 @@ public class ModBlockCircuitCable extends ModBlockCustomModel {
 
     public ModBlockCircuitCable() {
         super(Material.ground);
+        setTickRandomly(true);
     }
 
     @Override
@@ -46,7 +49,43 @@ public class ModBlockCircuitCable extends ModBlockCustomModel {
         }
     }
 
+    public boolean canBlockStay(World world, int x, int y, int z)
+    {
 
+        if(world.getTileEntity(x,y,z) instanceof TileEntityCircuitCable){
+            TileEntityCircuitCable tile = (TileEntityCircuitCable)world.getTileEntity(x,y,z);
+
+            ForgeDirection dir = tile.Direction;
+
+            if(dir == ForgeDirection.UP || dir == ForgeDirection.DOWN)
+                dir = dir.getOpposite();
+
+            int xCord = x + dir.offsetX;
+            int yCord = y + dir.offsetY;
+            int zCord = z + dir.offsetZ;
+
+            if(!world.isSideSolid(xCord, yCord, zCord, dir)){
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
+    public void onNeighborChange(IBlockAccess world, int x, int y, int z, int tileX, int tileY, int tileZ)
+    {
+        onNeighborBlockChange((World)world, x, y, z, world.getBlock(x,y,z));
+
+    }
+
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        if(!canBlockStay((World)world, x,y,z)){
+            world.getBlock(x,y,z).dropBlockAsItem((World)world, x,y,z, world.getBlockMetadata(x,y,z), 1);
+            ((World) world).setBlock(x,y,z, Blocks.air, 0, 2);
+
+        }
+    }
 
 
 

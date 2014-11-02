@@ -1,6 +1,7 @@
 package com.circuit.CircuitMod.Main;
 
 import MiscUtils.Register.BlockRegister;
+import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockLamp;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockMultiDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockOneDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockRedstoneEmitter;
@@ -24,6 +25,8 @@ import com.circuit.CircuitMod.Blocks.ModBlockCircuitCable;
 import com.circuit.CircuitMod.Blocks.ModBlockSignalGate;
 import com.circuit.CircuitMod.Items.ItemBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Items.ItemBlockCircuitCable;
+import com.circuit.CircuitMod.Items.ItemBlockLamp;
+import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityLamp;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityRedstoneEmitter;
@@ -51,7 +54,7 @@ import net.minecraft.block.Block;
 public class ModBlocks {
 
 
-    public static Block CircuitBox, CircuitCable, CableConnectionPoint;
+    public static Block CircuitBox, CircuitCable, CableConnectionPoint, Lamp;
     public static Block Variable, RandomNumberComponent;
     public static Block DigitEquals, GreaterGate, LessGate;
     public static Block SignalGate, AdditionGate, SubtractionGate, MultiplicationGate, DividationGate;
@@ -73,6 +76,9 @@ public class ModBlocks {
 
         CableConnectionPoint = new ModBlockCableConnectionPoint().setCreativeTab(CircuitMod.CreativeTab).setBlockTextureName(Ref.ModId.toLowerCase() + ":CableConnectionPoint");
         Utils.Register(CableConnectionPoint, ItemBlockCableConnectionPoint.class, "CableConnectionPoint", TileEntityCableConnectionPoint.class);
+
+        Lamp = new ModBlockLamp().setCreativeTab(CircuitMod.CreativeTab);
+        Utils.Register(Lamp, ItemBlockLamp.class, "Lamp", TileEntityLamp.class);
 
 
 
