@@ -2,6 +2,8 @@ package com.circuit.CircuitMod.Items;
 
 import com.circuit.CircuitMod.Main.ModBlocks;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -10,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.List;
 
 public class ItemBlockCircuitCable extends ItemBlock {
     public ItemBlockCircuitCable(Block p_i45328_1_) {
@@ -64,5 +68,11 @@ public class ItemBlockCircuitCable extends ItemBlock {
         }
 
        return false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List list, boolean p_77624_4_) {
+
+        list.add(StatCollector.translateToLocal("item.desc.differentcolorsnoconnect"));
     }
 }

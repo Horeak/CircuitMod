@@ -10,6 +10,7 @@ tile.redstoneemitter.name=Redstone Emitter
 
 tile.variable.name=Variable
 tile.randomnumbercomponent.name=Random Number Component
+tile.signalshortender.name=Signal Short-tender
 
 tile.equalsgate.name=Number Equals Gate
 tile.greatergate.name=Number Greater Gate
@@ -46,3 +47,7 @@ blockinfo.variable.value=Variable Value: $Number
 blockinfo.randomnumbercomponent.posnum=Possible Numbers: $Number
 
 gui.mulitidigitconstant.setvalue=Set Value
+
+item.desc.changeblockcolorfromcable.half1=The block color can be changed by 
+item.desc.changeblockcolorfromcable.half2=right clicking with a colored cable
+item.desc.differentcolorsnoconnect=Different colors wont connect together

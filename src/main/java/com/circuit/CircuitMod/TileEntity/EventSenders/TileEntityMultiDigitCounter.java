@@ -1,12 +1,8 @@
 package com.circuit.CircuitMod.TileEntity.EventSenders;
 
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
+import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.Utils.TileEntityCounterBase;
 import com.circuit.CircuitMod.Utils.EventPacket;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
-
-import java.util.ArrayList;
 
 public class TileEntityMultiDigitCounter extends TileEntityCounterBase {
 
@@ -88,14 +84,4 @@ public class TileEntityMultiDigitCounter extends TileEntityCounterBase {
 
     }
 
-    @Override
-    public void Info(ArrayList<String> Strings) {
-
-        Strings.add(EnumChatFormatting.WHITE + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + EnumChatFormatting.RESET);
-        Strings.add(StatCollector.translateToLocal("blockinfo.counter.currentcount").replace("$Number", EnumChatFormatting.GRAY + "" + CurrentCount + EnumChatFormatting.RESET));
-        Strings.add(IncrementOrDecrement() ? (StatCollector.translateToLocal("blockinfo.counter.increment").replace("$Number", (EnumChatFormatting.GRAY + "" + Change + EnumChatFormatting.RESET))) : (StatCollector.translateToLocal("blockinfo.counter.decrement").replace("$Number", (EnumChatFormatting.GRAY + "" + Change + EnumChatFormatting.RESET))));
-        Strings.add(StatCollector.translateToLocal("blockinfo.all.inputnumber"));
-        Strings.add(StatCollector.translateToLocal("blockinfo.counter.resetsat").replace("$Number", (EnumChatFormatting.GRAY + "" + ResetAt + EnumChatFormatting.RESET)));
-
-    }
 }

@@ -1,6 +1,6 @@
 package com.circuit.CircuitMod.TileEntity.EventSenders;
 
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
+import com.circuit.CircuitMod.Utils.ByteValues;
 import MiscUtils.TileEntity.IBlockInfo;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.EventPacket;
@@ -66,7 +66,6 @@ public class TileEntityOneDigitConstant extends TileEntityEventSender implements
 
             Strings.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("tile.onedigitconstant.name") + EnumChatFormatting.RESET);
             Strings.add(StatCollector.translateToLocal("blockinfo.constant.constant").replace("$Number", (EnumChatFormatting.GRAY + "" + Constant + EnumChatFormatting.RESET)));
-            Strings.add(StatCollector.translateToLocal("blockinfo.all.shiftchange"));
 
     }
 }

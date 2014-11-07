@@ -1,6 +1,6 @@
 package com.circuit.CircuitMod.TileEntity.EventSenders;
 
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
+import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.Utils.TileEntityTwoSidedEventChecker;
 import com.circuit.CircuitMod.Utils.EventPacket;
 

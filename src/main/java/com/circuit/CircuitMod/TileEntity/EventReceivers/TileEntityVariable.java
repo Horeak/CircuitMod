@@ -1,7 +1,7 @@
 package com.circuit.CircuitMod.TileEntity.EventReceivers;
 
 import MiscUtils.TileEntity.IBlockInfo;
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
+import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,13 +15,18 @@ import java.util.ArrayList;
 public class TileEntityVariable extends TileEntityEventSender implements IBlockInfo {
 
     public int StoredNumber = 0;
+    ForgeDirection dirFrom = ForgeDirection.UNKNOWN;
 
     public void updateEntity(){
 
         EventPacket packet = new EventPacket(-1, StoredNumber > 9 ? ByteValues.MultiDigitNumber.Value() : ByteValues.OneDigitNumber.Value());
         packet.NBT.setInteger("StoredNumber", StoredNumber);
 
-        SendPacketToAround(packet);
+
+        for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
+            if(dir != dirFrom)
+                SendPacketTo(packet, dir);
+        }
 
 
     }
@@ -39,6 +44,7 @@ public class TileEntityVariable extends TileEntityEventSender implements IBlockI
         super.readFromNBT(nbtTagCompound);
 
         StoredNumber = nbtTagCompound.getInteger("Number");
+        dirFrom = ForgeDirection.getOrientation(nbtTagCompound.getInteger("DirFrom"));
 
 
     }
@@ -48,6 +54,7 @@ public class TileEntityVariable extends TileEntityEventSender implements IBlockI
         super.writeToNBT(nbtTagCompound);
 
         nbtTagCompound.setInteger("Number", StoredNumber);
+        nbtTagCompound.setInteger("DirFrom", dirFrom.ordinal());
 
     }
 
@@ -56,6 +63,7 @@ public class TileEntityVariable extends TileEntityEventSender implements IBlockI
     public void OnRecived(EventPacket packet) {
         if(packet.ByteValue == ByteValues.MultiDigitNumber.Value() || packet.ByteValue == ByteValues.OneDigitNumber.Value())
             StoredNumber = packet.NBT.getInteger("StoredNumber");
+            dirFrom = packet.LastSentFrom;
 
 
 

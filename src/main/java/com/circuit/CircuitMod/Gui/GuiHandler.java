@@ -2,6 +2,8 @@ package com.circuit.CircuitMod.Gui;
 
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitConstant;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitCounter;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitConstant;
+import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitCounter;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityRandomNumber;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,6 +42,12 @@ public class GuiHandler implements IGuiHandler{
 
         if(tile instanceof TileEntityRandomNumber)
             return new GuiRandomNumberComponent((TileEntityRandomNumber)tile);
+
+        if(tile instanceof TileEntityOneDigitConstant)
+            return new GuiOneDigitConstant((TileEntityOneDigitConstant)tile);
+
+        if(tile instanceof TileEntityOneDigitCounter)
+            return new GuiOneDigitCounter((TileEntityOneDigitCounter)tile);
 
 
         return null;

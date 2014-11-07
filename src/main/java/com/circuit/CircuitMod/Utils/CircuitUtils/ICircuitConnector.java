@@ -1,4 +1,4 @@
-package com.circuit.CircuitMod.TileEntity.CircuitUtils;
+package com.circuit.CircuitMod.Utils.CircuitUtils;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;

@@ -1,9 +1,9 @@
 package com.circuit.CircuitMod.TileEntity.EventReceivers;
 
 import MiscUtils.TileEntity.ModTileEntity;
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ICircuitConnector;
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.IEventRec;
+import com.circuit.CircuitMod.Utils.ByteValues;
+import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
+import com.circuit.CircuitMod.Utils.CircuitUtils.IEventRec;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -15,7 +15,7 @@ public class TileEntityOneDigitDisplay extends ModTileEntity implements IEventRe
     public int DisplayNumber = -1;
     public int Rotation;
     int Reset = 0;
-    static int ResetAt = 5;
+    static int ResetAt = 2;
 
     public void updateEntity(){
         if(DisplayNumber != -1) {
