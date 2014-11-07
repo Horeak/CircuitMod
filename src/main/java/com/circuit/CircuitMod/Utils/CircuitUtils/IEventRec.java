@@ -1,4 +1,4 @@
-package com.circuit.CircuitMod.TileEntity.CircuitUtils;
+package com.circuit.CircuitMod.Utils.CircuitUtils;
 
 import com.circuit.CircuitMod.Utils.EventPacket;
 

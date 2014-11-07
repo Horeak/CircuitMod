@@ -1,7 +1,7 @@
 package com.circuit.CircuitMod.TileEntity.EventReceivers;
 
 import MiscUtils.TileEntity.IBlockInfo;
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
+import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;

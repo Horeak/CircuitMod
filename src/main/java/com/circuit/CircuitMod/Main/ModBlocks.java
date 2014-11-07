@@ -5,6 +5,7 @@ import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockLamp;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockMultiDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockOneDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockRedstoneEmitter;
+import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockSignalShortender;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockVariable;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockAddittionGate;
 import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockDigitEquals;
@@ -31,6 +32,7 @@ import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityLamp;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityRedstoneEmitter;
+import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntitySignalShortender;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityVariable;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityAdditionGate;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityDigitEquals;
@@ -57,12 +59,15 @@ public class ModBlocks {
 
     public static Block CircuitBox, CircuitCable, CableConnectionPoint, Lamp;
     public static Block Variable, RandomNumberComponent;
+    public static Block SignalShortender;
     public static Block DigitEquals, GreaterGate, LessGate;
     public static Block SignalGate, AdditionGate, SubtractionGate, MultiplicationGate, DividationGate;
     public static Block RedstoneReciver, RedstoneEmitter;
     public static Block OneDigitDisplay, OneDigitConstant, OneDigitCounter;
     public static Block MultiDigitDisplay, MultiDigitConstant, MultiDigitCounter;
 
+
+    //TODO Add sensors and text based event types (for example player sensors that outputs the player name and maybe range from the sensor? will also need some kind of constant and display)
 
     public static void RegisterBlocks(){
         BlockRegister Utils = new BlockRegister(CircuitMod.config, Ref.ModId);
@@ -97,6 +102,9 @@ public class ModBlocks {
 
         RandomNumberComponent = new ModBlockRandomNumberComponent().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(RandomNumberComponent, "RandomNumberComponent", TileEntityRandomNumber.class);
+
+        SignalShortender = new ModBlockSignalShortender().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
+        Utils.Register(SignalShortender, "SignalShortender", TileEntitySignalShortender.class);
 
 
         //Gates
