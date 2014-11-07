@@ -144,7 +144,7 @@ public class LampModel extends ModelBase
         int g = c.getGreen();
         int b = c.getBlue();
 
-        int Change = 20;
+        int Change = 25;
 
         if(On){
 
@@ -152,6 +152,11 @@ public class LampModel extends ModelBase
             g += Change;
             b += Change;
 
+        }
+        else{
+            r -= Change / 4;
+            g -= Change / 4;
+            b -= Change / 4;
         }
 
 

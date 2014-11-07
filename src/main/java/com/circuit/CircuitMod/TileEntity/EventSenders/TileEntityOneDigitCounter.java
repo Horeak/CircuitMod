@@ -1,6 +1,6 @@
 package com.circuit.CircuitMod.TileEntity.EventSenders;
 
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ByteValues;
+import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.Utils.TileEntityCounterBase;
 
 public class TileEntityOneDigitCounter extends TileEntityCounterBase{

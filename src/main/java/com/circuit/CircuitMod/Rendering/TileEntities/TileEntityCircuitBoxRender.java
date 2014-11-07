@@ -3,7 +3,7 @@ package com.circuit.CircuitMod.Rendering.TileEntities;
 import MiscUtils.Render.TileEntityBlockInfoRender;
 import com.circuit.CircuitMod.Rendering.Models.CircuitBoxModel;
 import com.circuit.CircuitMod.Rendering.Models.CircuitCableModel;
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ICircuitConnector;
+import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
 import com.circuit.CircuitMod.Utils.Ref;

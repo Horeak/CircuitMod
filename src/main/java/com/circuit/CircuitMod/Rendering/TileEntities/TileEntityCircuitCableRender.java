@@ -1,7 +1,7 @@
 package com.circuit.CircuitMod.Rendering.TileEntities;
 
 import com.circuit.CircuitMod.Rendering.Models.CircuitCableModel;
-import com.circuit.CircuitMod.TileEntity.CircuitUtils.ICircuitConnector;
+import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
 import com.circuit.CircuitMod.Utils.Ref;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

@@ -1,10 +1,11 @@
-package com.circuit.CircuitMod.TileEntity.CircuitUtils;
+package com.circuit.CircuitMod.Utils;
 
 public enum ByteValues {
 
     OnSignal((byte)0),
     OneDigitNumber((byte)1),
-    MultiDigitNumber((byte)2);
+    MultiDigitNumber((byte)2),
+    TextSignal((byte)3);
 
 
 
