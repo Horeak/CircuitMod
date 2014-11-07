@@ -24,6 +24,7 @@ import com.circuit.CircuitMod.Blocks.ModBlockCircuitBox;
 import com.circuit.CircuitMod.Blocks.ModBlockCircuitCable;
 import com.circuit.CircuitMod.Blocks.ModBlockSignalGate;
 import com.circuit.CircuitMod.Items.ItemBlockCableConnectionPoint;
+import com.circuit.CircuitMod.Items.ItemBlockCircuitBox;
 import com.circuit.CircuitMod.Items.ItemBlockCircuitCable;
 import com.circuit.CircuitMod.Items.ItemBlockLamp;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityLamp;
@@ -69,7 +70,7 @@ public class ModBlocks {
 
         //Main blocks
         CircuitBox = new ModBlockCircuitBox().setCreativeTab(CircuitMod.CreativeTab);
-        Utils.Register(CircuitBox, "CircuitBox", TileEntityCircuitBox.class);
+        Utils.Register(CircuitBox, ItemBlockCircuitBox.class, "CircuitBox", TileEntityCircuitBox.class);
 
         CircuitCable = new ModBlockCircuitCable().setCreativeTab(CircuitMod.CreativeTab);
         Utils.Register(CircuitCable, ItemBlockCircuitCable.class, "CircuitCable",  TileEntityCircuitCable.class);
@@ -127,11 +128,11 @@ public class ModBlocks {
 
 
         //One digit utils
-        OneDigitConstant = new ModBlockOneDigitConstant().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(OneDigitConstant, "OneDigitConstant", TileEntityOneDigitConstant.class);
-
         OneDigitDisplay = new ModBlockOneDigitDisplay().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(OneDigitDisplay,  "OneDigitDisplay", TileEntityOneDigitDisplay.class);
+
+        OneDigitConstant = new ModBlockOneDigitConstant().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
+        Utils.Register(OneDigitConstant, "OneDigitConstant", TileEntityOneDigitConstant.class);
 
         OneDigitCounter = new ModBlockOneDigitCounter().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(OneDigitCounter, "OneDigitCounter", TileEntityOneDigitCounter.class);

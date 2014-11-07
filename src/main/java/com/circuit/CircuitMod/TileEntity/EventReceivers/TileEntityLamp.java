@@ -14,7 +14,7 @@ public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuit
 
     public boolean Powered = false;
     int Reset = 0;
-    static int ResetAt = 5;
+    static int ResetAt = 2;
 
     public void updateEntity(){
 

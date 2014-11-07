@@ -15,7 +15,7 @@ public class TileEntityOneDigitDisplay extends ModTileEntity implements IEventRe
     public int DisplayNumber = -1;
     public int Rotation;
     int Reset = 0;
-    static int ResetAt = 5;
+    static int ResetAt = 2;
 
     public void updateEntity(){
         if(DisplayNumber != -1) {

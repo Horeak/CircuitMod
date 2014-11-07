@@ -14,7 +14,7 @@ public class TileEntityMultiDigitDisplay extends ModTileEntity implements IEvent
     public int DisplayNumber = -1;
     public int Rotation;
     int Reset = 0;
-    static int ResetAt = 5;
+    static int ResetAt = 2;
     static int MaxNum = 9999;
 
     public void updateEntity(){

@@ -161,7 +161,6 @@ public abstract class TileEntityCounterBase extends TileEntityEventSender  imple
         Strings.add(IncrementOrDecrement() ? (StatCollector.translateToLocal("blockinfo.counter.increment").replace("$Number", (EnumChatFormatting.GRAY + "" + Change + EnumChatFormatting.RESET))) : (StatCollector.translateToLocal("blockinfo.counter.decrement").replace("$Number", (EnumChatFormatting.GRAY + "" + Change + EnumChatFormatting.RESET))));
         Strings.add(StatCollector.translateToLocal("blockinfo.all.inputnumber"));
         Strings.add(StatCollector.translateToLocal("blockinfo.counter.resetsat").replace("$Number", (EnumChatFormatting.GRAY + "" + ResetAt + EnumChatFormatting.RESET)));
-        Strings.add(StatCollector.translateToLocal("blockinfo.all.shiftchange"));
 
     }
 }
