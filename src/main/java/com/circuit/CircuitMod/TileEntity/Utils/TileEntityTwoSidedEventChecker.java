@@ -56,11 +56,13 @@ public abstract class TileEntityTwoSidedEventChecker extends TileEntityEventSend
         if(packet.LastSentFrom == GetDirectionA()){
             if(packet.ByteValue == InputPacketA() || InputPacketA() == -1)
             packetA = packet;
+            ResetPacketA = 0;
             return;
 
         }else if(packet.LastSentFrom == GetDirectionB()){
             if(packet.ByteValue == InputPacketB() || InputPacketB() == -1)
             packetB = packet;
+            ResetPacketB = 0;
             return;
         }
 

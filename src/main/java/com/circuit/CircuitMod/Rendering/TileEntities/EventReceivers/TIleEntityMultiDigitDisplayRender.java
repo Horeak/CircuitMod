@@ -1,6 +1,6 @@
 package com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers;
 
-import MiscUtils.MiscUtils;
+import MiscUtils.MiscUtilsMain;
 import com.circuit.CircuitMod.Rendering.Models.DefaultCircuitBlockModel;
 import com.circuit.CircuitMod.Rendering.Models.DigitDisplayModel;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
@@ -76,7 +76,7 @@ public class TIleEntityMultiDigitDisplayRender  extends TileEntitySpecialRendere
 
                 GL11.glScalef(scale, scale, 0.5F);
 
-                for (int i = 0; i < (MiscUtils.IsLoadedInDev ? 4 : 5); i++) {
+                for (int i = 0; i < (MiscUtilsMain.IsLoadedInDev ? 4 : 5); i++) {
 
                     if(i != 0)
                         GL11.glTranslatef(-offset, 0F, 0F);
