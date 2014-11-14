@@ -1,7 +1,9 @@
 package com.circuit.CircuitMod.Main;
 
+import MiscUtils.GuideBase.Registry.GuideModRegistry;
 import MiscUtils.Network.ChannelUtils;
 import com.circuit.CircuitMod.Gui.GuiHandler;
+import com.circuit.CircuitMod.Main.GuideIntegration.CircuitModGuideInstance;
 import com.circuit.CircuitMod.Packets.MultiDigitConstantValueChanged;
 import com.circuit.CircuitMod.Packets.MultiDigitCounterValueChanged;
 import com.circuit.CircuitMod.Packets.OneDigitConstantValueChanged;
@@ -65,6 +67,8 @@ public class CircuitMod {
         CircuitBoxModeUtils.RegisterModes();
 
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+
+        GuideModRegistry.RegisterModToGuide(new CircuitModGuideInstance());
 
     }
 

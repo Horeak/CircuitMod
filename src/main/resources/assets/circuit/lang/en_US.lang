@@ -51,3 +51,9 @@ gui.mulitidigitconstant.setvalue=Set Value
 item.desc.changeblockcolorfromcable.half1=The block color can be changed by 
 item.desc.changeblockcolorfromcable.half2=right clicking with a colored cable
 item.desc.differentcolorsnoconnect=Different colors wont connect together
+
+
+guide.circuit.name=CircuitMod Guide
+
+guide.circuit.tab.main=Main Tab
+guide.circuit.tab.blocks=Blocks Tab

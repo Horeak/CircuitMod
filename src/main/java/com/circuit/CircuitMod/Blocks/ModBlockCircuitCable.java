@@ -1,6 +1,7 @@
 package com.circuit.CircuitMod.Blocks;
 
 import MiscUtils.Block.ModBlockCustomModel;
+import com.circuit.CircuitMod.Main.ModBlocks;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -73,17 +74,14 @@ public class ModBlockCircuitCable extends ModBlockCustomModel {
         return true;
     }
 
-    public void onNeighborChange(IBlockAccess world, int x, int y, int z, int tileX, int tileY, int tileZ)
-    {
-        onNeighborBlockChange((World)world, x, y, z, world.getBlock(x,y,z));
-
-    }
 
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        if(!canBlockStay((World)world, x,y,z)){
-            world.getBlock(x,y,z).dropBlockAsItem((World)world, x,y,z, world.getBlockMetadata(x,y,z), 1);
-            ((World) world).setBlock(x,y,z, Blocks.air, 0, 2);
+        if(world.getBlock(x,y,z) == ModBlocks.CircuitCable) {
+            if (!canBlockStay((World) world, x, y, z)) {
+                world.getBlock(x, y, z).dropBlockAsItem((World) world, x, y, z, world.getBlockMetadata(x, y, z), 1);
+                ((World) world).setBlock(x, y, z, Blocks.air, 0, 2);
 
+            }
         }
     }
 

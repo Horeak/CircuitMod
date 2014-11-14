@@ -1,0 +1,1 @@
+block.info.circuit_box=This is a test message to see if this test message works!
