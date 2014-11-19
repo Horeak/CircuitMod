@@ -45,6 +45,7 @@ public class CircuitModGuideInstance extends GuideInstance {
     public void RegisterInfo() {
         MainTab = new ModGuideText(this, Items.paper, "guide.circuit.tab.main");
         BlocksTab = new GuideTab(this, ModBlocks.CircuitBox, "guide.circuit.tab.blocks");
+
         for(Object r : Block.blockRegistry) {
 
             Block bl = (Block) r;

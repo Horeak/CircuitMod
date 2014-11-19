@@ -75,13 +75,13 @@ public class ModBlocks {
 
         //Main blocks
         CircuitBox = new ModBlockCircuitBox().setCreativeTab(CircuitMod.CreativeTab);
-        Utils.Register(CircuitBox, ItemBlockCircuitBox.class, "CircuitBox", TileEntityCircuitBox.class);
+        Utils.Register(CircuitBox, ItemBlockCircuitBox.class, "Circuit Box", TileEntityCircuitBox.class);
 
         CircuitCable = new ModBlockCircuitCable().setCreativeTab(CircuitMod.CreativeTab);
-        Utils.Register(CircuitCable, ItemBlockCircuitCable.class, "CircuitCable",  TileEntityCircuitCable.class);
+        Utils.Register(CircuitCable, ItemBlockCircuitCable.class, "Circuit Cable",  TileEntityCircuitCable.class);
 
         CableConnectionPoint = new ModBlockCableConnectionPoint().setCreativeTab(CircuitMod.CreativeTab).setBlockTextureName(Ref.ModId.toLowerCase() + ":CableConnectionPoint");
-        Utils.Register(CableConnectionPoint, ItemBlockCableConnectionPoint.class, "CableConnectionPoint", TileEntityCableConnectionPoint.class);
+        Utils.Register(CableConnectionPoint, ItemBlockCableConnectionPoint.class, "Cable Connection Point", TileEntityCableConnectionPoint.class);
 
         Lamp = new ModBlockLamp().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(Lamp, ItemBlockLamp.class, "Lamp", TileEntityLamp.class);
@@ -90,10 +90,10 @@ public class ModBlocks {
 
         //Redstone handlers
         RedstoneReciver = new ModBlockRedstoneReciver().setCreativeTab(CircuitMod.CreativeTab).setBlockTextureName(Ref.ModId.toLowerCase() + ":RedstoneEventReciver").setHardness(1F);
-        Utils.Register(RedstoneReciver, "RedstoneReciver", TileEntityRedstoneReciver.class);
+        Utils.Register(RedstoneReciver, "Redstone Reciver", TileEntityRedstoneReciver.class);
 
         RedstoneEmitter = new ModBlockRedstoneEmitter().setCreativeTab(CircuitMod.CreativeTab).setBlockTextureName(Ref.ModId.toLowerCase() + ":RedstoneEmitter").setHardness(1F);
-        Utils.Register(RedstoneEmitter, "RedstoneEmitter", TileEntityRedstoneEmitter.class);
+        Utils.Register(RedstoneEmitter, "Redstone Emitter", TileEntityRedstoneEmitter.class);
 
 
         //Random things
@@ -101,62 +101,62 @@ public class ModBlocks {
         Utils.Register(Variable, "Variable", TileEntityVariable.class);
 
         RandomNumberComponent = new ModBlockRandomNumberComponent().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(RandomNumberComponent, "RandomNumberComponent", TileEntityRandomNumber.class);
+        Utils.Register(RandomNumberComponent, "Random Number Component", TileEntityRandomNumber.class);
 
         SignalShortender = new ModBlockSignalShortender().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(SignalShortender, "SignalShortender", TileEntitySignalShortender.class);
+        Utils.Register(SignalShortender, "Signal Shor-tender", TileEntitySignalShortender.class);
 
 
         //Gates
         DigitEquals = new ModBlockDigitEquals().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(DigitEquals, "EqualsGate", TileEntityDigitEquals.class);
+        Utils.Register(DigitEquals, "Equals Gate", TileEntityDigitEquals.class);
 
         GreaterGate = new ModBlockGreaterGate().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(GreaterGate, "Greatergate", TileEntityGreaterGate.class);
+        Utils.Register(GreaterGate, "Greater gate", TileEntityGreaterGate.class);
 
         LessGate = new ModBlockLessGate().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(LessGate, "LessGate", TileEntityLessGate.class);
+        Utils.Register(LessGate, "Less Gate", TileEntityLessGate.class);
 
 
         SignalGate = new ModBlockSignalGate().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(SignalGate, "SignalGate", TileEntitySignalGate.class);
+        Utils.Register(SignalGate, "Signal Gate", TileEntitySignalGate.class);
 
         AdditionGate = new ModBlockAddittionGate().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(AdditionGate, "AdditionGate", TileEntityAdditionGate.class);
+        Utils.Register(AdditionGate, "Addition Gate", TileEntityAdditionGate.class);
 
         SubtractionGate = new ModBlockSubtractionGate().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(SubtractionGate, "SubtractionGate", TileEntitySubtractionGate.class);
+        Utils.Register(SubtractionGate, "Subtraction Gate", TileEntitySubtractionGate.class);
 
         MultiplicationGate = new ModBlockMultiplicationGate().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(MultiplicationGate, "MultiplicationGate", TileEntityMultiplicationGate.class);
+        Utils.Register(MultiplicationGate, "Multiplication Gate", TileEntityMultiplicationGate.class);
 
         DividationGate = new ModBlockDividationGate().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(DividationGate, "DividationGate", TileEntityDividationGate.class);
+        Utils.Register(DividationGate, "Dividation Gate", TileEntityDividationGate.class);
 
 
 
         //One digit utils
         OneDigitDisplay = new ModBlockOneDigitDisplay().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(OneDigitDisplay,  "OneDigitDisplay", TileEntityOneDigitDisplay.class);
+        Utils.Register(OneDigitDisplay,  "One-Digit Display", TileEntityOneDigitDisplay.class);
 
         OneDigitConstant = new ModBlockOneDigitConstant().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(OneDigitConstant, "OneDigitConstant", TileEntityOneDigitConstant.class);
+        Utils.Register(OneDigitConstant, "One-Digit Constant", TileEntityOneDigitConstant.class);
 
         OneDigitCounter = new ModBlockOneDigitCounter().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(OneDigitCounter, "OneDigitCounter", TileEntityOneDigitCounter.class);
+        Utils.Register(OneDigitCounter, "One-Digit Counter", TileEntityOneDigitCounter.class);
 
 
 
 
         //Multi digit utils
         MultiDigitDisplay = new ModBlockMultiDigitDisplay().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(MultiDigitDisplay, "MultiDigitDisplay", TileEntityMultiDigitDisplay.class);
+        Utils.Register(MultiDigitDisplay, "Multi-Digit Display", TileEntityMultiDigitDisplay.class);
 
         MultiDigitConstant = new ModBlockMultiDigitConstant().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(MultiDigitConstant, "MultiDigitConstant", TileEntityMultiDigitConstant.class);
+        Utils.Register(MultiDigitConstant, "Multi-Digit Constant", TileEntityMultiDigitConstant.class);
 
         MultiDigitCounter = new ModBlockMultiDigitCounter().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(MultiDigitCounter, "MultiDigitCounter", TileEntityMultiDigitCounter.class);
+        Utils.Register(MultiDigitCounter, "Multi-Digit Counter", TileEntityMultiDigitCounter.class);
 
 
 

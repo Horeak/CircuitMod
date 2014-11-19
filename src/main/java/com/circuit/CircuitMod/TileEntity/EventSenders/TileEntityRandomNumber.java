@@ -66,7 +66,7 @@ public class TileEntityRandomNumber extends TileEntityEventSender implements IBl
     @Override
     public void Info(ArrayList<String> Strings) {
 
-        Strings.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("tile.randomnumbercomponent.name") + EnumChatFormatting.RESET);
+        Strings.add(EnumChatFormatting.WHITE + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + EnumChatFormatting.RESET);
         Strings.add(StatCollector.translateToLocal("blockinfo.randomnumbercomponent.posnum").replace("$Number", (EnumChatFormatting.GRAY + "1 -> " + MaxValue + EnumChatFormatting.RESET)));
 
     }

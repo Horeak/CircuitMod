@@ -231,7 +231,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
 
     @Override
     public void Info(ArrayList<String> Strings) {
-        Strings.add(EnumChatFormatting.WHITE + StatCollector.translateToLocal("tile.circuitbox.name"));
+        Strings.add(EnumChatFormatting.WHITE + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + EnumChatFormatting.RESET);
         if (CurrentMode != null) {
             Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.mode").replace("$Mode", (EnumChatFormatting.GRAY + CurrentMode.ModeName() + EnumChatFormatting.RESET)));
             Strings.add(StatCollector.translateToLocal("blockinfo.all.shiftchange"));
