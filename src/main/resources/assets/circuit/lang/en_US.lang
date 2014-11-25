@@ -30,6 +30,11 @@ tile.multi-digit_display.name=Multi-Digit Display
 tile.multi-digit_constant.name=Multi-Digit Constant
 tile.multi-digit_counter.name=Multi-Digit Counter
 
+tile.data_transmitter.name=Data Transmitter
+tile.data_constructor.name=Data Constructor
+tile.data_receiver.name=Data Receiver
+tile.data_chat_output.name=Data Chat-Output
+
 
 blockinfo.all.shiftchange=Shift-right click to change
 blockinfo.all.inputnumber=Input number to change
@@ -47,6 +52,10 @@ blockinfo.variable.value=Variable Value: $Number
 blockinfo.randomnumbercomponent.posnum=Possible Numbers: $Number
 
 gui.mulitidigitconstant.setvalue=Set Value
+gui.datatransmitter.setchannel=Set channel
+gui.datachannel.text=Enter channel id
+gui.dataconstructor.data=Enter data
+gui.dataconstructor.construct=Construct data packet
 
 item.desc.changeblockcolorfromcable.half1=The block color can be changed by 
 item.desc.changeblockcolorfromcable.half2=right clicking with a colored cable

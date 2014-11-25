@@ -4,6 +4,8 @@ import MiscUtils.GuideBase.Registry.GuideModRegistry;
 import MiscUtils.Network.ChannelUtils;
 import com.circuit.CircuitMod.Gui.GuiHandler;
 import com.circuit.CircuitMod.Main.GuideIntegration.CircuitModGuideInstance;
+import com.circuit.CircuitMod.Packets.DataChannelChanged;
+import com.circuit.CircuitMod.Packets.DataConstructPacket;
 import com.circuit.CircuitMod.Packets.MultiDigitConstantValueChanged;
 import com.circuit.CircuitMod.Packets.MultiDigitCounterValueChanged;
 import com.circuit.CircuitMod.Packets.OneDigitConstantValueChanged;
@@ -95,6 +97,8 @@ public class CircuitMod {
         Utils.handler.RegisterPacket(RandomNumberComponentValueChanged.class);
         Utils.handler.RegisterPacket(OneDigitConstantValueChanged.class);
         Utils.handler.RegisterPacket(OneDigitCounterValueChanged.class);
+        Utils.handler.RegisterPacket(DataChannelChanged.class);
+        Utils.handler.RegisterPacket(DataConstructPacket.class);
 
     }
 

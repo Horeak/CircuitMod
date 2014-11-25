@@ -5,7 +5,7 @@ public enum ByteValues {
     OnSignal((byte)0),
     OneDigitNumber((byte)1),
     MultiDigitNumber((byte)2),
-    TextSignal((byte)3);
+    DataSignal((byte)3);
 
 
 
