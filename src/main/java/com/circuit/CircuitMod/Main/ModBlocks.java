@@ -114,7 +114,7 @@ public class ModBlocks {
         Utils.Register(RandomNumberComponent, "Random Number Component", TileEntityRandomNumber.class);
 
         SignalShortender = new ModBlockSignalShortender().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(SignalShortender, "Signal Shor-tender", TileEntitySignalShortender.class);
+        Utils.Register(SignalShortender, "Signal Short-tender", TileEntitySignalShortender.class);
 
 
         //Gates

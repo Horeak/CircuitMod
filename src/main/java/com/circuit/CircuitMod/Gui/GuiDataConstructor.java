@@ -18,9 +18,14 @@ public class GuiDataConstructor extends GuiScreen
     private final ResourceLocation Texture = new ResourceLocation(Ref.ModId.toLowerCase() , "textures/gui/MultiDigitSetGui.png");
 
     GuiTextField Input;
+    String text = null;
 
     public GuiDataConstructor(TileEntityDataConstructor tile){
         this.tile = tile;
+
+        if(tile.SavedData != null)
+            text = tile.SavedData;
+
     }
 
 
@@ -44,9 +49,6 @@ public class GuiDataConstructor extends GuiScreen
 
         drawTexturedModalRect(posX, posY, 0, 0, xSizeOfTexture, ySizeOfTexture);
 
-        drawString(fontRendererObj, StatCollector.translateToLocal("gui.dataconstructor.data"), posX + 15, posY + 38, 0xffffff);
-
-
         if(Input != null)
             Input.drawTextBox();
 
@@ -69,8 +71,9 @@ public class GuiDataConstructor extends GuiScreen
             if (Input != null)
                 Input.textboxKeyTyped(key, keycode);
 
+        if(Input.isFocused())
         if(keycode == 28)
-            SendPacket();
+            SendPacket(false);
 
 
 
@@ -99,6 +102,10 @@ public class GuiDataConstructor extends GuiScreen
           if(Input == null){
               Input = new GuiTextField(fontRendererObj, xx, yy, xSize, ySize);
 
+              Input.setMaxStringLength(Integer.MAX_VALUE);
+
+              if(text != null)
+                  Input.setText(text);
 
 
           }else{
@@ -111,6 +118,7 @@ public class GuiDataConstructor extends GuiScreen
 
 
         buttonList.add(new GuiButton(1, posX + 20, posY + 59, 120, 20, StatCollector.translateToLocal("gui.dataconstructor.construct")));
+        buttonList.add(new GuiButton(2, posX + 20, posY + 39, 120, 20, StatCollector.translateToLocal("gui.dataconstructor.save")));
 
 
     }
@@ -120,18 +128,22 @@ public class GuiDataConstructor extends GuiScreen
         int id = bt.id;
 
         if (id == 1)
-            SendPacket();
+            SendPacket(false);
+
+        if (id == 2)
+            SendPacket(true);
 
     }
 
-    public void SendPacket(){
+    public void SendPacket(boolean sf){
 
         if(Input != null){
             String text = Input.getText();
 
             if(text != null && !text.isEmpty()){
-                PacketHandler.sendToServer(new DataConstructPacket(tile, text), CircuitMod.Utils.channels);
+                PacketHandler.sendToServer(new DataConstructPacket(tile, text, sf), CircuitMod.Utils.channels);
 
+                if(!sf)
                 Input.setText("");
 
             }

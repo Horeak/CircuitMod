@@ -15,14 +15,17 @@ public class DataConstructPacket extends AbstractPacket{
 
     int x, y, z;
     String value;
+    boolean Save;
 
     public DataConstructPacket(){}
-    public DataConstructPacket(TileEntity tile, String text){
+    public DataConstructPacket(TileEntity tile, String text, boolean Save){
         x = tile.xCoord;
         y = tile.yCoord;
         z = tile.zCoord;
 
         value = text;
+
+        this.Save = Save;
     }
 
     @Override
@@ -31,6 +34,8 @@ public class DataConstructPacket extends AbstractPacket{
         buffer.writeInt(x);
         buffer.writeInt(y);
         buffer.writeInt(z);
+
+        buffer.writeBoolean(Save);
 
         ByteBufUtils.writeUTF8String(buffer, value);
 
@@ -42,6 +47,8 @@ public class DataConstructPacket extends AbstractPacket{
         x = buffer.readInt();
         y = buffer.readInt();
         z = buffer.readInt();
+
+        Save = buffer.readBoolean();
 
         value = ByteBufUtils.readUTF8String(buffer);
 
@@ -55,10 +62,15 @@ public class DataConstructPacket extends AbstractPacket{
 
         if(world.getTileEntity(x,y,z) instanceof TileEntityDataConstructor){
             TileEntityDataConstructor tile = (TileEntityDataConstructor)world.getTileEntity(x,y,z);
-            tile.SendPacketFromGUI(value);
+            if(!Save) {
+                tile.SendPacketFromGUI(value);
+                tile.SavedData = null;
+            } else {
+                tile.SavedData = value;
+            }
 
             if(side == Side.SERVER){
-                PacketHandler.sendToAll(new DataConstructPacket(tile, value), CircuitMod.Utils.channels);
+                PacketHandler.sendToAll(new DataConstructPacket(tile, value, Save), CircuitMod.Utils.channels);
             }
 
             world.notifyBlocksOfNeighborChange(x,y,z, world.getBlock(x,y,z));

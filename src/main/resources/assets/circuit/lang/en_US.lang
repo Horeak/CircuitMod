@@ -54,7 +54,7 @@ blockinfo.randomnumbercomponent.posnum=Possible Numbers: $Number
 gui.mulitidigitconstant.setvalue=Set Value
 gui.datatransmitter.setchannel=Set channel
 gui.datachannel.text=Enter channel id
-gui.dataconstructor.data=Enter data
+gui.dataconstructor.save=Save data Packet
 gui.dataconstructor.construct=Construct data packet
 
 item.desc.changeblockcolorfromcable.half1=The block color can be changed by 

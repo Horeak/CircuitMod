@@ -61,6 +61,7 @@ public class TileEntityDataChatOutput extends TileEntityEventSender{
                     EntityPlayer player = (EntityPlayer)r;
                     if(player.getDistance(xCoord, yCoord, zCoord) <= Range) {
 
+                        if(!worldObj.isRemote)
                         ChatMessageHandler.sendChatToPlayer(player, Message);
                     }
 
