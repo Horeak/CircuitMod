@@ -33,10 +33,12 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
 
                                     if(!EventPacket.ContainesVactor(packet, vec)) {
 
-                                        EventPacket sendPacket = new EventPacket(packet.TimeOut, packet.ByteValue);
+                                        EventPacket sendPacket = packet.GetInstance();
 
                                         NBTTagCompound nbt = new NBTTagCompound();
                                         packet.SaveToNBT(nbt);
+
+                                        sendPacket.RecreatingPacket(packet);
 
                                         sendPacket.NBT = packet.NBT;
                                         sendPacket.LoadFromNBT(nbt);

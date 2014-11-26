@@ -3,6 +3,7 @@ package com.circuit.CircuitMod.TileEntity.DataBlocks;
 import MiscUtils.Handlers.ChatMessageHandler;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.ByteValues;
+import com.circuit.CircuitMod.Utils.DataPacket;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,6 +22,7 @@ public class TileEntityDataChatOutput extends TileEntityEventSender{
 
     static int RANGE_DEFAULT = 10;
     int Range = RANGE_DEFAULT;
+
 
     public void updateEntity(){
 
@@ -50,8 +52,11 @@ public class TileEntityDataChatOutput extends TileEntityEventSender{
 
         }else if(packet.ByteValue == ByteValues.DataSignal.Value()){
 
+            DataPacket dtPacket = (DataPacket)packet;
+
             String Pre = EnumChatFormatting.GRAY + "[" + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + "]: " + EnumChatFormatting.RESET;
-            String Message = Pre + packet.NBT.getString("Data");
+
+            String Message = Pre + dtPacket.GetTotalData();
 
             double rn = (Range + 1);
             List list = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - rn, yCoord - rn, zCoord - rn, xCoord + rn, yCoord + rn, zCoord + rn));

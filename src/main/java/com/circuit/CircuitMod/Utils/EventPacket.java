@@ -30,12 +30,20 @@ public class EventPacket {
 
     public NBTTagCompound NBT = new NBTTagCompound();
 
+    public EventPacket GetInstance(){
+        return new EventPacket(TimeOut, ByteValue);
+    }
+
 
     public EventPacket(int TimeOut, byte Value){
         this.TimeOut = TimeOut;
         this.ByteValue = Value;
         TimedOut = false;
 
+
+    }
+
+    public void RecreatingPacket(EventPacket packet){
 
     }
 

@@ -2,6 +2,7 @@ package com.circuit.CircuitMod.TileEntity.DataBlocks;
 
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.ByteValues;
+import com.circuit.CircuitMod.Utils.DataPacket;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -9,7 +10,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileEntityDataConstructor extends TileEntityEventSender {
 
-    public String SavedData = null;
+    public String SavedData;
     int Reset = 0;
     static int ResetAt = 1;
     boolean Resetting;
@@ -28,8 +29,8 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
     }
 
     public void SendPacketFromGUI(String Data){
-        EventPacket packet = CreatePacket();
-        packet.NBT.setString("Data", Data);
+        DataPacket packet = CreatePacket();
+        packet.SaveData(DataPacket.DEFAULT_DATA_STORAGE, Data);
         SendPacketToAround(packet);
     }
 
@@ -37,8 +38,8 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
     public void OnRecived(EventPacket packet) {
         if(!Resetting){
 
-        EventPacket SendPacket = CreatePacket();
-        SendPacket.NBT.setString("Data", SavedData);
+        DataPacket SendPacket = CreatePacket();
+        SendPacket.SaveData(DataPacket.DEFAULT_DATA_STORAGE, SavedData);
         SendPacketToAround(SendPacket);
 
             Resetting = true;
@@ -50,8 +51,8 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
     }
 
 
-    public EventPacket CreatePacket(){
-        EventPacket packet = new EventPacket(-1 ,ByteValues.DataSignal.Value());
+    public DataPacket CreatePacket(){
+        DataPacket packet = new DataPacket(-1 ,ByteValues.DataSignal.Value());
         return packet;
     }
 
@@ -69,7 +70,12 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
         super.readFromNBT(nbtTagCompound);
 
+        boolean t = nbtTagCompound.getBoolean("SavedDataNotNull");
+
+        if(t)
         SavedData = nbtTagCompound.getString("SavedData");
+
+
         Resetting = nbtTagCompound.getBoolean("Resetting");
         Reset = nbtTagCompound.getInteger("Reset");
 
@@ -80,7 +86,12 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
 
+        nbtTagCompound.setBoolean("SavedDataNotNull", SavedData != null);
+
+        if(SavedData != null)
         nbtTagCompound.setString("SavedData", SavedData);
+
+
         nbtTagCompound.setInteger("Reset", Reset);
         nbtTagCompound.setBoolean("Resetting", Resetting);
 
