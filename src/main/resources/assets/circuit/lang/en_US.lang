@@ -34,8 +34,8 @@ tile.data_transmitter.name=Data Transmitter
 tile.data_constructor.name=Data Constructor
 tile.data_receiver.name=Data Receiver
 tile.data_chat_output.name=Data Chat-Output
-tile.data_selector.name=Data Channel Reader
-tile.data_converter.name=Data Channel Encoder
+tile.data_selector.name=Data Tag Reader
+tile.data_converter.name=Data Tag Encoder
 
 
 blockinfo.all.shiftchange=Shift-right click to change
@@ -62,6 +62,8 @@ gui.dataselector.mode.0=Whitelist
 gui.dataselector.mode.1=Blacklist
 gui.dataselector.save=Save
 gui.dataselector.default=Default
+gui.dataconverter.from=Convert from
+gui.dataconverter.to=Convert to
 
 item.desc.changeblockcolorfromcable.half1=The block color can be changed by 
 item.desc.changeblockcolorfromcable.half2=right clicking with a colored cable

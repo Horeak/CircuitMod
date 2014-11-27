@@ -14,11 +14,13 @@ public class TileEntityDataSelector extends TileEntityEventSender implements IDa
     public ForgeDirection dir = ForgeDirection.UNKNOWN;
     public String DataTagUse = DataPacket.DEFAULT_DATA_STORAGE;
 
+    //0 = Whitelist
+    //1 = Blacklist
     public int Mode = 0;
 
     @Override
     public boolean CanRecive(EventPacket packet) {
-        return packet instanceof DataPacket && packet.ByteValue == ByteValues.DataSignal.Value();
+        return packet instanceof DataPacket && packet.ByteValue == ByteValues.DataSignal.Value() && packet.LastSentFrom != dir;
     }
 
     @Override
@@ -34,16 +36,29 @@ public class TileEntityDataSelector extends TileEntityEventSender implements IDa
         for(int i = 0; i < pack.DataStorageFree.size(); i++){
             String t = pack.DataStorageFree.get(i);
 
+            boolean Keep = false;
 
                 String[] dt_Text = t.split(DataPacket.SPLIT_DATA_TAG);
-                    String DataTag = dt_Text[0];
+                String DataTag = dt_Text[0];
 
-                    if(Mode == 0 && DataTag == DataTagUse
-                       || Mode == 1 && DataTag != DataTagUse) {
-
-                        pack.RemoveData(DataTag);
-                    }
+            if(Mode == 0){
+                if(DataTag.equals(DataTagUse)) {
+                    Keep = true;
                 }
+
+            }
+
+            if(Mode == 1){
+                if(!DataTag.equals(DataTagUse)) {
+                    Keep = true;
+                }
+            }
+
+            if(!Keep)
+                pack.RemoveData(DataTag);
+
+
+            }
 
         if(!pack.GetTotalData().isEmpty())
         SendPacketTo(pack, dir);

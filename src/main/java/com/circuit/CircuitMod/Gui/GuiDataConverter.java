@@ -19,13 +19,17 @@ public class GuiDataConverter extends GuiScreen
     private final ResourceLocation Texture = new ResourceLocation(Ref.ModId.toLowerCase() , "textures/gui/MultiDigitSetGui.png");
 
     GuiTextField Input;
-    String text = null;
+    GuiTextField Input2;
+    String text = null, text2 = null;
 
     public GuiDataConverter(TileEntityDataConverter tile){
         this.tile = tile;
 
         if(tile.DataTagUse != null)
             text = tile.DataTagUse;
+
+        if(tile.DataTagFrom != null)
+            text2 = tile.DataTagFrom;
 
     }
 
@@ -49,9 +53,16 @@ public class GuiDataConverter extends GuiScreen
         int posY = (this.height - ySizeOfTexture) / 2;
 
         drawTexturedModalRect(posX, posY, 0, 0, xSizeOfTexture, ySizeOfTexture);
+        drawTexturedModalRect(posX, posY + 79, 0, 45, xSizeOfTexture, 40);
+
+        drawString(fontRendererObj, StatCollector.translateToLocal("gui.dataconverter.from"), posX + 12, posY + 5, 0xffffff);
+        drawString(fontRendererObj, StatCollector.translateToLocal("gui.dataconverter.to"), posX + 12, posY + 42, 0xffffff);
 
         if(Input != null)
             Input.drawTextBox();
+
+        if(Input2 != null)
+            Input2.drawTextBox();
 
         initGui();
 
@@ -72,6 +83,10 @@ public class GuiDataConverter extends GuiScreen
             if (Input != null)
                 Input.textboxKeyTyped(key, keycode);
 
+        if (Input2 != null)
+            Input2.textboxKeyTyped(key, keycode);
+
+
         if(Input.isFocused())
         if(keycode == 28)
             SendPacket();
@@ -84,9 +99,11 @@ public class GuiDataConverter extends GuiScreen
     protected void mouseClicked(int x, int y, int g) {
         super.mouseClicked(x, y, g);
 
-
         if(Input != null)
             Input.mouseClicked(x, y, g);
+
+        if(Input2 != null)
+            Input2.mouseClicked(x, y, g);
     }
 
 
@@ -98,28 +115,38 @@ public class GuiDataConverter extends GuiScreen
         int posY = (this.height - ySizeOfTexture) / 2;
 
         int xSize = 140, ySize = 20;
-        int xx = posX + 10, yy = posY + 10;
+        int xx = posX + 10, yy = posY + 18;
 
-          if(Input == null){
-              Input = new GuiTextField(fontRendererObj, xx, yy, xSize, ySize);
+          if(Input2 == null){
+              Input2 = new GuiTextField(fontRendererObj, xx, yy, xSize, ySize);
 
-              Input.setMaxStringLength(Integer.MAX_VALUE);
+              Input2.setMaxStringLength(Integer.MAX_VALUE);
 
-              if(text != null)
-                  Input.setText(text);
+              if(text2 != null)
+                  Input2.setText(text2);
 
 
           }else{
-              Input.xPosition = xx;
-              Input.yPosition = yy;
-
-              Input.width = xSize;
-              Input.height = ySize;
+              Input2.xPosition = xx;
+              Input2.yPosition = yy;
           }
 
 
-        buttonList.add(new GuiButton(2, posX + 15, posY + 59, 60, 20, StatCollector.translateToLocal("gui.dataselector.save")));
-        buttonList.add(new GuiButton(3, posX + 89, posY + 59, 60, 20, StatCollector.translateToLocal("gui.dataselector.default")));
+        yy += 15 + ySize;
+
+        if(Input == null){
+            Input = new GuiTextField(fontRendererObj, xx, yy, xSize, ySize);
+            Input.setMaxStringLength(Integer.MAX_VALUE);
+
+            if(text != null)
+                Input.setText(text);
+        }else{
+            Input.xPosition = xx;
+            Input.yPosition = yy;
+        }
+
+        buttonList.add(new GuiButton(2, posX + 15, posY + 89, 60, 20, StatCollector.translateToLocal("gui.dataselector.save")));
+        buttonList.add(new GuiButton(3, posX + 89, posY + 89, 60, 20, StatCollector.translateToLocal("gui.dataselector.default")));
 
 
     }
@@ -135,6 +162,7 @@ public class GuiDataConverter extends GuiScreen
 
         if(id == 3){
             Input.setText(DataPacket.DEFAULT_DATA_STORAGE);
+            Input2.setText(DataPacket.DEFAULT_DATA_STORAGE);
         }
 
     }
@@ -143,9 +171,10 @@ public class GuiDataConverter extends GuiScreen
 
         if(Input != null){
             String text = Input.getText();
+            String text2 = Input2.getText();
 
-            if(text != null && !text.isEmpty()){
-                PacketHandler.sendToServer(new DataConverterPacket(tile, text), CircuitMod.Utils.channels);
+            if(text != null && !text.isEmpty() && text2 != null && !text2.isEmpty()){
+                PacketHandler.sendToServer(new DataConverterPacket(tile, text, text2), CircuitMod.Utils.channels);
 
 
             }

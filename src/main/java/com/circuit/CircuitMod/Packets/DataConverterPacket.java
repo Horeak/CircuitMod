@@ -14,15 +14,16 @@ import net.minecraft.world.World;
 public class DataConverterPacket extends AbstractPacket{
 
     int x, y, z;
-    String value;
+    String value, val;
 
     public DataConverterPacket(){}
-    public DataConverterPacket(TileEntity tile, String text){
+    public DataConverterPacket(TileEntity tile, String text, String val){
         x = tile.xCoord;
         y = tile.yCoord;
         z = tile.zCoord;
 
         value = text;
+        this.val = val;
 
     }
 
@@ -35,6 +36,7 @@ public class DataConverterPacket extends AbstractPacket{
 
 
         ByteBufUtils.writeUTF8String(buffer, value);
+        ByteBufUtils.writeUTF8String(buffer, val);
 
     }
 
@@ -47,6 +49,7 @@ public class DataConverterPacket extends AbstractPacket{
 
 
         value = ByteBufUtils.readUTF8String(buffer);
+        val = ByteBufUtils.readUTF8String(buffer);
 
     }
 
@@ -59,10 +62,11 @@ public class DataConverterPacket extends AbstractPacket{
         if(world.getTileEntity(x,y,z) instanceof TileEntityDataConverter){
             TileEntityDataConverter tile = (TileEntityDataConverter)world.getTileEntity(x,y,z);
 
-                tile.DataTagUse = value;
+            tile.DataTagUse = value;
+            tile.DataTagFrom = val;
 
             if(side == Side.SERVER){
-                PacketHandler.sendToAll(new DataConverterPacket(tile, value), CircuitMod.Utils.channels);
+                PacketHandler.sendToAll(new DataConverterPacket(tile, value, val), CircuitMod.Utils.channels);
             }
 
             world.notifyBlocksOfNeighborChange(x,y,z, world.getBlock(x,y,z));

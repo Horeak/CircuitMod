@@ -53,7 +53,7 @@ public class DataPacket extends EventPacket {
 
                     String text = dt_Text[2];
 
-                    data = data + (data.isEmpty() ? "" : ", ") + text;
+                    data = data + (data.isEmpty() ? "" : ", ") + DataTag + ": " + text;
                 }
             }
         }
@@ -73,7 +73,7 @@ public class DataPacket extends EventPacket {
 
                     String text = dt_Text[2];
 
-                    data = data + (data.isEmpty() ? "" : ", ") + text;
+                    data = data + (data.isEmpty() ? "" : ", ") + DataTag + ": " + text;
                 }
             }
         }

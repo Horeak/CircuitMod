@@ -121,9 +121,9 @@ public class GuiDataSelector extends GuiScreen
           }
 
 
-        buttonList.add(new GuiButton(1, posX + 15, posY + 59, 60, 20, StatCollector.translateToLocal("gui.dataselector.mode." + Mode)));
-        buttonList.add(new GuiButton(2, posX + 85, posY + 59, 60, 20, StatCollector.translateToLocal("gui.dataselector.save")));
-        buttonList.add(new GuiButton(3, posX + 51, posY + 39, 60, 20, StatCollector.translateToLocal("gui.dataselector.default")));
+        buttonList.add(new GuiButton(1, posX + 10, posY + 59, 60, 20, StatCollector.translateToLocal("gui.dataselector.mode." + Mode)));
+        buttonList.add(new GuiButton(2, posX + 71, posY + 59, 60, 20, StatCollector.translateToLocal("gui.dataselector.save")));
+        buttonList.add(new GuiButton(3, posX + 10, posY + 38, 60, 20, StatCollector.translateToLocal("gui.dataselector.default")));
 
 
     }

@@ -12,11 +12,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class TileEntityDataConverter extends TileEntityEventSender implements IDataRec {
 
     public ForgeDirection dir = ForgeDirection.UNKNOWN;
-    public String DataTagUse = DataPacket.DEFAULT_DATA_STORAGE;
+    public String DataTagUse = DataPacket.DEFAULT_DATA_STORAGE, DataTagFrom = DataPacket.DEFAULT_DATA_STORAGE;
 
     @Override
     public boolean CanRecive(EventPacket packet) {
-        return packet instanceof DataPacket && packet.ByteValue == ByteValues.DataSignal.Value();
+        return packet instanceof DataPacket && packet.ByteValue == ByteValues.DataSignal.Value() && packet.LastSentFrom != dir;
     }
 
     @Override
@@ -37,9 +37,12 @@ public class TileEntityDataConverter extends TileEntityEventSender implements ID
                     String DataTag = dt_Text[0];
                     String text = dt_Text[2];
 
-                        pack.RemoveData(DataTag);
-                        pack.SaveData(DataTagUse, text);
+                     if(DataTag.equals(DataTagFrom)) {
 
+                         pack.RemoveData(DataTag);
+                         pack.SaveData(DataTagUse, text);
+
+                     }
                 }
 
 
@@ -60,6 +63,7 @@ public class TileEntityDataConverter extends TileEntityEventSender implements ID
 
         dir = ForgeDirection.getOrientation(nbtTagCompound.getInteger("Dir"));
         DataTagUse = nbtTagCompound.getString("Tag");
+        DataTagFrom = nbtTagCompound.getString("DataTagFrom");
 
 
     }
@@ -70,6 +74,7 @@ public class TileEntityDataConverter extends TileEntityEventSender implements ID
 
         nbtTagCompound.setInteger("Dir", dir.ordinal());
         nbtTagCompound.setString("Tag", DataTagUse);
+        nbtTagCompound.setString("DataTagFrom", DataTagFrom);
 
     }
 }
