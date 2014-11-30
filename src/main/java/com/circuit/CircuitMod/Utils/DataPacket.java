@@ -1,5 +1,7 @@
 package com.circuit.CircuitMod.Utils;
 
+import net.minecraft.util.EnumChatFormatting;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,6 +15,7 @@ public class DataPacket extends EventPacket {
 
     private HashMap<String, String> DataStorage = new HashMap<String, String>();
     public ArrayList<String> DataStorageFree = new ArrayList<String>();
+    public ArrayList<String> DataTagsFree = new ArrayList<String>();
 
     public EventPacket GetInstance(){
         return new DataPacket(TimeOut, ByteValue);
@@ -21,6 +24,7 @@ public class DataPacket extends EventPacket {
     public void SaveData(String DataTag, String Data){
             DataStorage.put(DataTag, Data);
             DataStorageFree.add(DataTag + SPLIT_DATA_TAG + Data);
+            DataTagsFree.add(DataTag);
     }
 
     public void RemoveData(String DataTag){
@@ -28,6 +32,7 @@ public class DataPacket extends EventPacket {
 
             DataStorage.remove(DataTag, data);
             DataStorageFree.remove(DataTag + SPLIT_DATA_TAG + data);
+            DataTagsFree.add(DataTag);
 
     }
 
@@ -53,7 +58,11 @@ public class DataPacket extends EventPacket {
 
                     String text = dt_Text[2];
 
-                    data = data + (data.isEmpty() ? "" : ", ") + DataTag + ": " + text;
+                    if(DataTagsFree.size() > 1){
+                        text = (EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC +  "[" + DataTag + "]" + EnumChatFormatting.RESET) + text;
+                    }
+
+                    data = data + (data.isEmpty() ? "" : ", ") + text;
                 }
             }
         }
@@ -61,25 +70,7 @@ public class DataPacket extends EventPacket {
         return data;
     }
 
-    public String GetTotalDataWithDataTag(String dataTag){
-        String data = "";
 
-        for(String t : DataStorageFree){
-            String[] dt_Text = t.split(SPLIT_DATA_TAG);
-            if(dt_Text.length >= 2) {
-                String DataTag = dt_Text[0];
-
-                if(!DataTag.isEmpty() || DataTag.equalsIgnoreCase(dataTag)) {
-
-                    String text = dt_Text[2];
-
-                    data = data + (data.isEmpty() ? "" : ", ") + DataTag + ": " + text;
-                }
-            }
-        }
-
-        return data;
-    }
 
 
     public String[] GetTotalDataSplit(){

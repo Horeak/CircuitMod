@@ -6,4 +6,9 @@ public class ServerProxy implements ProxyInterface{
     public void RegisterRenderThings() {
 
     }
+
+    @Override
+    public void PreInt() {
+
+    }
 }

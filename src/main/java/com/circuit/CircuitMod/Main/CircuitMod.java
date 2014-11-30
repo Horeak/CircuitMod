@@ -2,6 +2,7 @@ package com.circuit.CircuitMod.Main;
 
 import MiscUtils.GuideBase.Registry.GuideModRegistry;
 import MiscUtils.Network.ChannelUtils;
+import MiscUtils.Utils.LocalizationUpdater;
 import com.circuit.CircuitMod.Gui.GuiHandler;
 import com.circuit.CircuitMod.Main.GuideIntegration.CircuitModGuideInstance;
 import com.circuit.CircuitMod.Packets.DataChannelChanged;
@@ -51,15 +52,20 @@ public class CircuitMod {
 
     };
 
+    public static LocalizationUpdater localizationUpdater;
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
         Utils = new ChannelUtils(Ref.ModChannel, Ref.ModId);
         RegisterPackets();
 
-
         config = new Config(event.getModConfigurationDirectory() + "");
 
+        localizationUpdater = new LocalizationUpdater("tm1990", "CircuitMod", "master", "src/main/resources/assets/circuit/lang/");
+        localizationUpdater.initializeThread(config.GetConfigFile());
+
+        proxy.PreInt();
 
 
         ModBlocks.RegisterBlocks();

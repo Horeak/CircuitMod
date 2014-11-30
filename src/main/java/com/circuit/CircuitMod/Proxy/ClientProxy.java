@@ -1,5 +1,6 @@
 package com.circuit.CircuitMod.Proxy;
 
+import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.Main.ModBlocks;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemLampRender;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemMultiDigitDisplayRender;
@@ -77,5 +78,11 @@ public class ClientProxy extends ServerProxy  implements ProxyInterface {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.MultiDigitConstant), new ItemMultiDigitConstantRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.MultiDigitCounter), new ItemMultiDigitCounterRender());
 
+    }
+
+    @Override
+    public void PreInt() {
+
+        CircuitMod.localizationUpdater.registerListener();
     }
 }

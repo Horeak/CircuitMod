@@ -64,6 +64,7 @@ gui.dataselector.save=Save
 gui.dataselector.default=Default
 gui.dataconverter.from=Convert from
 gui.dataconverter.to=Convert to
+gui.dataselector.read=Read Data Tag
 
 item.desc.changeblockcolorfromcable.half1=The block color can be changed by 
 item.desc.changeblockcolorfromcable.half2=right clicking with a colored cable

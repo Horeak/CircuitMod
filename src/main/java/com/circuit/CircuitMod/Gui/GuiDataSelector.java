@@ -53,6 +53,8 @@ public class GuiDataSelector extends GuiScreen
 
         drawTexturedModalRect(posX, posY, 0, 0, xSizeOfTexture, ySizeOfTexture);
 
+        drawString(fontRendererObj, StatCollector.translateToLocal("gui.dataselector.read"), posX + 12, posY + 5, 0xffffff);
+
         if(Input != null)
             Input.drawTextBox();
 
@@ -101,7 +103,7 @@ public class GuiDataSelector extends GuiScreen
         int posY = (this.height - ySizeOfTexture) / 2;
 
         int xSize = 140, ySize = 20;
-        int xx = posX + 10, yy = posY + 10;
+        int xx = posX + 10, yy = posY + 16;
 
           if(Input == null){
               Input = new GuiTextField(fontRendererObj, xx, yy, xSize, ySize);
