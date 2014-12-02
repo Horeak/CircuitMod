@@ -32,7 +32,17 @@ public class DataPacket extends EventPacket {
 
             DataStorage.remove(DataTag, data);
             DataStorageFree.remove(DataTag + SPLIT_DATA_TAG + data);
-            DataTagsFree.add(DataTag);
+
+        for(int i = 0; i < DataTagsFree.size(); i++){
+            String t = DataTagsFree.get(i);
+
+            if(t.equals(DataTag)){
+                DataTagsFree.remove(i);
+
+            }
+
+        }
+
 
     }
 
@@ -72,32 +82,14 @@ public class DataPacket extends EventPacket {
 
 
 
-
-    public String[] GetTotalDataSplit(){
-        String[] data = new String[DataStorageFree.size()];
-
-        int g = 0;
-        for(String t : DataStorageFree){
-            String[] dt_Text = t.split(SPLIT_DATA_TAG);
-            if(dt_Text.length >= 2) {
-                String text = dt_Text[2];
-
-                data[g] = text;
-
-                g += 1;
-            }
-        }
-
-        return data;
-
-    }
-
-
     public void RecreatingPacket(EventPacket packet){
+        super.RecreatingPacket(packet);
+
         DataPacket pack = (DataPacket)packet;
 
         DataStorage = pack.DataStorage;
         DataStorageFree = pack.DataStorageFree;
+        DataTagsFree = pack.DataTagsFree;
 
     }
 

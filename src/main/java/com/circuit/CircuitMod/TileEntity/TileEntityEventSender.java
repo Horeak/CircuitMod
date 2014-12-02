@@ -4,7 +4,6 @@ import MiscUtils.TileEntity.ModTileEntity;
 import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.Utils.CircuitUtils.IEventRec;
 import com.circuit.CircuitMod.Utils.EventPacket;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -35,18 +34,8 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
 
                                         EventPacket sendPacket = packet.GetInstance();
 
-                                        NBTTagCompound nbt = new NBTTagCompound();
-                                        packet.SaveToNBT(nbt);
-
                                         sendPacket.RecreatingPacket(packet);
-
-                                        sendPacket.NBT = packet.NBT;
-                                        sendPacket.LoadFromNBT(nbt);
                                         sendPacket.LastSentFrom = dir.getOpposite();
-
-                                        sendPacket.Resend();
-
-                                        sendPacket.Postitions = packet.Postitions;
                                         sendPacket.Postitions.add(vec);
 
 

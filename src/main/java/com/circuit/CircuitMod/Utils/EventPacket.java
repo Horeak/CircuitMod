@@ -44,6 +44,14 @@ public class EventPacket {
     }
 
     public void RecreatingPacket(EventPacket packet){
+        NBTTagCompound nbt = new NBTTagCompound();
+        packet.SaveToNBT(nbt);
+
+        NBT = packet.NBT;
+        LoadFromNBT(nbt);
+
+        Resend();
+        Postitions = packet.Postitions;
 
     }
 

@@ -46,21 +46,9 @@ public class TileEntityDataTransmitter extends TileEntityEventSender implements 
 
                                     EventPacket sendPacket = packet.GetInstance();
 
-                                    NBTTagCompound nbt = new NBTTagCompound();
-                                    packet.SaveToNBT(nbt);
-
                                     sendPacket.RecreatingPacket(packet);
-
-                                    sendPacket.NBT = packet.NBT;
-                                    sendPacket.LoadFromNBT(nbt);
                                     sendPacket.LastSentFrom = ForgeDirection.UNKNOWN;
-
-                                    sendPacket.Resend();
-
-                                    sendPacket.Postitions = packet.Postitions;
                                     sendPacket.Postitions.add(vec);
-
-
                                     rec.OnRecived(sendPacket);
 
                                 }
