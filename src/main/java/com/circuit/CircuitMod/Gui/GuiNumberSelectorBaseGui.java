@@ -67,16 +67,16 @@ public abstract class GuiNumberSelectorBaseGui  extends GuiScreen
 
 
         if(length() >= 4)
-        fontRendererObj.drawString(Number4 + "", posX + 20, posY + 38, 4210752, false);
+        fontRendererObj.drawString(Number4 + "", posX + 20, posY + 38, 4210752);
 
         if(length() >= 3)
-        fontRendererObj.drawString(Number3 + "", posX + 44, posY + 38, 4210752, false);
+        fontRendererObj.drawString(Number3 + "", posX + 44, posY + 38, 4210752);
 
         if(length() >= 2)
-        fontRendererObj.drawString(Number2 + "", posX + 67, posY + 38, 4210752, false);
+        fontRendererObj.drawString(Number2 + "", posX + 67, posY + 38, 4210752);
 
 
-        fontRendererObj.drawString(Number1 + "", posX + 90, posY + 38, 4210752, false);
+        fontRendererObj.drawString(Number1 + "", posX + 90, posY + 38, 4210752);
 
 
         if(Number1 > 9 || Number1 < 0)

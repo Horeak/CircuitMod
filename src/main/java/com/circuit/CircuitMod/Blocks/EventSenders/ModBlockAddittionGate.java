@@ -1,34 +1,14 @@
 package com.circuit.CircuitMod.Blocks.EventSenders;
 
-import com.circuit.CircuitMod.Blocks.Utils.ModBlockTwoSidedEventChecker;
+import MiscUtils.Block.ModBlockContainer;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityAdditionGate;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class ModBlockAddittionGate extends ModBlockTwoSidedEventChecker {
+public class ModBlockAddittionGate extends ModBlockContainer {
     public ModBlockAddittionGate() {
         super(Material.iron);
-    }
-
-    @Override
-    public String FrontIcon() {
-        return "AddittionFront";
-    }
-
-    @Override
-    public String BackIcon() {
-        return "DigitEqualsBack";
-    }
-
-    @Override
-    public String SideAIcon() {
-        return "MathGateA";
-    }
-
-    @Override
-    public String SideBIcon() {
-        return "MathGateB";
     }
 
     @Override

@@ -2,15 +2,16 @@ package com.circuit.CircuitMod.Blocks.EventRecivers;
 
 import MiscUtils.Block.ModBlockCustomModel;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityLamp;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -26,17 +27,6 @@ public class ModBlockLamp extends ModBlockCustomModel {
         return new TileEntityLamp();
     }
 
-    public int damageDropped(int meta)
-    {
-        return meta;
-    }
-
-    public int getDamageValue(World world, int x, int y, int z)
-    {
-        return world.getBlockMetadata(x,y,z);
-    }
-
-
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_)
     {
@@ -47,10 +37,10 @@ public class ModBlockLamp extends ModBlockCustomModel {
         }
     }
 
-    public int getLightValue(IBlockAccess world, int x, int y, int z)
+    public int getLightValue(IBlockAccess world, BlockPos pos)
     {
-        if(world.getTileEntity(x,y,z) instanceof TileEntityLamp){
-            TileEntityLamp tile = (TileEntityLamp)world.getTileEntity(x,y,z);
+        if(world.getTileEntity(pos) instanceof TileEntityLamp){
+            TileEntityLamp tile = (TileEntityLamp)world.getTileEntity(pos);
 
             return tile.Powered ? 15 : 0;
         }

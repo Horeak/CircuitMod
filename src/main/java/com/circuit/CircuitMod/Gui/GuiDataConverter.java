@@ -14,6 +14,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
+import java.io.IOException;
+
 public class GuiDataConverter extends GuiScreen
 {
     private final ResourceLocation Texture = new ResourceLocation(Ref.ModId.toLowerCase() , "textures/gui/MultiDigitSetGui.png");
@@ -77,7 +79,7 @@ public class GuiDataConverter extends GuiScreen
         return false;
     }
 
-    public void keyTyped(char key, int keycode){
+    public void keyTyped(char key, int keycode) throws IOException{
         super.keyTyped(key, keycode);
 
             if (Input != null)
@@ -96,7 +98,7 @@ public class GuiDataConverter extends GuiScreen
 
     }
 
-    protected void mouseClicked(int x, int y, int g) {
+    protected void mouseClicked(int x, int y, int g)  throws IOException {
         super.mouseClicked(x, y, g);
 
         if(Input != null)
@@ -118,7 +120,7 @@ public class GuiDataConverter extends GuiScreen
         int xx = posX + 10, yy = posY + 18;
 
           if(Input2 == null){
-              Input2 = new GuiTextField(fontRendererObj, xx, yy, xSize, ySize);
+              Input2 = new GuiTextField(0, fontRendererObj, xx, yy, xSize, ySize);
 
               Input2.setMaxStringLength(Integer.MAX_VALUE);
 
@@ -135,7 +137,7 @@ public class GuiDataConverter extends GuiScreen
         yy += 15 + ySize;
 
         if(Input == null){
-            Input = new GuiTextField(fontRendererObj, xx, yy, xSize, ySize);
+            Input = new GuiTextField(0, fontRendererObj, xx, yy, xSize, ySize);
             Input.setMaxStringLength(Integer.MAX_VALUE);
 
             if(text != null)

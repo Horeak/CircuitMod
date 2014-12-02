@@ -61,7 +61,7 @@ public class ItemCircuitCableRender implements IItemRenderer
         int Meta = item.getItemDamage();
 
         if(Meta != 0) {
-            Color c = new Color(ItemDye.field_150922_c[15 - Meta]);
+            Color c = new Color(ItemDye.dyeColors[15 - Meta]);
             float r = (float)c.getRed() / (float)255, g = (float)c.getGreen() / (float)255, b = (float)c.getBlue() / (float)255;
             GL11.glColor4f(r, g, b, 1F);
         }else{

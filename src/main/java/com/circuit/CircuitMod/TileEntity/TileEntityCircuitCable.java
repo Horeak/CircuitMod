@@ -1,9 +1,12 @@
 package com.circuit.CircuitMod.TileEntity;
 
+import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Utils.EventPacket;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 
 import java.awt.*;
 
@@ -14,8 +17,8 @@ public class TileEntityCircuitCable extends TileEntityEventSender {
     @Override
     public void OnRecived(EventPacket packet) {
 
-        ForgeDirection dk = packet.LastSentFrom;
-        for(ForgeDirection dkk : ForgeDirection.VALID_DIRECTIONS){
+        EnumFacing dk = packet.LastSentFrom;
+        for(EnumFacing dkk : EnumFacing.values()){
             if(dkk != dk && dkk != Direction && dkk != Direction.getOpposite()){
                 SendPacketTo(packet, dkk);
 
@@ -26,27 +29,31 @@ public class TileEntityCircuitCable extends TileEntityEventSender {
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         if(tile == null)
             return false;
 
-        int metaZ = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-        int metaX = tile.getWorldObj().getBlockMetadata(tile.xCoord, tile.yCoord, tile.zCoord);
-        boolean t = tile instanceof TileEntityCircuitCable || tile instanceof TileEntityCircuitBox;
-        boolean g = metaZ == 0 && metaX == 0 || metaZ == metaX;
+        IBlockState metaZZ = worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ()));
+        IBlockState metaXX = tile.getWorld().getBlockState(new BlockPos(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()));
 
-        boolean j = dir != ForgeDirection.UNKNOWN ? dir != Direction && dir != Direction.getOpposite() : false;
+        int metaZ = Integer.parseInt(metaZZ.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString());
+        int metaX = Integer.parseInt(metaXX.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString());
+
+        boolean t = tile instanceof TileEntityCircuitCable || tile instanceof TileEntityCircuitBox;
+        boolean g = metaX == 0 && metaZ == 0 || metaZ == metaX;
+
+        boolean j = dir != null ? dir != Direction && dir != Direction.getOpposite() : false;
 
         return t && g && j || !t && j;
     }
-    public ForgeDirection Direction = ForgeDirection.UP;
+    public EnumFacing Direction = EnumFacing.UP;
 
     @Override
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
 
         super.readFromNBT(nbtTagCompound);
 
-        Direction = ForgeDirection.getOrientation(nbtTagCompound.getInteger("DIR"));
+        Direction = EnumFacing.getFront(nbtTagCompound.getInteger("DIR"));
 
 
     }

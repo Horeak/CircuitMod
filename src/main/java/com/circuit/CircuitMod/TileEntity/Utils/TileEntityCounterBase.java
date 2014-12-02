@@ -1,14 +1,14 @@
 package com.circuit.CircuitMod.TileEntity.Utils;
 
 import MiscUtils.TileEntity.IBlockInfo;
-import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
+import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
 
@@ -144,7 +144,7 @@ public abstract class TileEntityCounterBase extends TileEntityEventSender  imple
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 
@@ -156,7 +156,7 @@ public abstract class TileEntityCounterBase extends TileEntityEventSender  imple
     @Override
     public void Info(ArrayList<String> Strings) {
 
-        Strings.add(EnumChatFormatting.WHITE + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + EnumChatFormatting.RESET);
+        Strings.add(EnumChatFormatting.WHITE + worldObj.getBlockState(getPos()).getBlock().getLocalizedName() + EnumChatFormatting.RESET);
         Strings.add(StatCollector.translateToLocal("blockinfo.counter.currentcount").replace("$Number", EnumChatFormatting.GRAY + "" + CurrentCount + EnumChatFormatting.RESET));
         Strings.add(IncrementOrDecrement() ? (StatCollector.translateToLocal("blockinfo.counter.increment").replace("$Number", (EnumChatFormatting.GRAY + "" + Change + EnumChatFormatting.RESET))) : (StatCollector.translateToLocal("blockinfo.counter.decrement").replace("$Number", (EnumChatFormatting.GRAY + "" + Change + EnumChatFormatting.RESET))));
         Strings.add(StatCollector.translateToLocal("blockinfo.all.inputnumber"));

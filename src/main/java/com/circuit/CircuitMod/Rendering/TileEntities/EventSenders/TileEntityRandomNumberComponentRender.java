@@ -26,8 +26,8 @@ public class TileEntityRandomNumberComponentRender extends TileEntityBlockInfoRe
 
 
     @Override
-    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale) {
-        super.renderTileEntityAt(te,x,y,z,scale);
+    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale, int f) {
+        super.renderTileEntityAt(te,x,y,z,scale, f);
 
 
         if (te instanceof TileEntityRandomNumber) {

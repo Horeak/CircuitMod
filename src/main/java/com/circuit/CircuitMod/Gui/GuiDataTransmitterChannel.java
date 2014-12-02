@@ -14,6 +14,8 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
+import java.io.IOException;
+
 public class GuiDataTransmitterChannel extends GuiScreen
 {
     private final ResourceLocation Texture = new ResourceLocation(Ref.ModId.toLowerCase() , "textures/gui/MultiDigitSetGui.png");
@@ -68,7 +70,7 @@ public class GuiDataTransmitterChannel extends GuiScreen
         return false;
     }
 
-    public void keyTyped(char key, int keycode){
+    public void keyTyped(char key, int keycode) throws IOException {
         super.keyTyped(key, keycode);
 
         if(Character.isDigit(key) || keycode == Keyboard.KEY_BACK || keycode == Keyboard.KEY_LEFT || keycode == Keyboard.KEY_RIGHT) {
@@ -83,7 +85,7 @@ public class GuiDataTransmitterChannel extends GuiScreen
 
     }
 
-    protected void mouseClicked(int x, int y, int g) {
+    protected void mouseClicked(int x, int y, int g) throws IOException {
         super.mouseClicked(x, y, g);
 
 
@@ -103,7 +105,7 @@ public class GuiDataTransmitterChannel extends GuiScreen
         int xx = posX + 10, yy = posY + 10;
 
           if(NumberInput == null){
-              NumberInput = new GuiTextField(fontRendererObj, xx, yy, xSize, ySize);
+              NumberInput = new GuiTextField(0,fontRendererObj, xx, yy, xSize, ySize);
 
               if(Text != null)
                   NumberInput.setText(Text);

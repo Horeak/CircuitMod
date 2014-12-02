@@ -1,14 +1,14 @@
 package com.circuit.CircuitMod.TileEntity.EventSenders;
 
 import MiscUtils.TileEntity.IBlockInfo;
-import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
+import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class TileEntityMultiDigitConstant extends TileEntityEventSender implemen
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 
@@ -64,7 +64,7 @@ public class TileEntityMultiDigitConstant extends TileEntityEventSender implemen
     @Override
     public void Info(ArrayList<String> Strings) {
 
-        Strings.add(EnumChatFormatting.WHITE + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + EnumChatFormatting.RESET);
+        Strings.add(EnumChatFormatting.WHITE + worldObj.getBlockState(getPos()).getBlock().getLocalizedName() + EnumChatFormatting.RESET);
         Strings.add(StatCollector.translateToLocal("blockinfo.constant.constant").replace("$Number", (EnumChatFormatting.GRAY + "" + Constant + EnumChatFormatting.RESET)));
 
     }

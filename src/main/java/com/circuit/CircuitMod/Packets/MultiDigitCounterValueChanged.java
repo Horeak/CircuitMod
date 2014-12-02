@@ -4,10 +4,11 @@ import MiscUtils.Network.AbstractPacket;
 import MiscUtils.Network.PacketHandler;
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitCounter;
-import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class MultiDigitCounterValueChanged extends AbstractPacket{
 
@@ -16,9 +17,9 @@ public class MultiDigitCounterValueChanged extends AbstractPacket{
 
     public MultiDigitCounterValueChanged(){}
     public MultiDigitCounterValueChanged(TileEntityMultiDigitCounter tile, int Num){
-        x = tile.xCoord;
-        y = tile.yCoord;
-        z = tile.zCoord;
+        x = tile.getPos().getX();
+        y = tile.getPos().getY();
+        z = tile.getPos().getZ();
 
         value = Num;
     }
@@ -50,9 +51,10 @@ public class MultiDigitCounterValueChanged extends AbstractPacket{
 
 
         World world = player.getEntityWorld();
+        BlockPos pos = new BlockPos(x,y,z);
 
-        if(world.getTileEntity(x,y,z) instanceof TileEntityMultiDigitCounter){
-            TileEntityMultiDigitCounter tile = (TileEntityMultiDigitCounter)world.getTileEntity(x,y,z);
+        if(world.getTileEntity(pos) instanceof TileEntityMultiDigitCounter){
+            TileEntityMultiDigitCounter tile = (TileEntityMultiDigitCounter)world.getTileEntity(pos);
             tile.ResetAt = value;
 
             if(tile.ResetAt <= 0)
@@ -62,7 +64,7 @@ public class MultiDigitCounterValueChanged extends AbstractPacket{
                 PacketHandler.sendToAll(new MultiDigitCounterValueChanged(tile, value), CircuitMod.Utils.channels);
             }
 
-            world.notifyBlocksOfNeighborChange(x,y,z, world.getBlock(x,y,z));
+            world.notifyNeighborsOfStateChange(pos, world.getBlockState(pos).getBlock());
 
         }
 

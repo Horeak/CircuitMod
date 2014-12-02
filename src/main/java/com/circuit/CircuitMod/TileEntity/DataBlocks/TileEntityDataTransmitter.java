@@ -7,8 +7,9 @@ import com.circuit.CircuitMod.Utils.CircuitUtils.IEventRec;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import javax.vecmath.Vector3d;
 import java.util.List;
@@ -21,11 +22,13 @@ public class TileEntityDataTransmitter extends TileEntityEventSender implements 
 
     public void SendPacket(EventPacket packet, int rad) {
 
-        if (!getWorldObj().isRemote) {
-            WorldServer world = (WorldServer) getWorldObj();
+        if (!getWorld().isRemote) {
+            WorldServer world = (WorldServer) getWorld();
+
+            BlockPos pos = new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ());
 
             int Radius = rad;
-            List list = world.func_147486_a(xCoord - Radius, yCoord - Radius, zCoord - Radius, xCoord + Radius, yCoord + Radius, zCoord + Radius);
+            List list = world.func_147486_a(pos.getX() - Radius, pos.getY() - Radius, pos.getZ() - Radius, pos.getX() + Radius, pos.getY() + Radius, pos.getZ() + Radius);
 
             for (Object r : list) {
                 if (r instanceof TileEntity) {
@@ -40,27 +43,15 @@ public class TileEntityDataTransmitter extends TileEntityEventSender implements 
 
                         if (data.CanReceivePacketWireless(packet, DataChannel)) {
                             if (rec.CanRecive(packet)) {
-                                Vector3d vec = new Vector3d(te.xCoord, te.yCoord, te.zCoord);
+                                Vector3d vec = new Vector3d(te.getPos().getX(), te.getPos().getY(), te.getPos().getZ());
 
                                 if (!EventPacket.ContainesVactor(packet, vec)) {
 
                                     EventPacket sendPacket = packet.GetInstance();
 
-                                    NBTTagCompound nbt = new NBTTagCompound();
-                                    packet.SaveToNBT(nbt);
-
                                     sendPacket.RecreatingPacket(packet);
-
-                                    sendPacket.NBT = packet.NBT;
-                                    sendPacket.LoadFromNBT(nbt);
-                                    sendPacket.LastSentFrom = ForgeDirection.UNKNOWN;
-
-                                    sendPacket.Resend();
-
-                                    sendPacket.Postitions = packet.Postitions;
+                                    sendPacket.LastSentFrom = null;
                                     sendPacket.Postitions.add(vec);
-
-
                                     rec.OnRecived(sendPacket);
 
                                 }
@@ -95,7 +86,7 @@ public class TileEntityDataTransmitter extends TileEntityEventSender implements 
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 

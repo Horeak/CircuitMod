@@ -4,12 +4,13 @@ import MiscUtils.Network.AbstractPacket;
 import MiscUtils.Network.PacketHandler;
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataSelector;
-import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class DataSelectorPacket extends AbstractPacket{
 
@@ -19,9 +20,9 @@ public class DataSelectorPacket extends AbstractPacket{
 
     public DataSelectorPacket(){}
     public DataSelectorPacket(TileEntity tile, String text, int mode){
-        x = tile.xCoord;
-        y = tile.yCoord;
-        z = tile.zCoord;
+        x = tile.getPos().getX();
+        y = tile.getPos().getY();
+        z = tile.getPos().getZ();
 
         value = text;
 
@@ -59,9 +60,10 @@ public class DataSelectorPacket extends AbstractPacket{
 
 
         World world = player.getEntityWorld();
+        BlockPos pos = new BlockPos(x,y,z);
 
-        if(world.getTileEntity(x,y,z) instanceof TileEntityDataSelector){
-            TileEntityDataSelector tile = (TileEntityDataSelector)world.getTileEntity(x,y,z);
+        if(world.getTileEntity(pos) instanceof TileEntityDataSelector){
+            TileEntityDataSelector tile = (TileEntityDataSelector)world.getTileEntity(pos);
 
                 tile.Mode = mode;
                 tile.DataTagUse = value;
@@ -70,7 +72,7 @@ public class DataSelectorPacket extends AbstractPacket{
                 PacketHandler.sendToAll(new DataSelectorPacket(tile, value, mode), CircuitMod.Utils.channels);
             }
 
-            world.notifyBlocksOfNeighborChange(x,y,z, world.getBlock(x,y,z));
+            world.notifyNeighborsOfStateChange(pos, world.getBlockState(pos).getBlock());
 
         }
 

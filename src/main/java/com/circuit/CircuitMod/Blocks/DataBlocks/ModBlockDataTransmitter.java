@@ -3,20 +3,19 @@ package com.circuit.CircuitMod.Blocks.DataBlocks;
 import MiscUtils.Block.ModBlockContainer;
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataTransmitter;
-import com.circuit.CircuitMod.Utils.Ref;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModBlockDataTransmitter extends ModBlockContainer {
 
@@ -29,72 +28,74 @@ public class ModBlockDataTransmitter extends ModBlockContainer {
         return new TileEntityDataTransmitter();
     }
 
-    public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
     {
 
-        FMLNetworkHandler.openGui(par5EntityPlayer, CircuitMod.instance, 0, par1World, par2, par3, par4);
+        FMLNetworkHandler.openGui(player, CircuitMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
         return true;
 
     }
 
 
-    IIcon IconTop;
-    IIcon IconSide;
-    IIcon IconFront;
-
-
-    public void registerBlockIcons(IIconRegister par1IconRegister)
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public IBlockState getStateFromMeta(int meta)
     {
+        EnumFacing enumfacing = EnumFacing.getFront(meta);
 
-        this.IconTop = par1IconRegister.registerIcon(Ref.ModId + ":" + "DataTransmitterTop");
-        this.IconSide = par1IconRegister.registerIcon(Ref.ModId + ":" + "DataTransmitterSides");
-        this.IconFront = par1IconRegister.registerIcon(Ref.ModId + ":" + "DataTransmitterFront");
+        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+        {
+            enumfacing = EnumFacing.NORTH;
+        }
 
+        return this.getDefaultState().withProperty(FACING, enumfacing);
+    }
 
-        this.blockIcon = IconTop;
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    {
+        this.func_176445_e(worldIn, pos, state);
+    }
 
+    private void func_176445_e(World worldIn, BlockPos p_176445_2_, IBlockState p_176445_3_)
+    {
+        if (!worldIn.isRemote)
+        {
+            Block block = worldIn.getBlockState(p_176445_2_.offsetNorth()).getBlock();
+            Block block1 = worldIn.getBlockState(p_176445_2_.offsetSouth()).getBlock();
+            Block block2 = worldIn.getBlockState(p_176445_2_.offsetWest()).getBlock();
+            Block block3 = worldIn.getBlockState(p_176445_2_.offsetEast()).getBlock();
+            EnumFacing enumfacing = (EnumFacing)p_176445_3_.getValue(FACING);
+
+            if (enumfacing == EnumFacing.NORTH && block.isFullBlock() && !block1.isFullBlock())
+            {
+                enumfacing = EnumFacing.SOUTH;
+            }
+            else if (enumfacing == EnumFacing.SOUTH && block1.isFullBlock() && !block.isFullBlock())
+            {
+                enumfacing = EnumFacing.NORTH;
+            }
+            else if (enumfacing == EnumFacing.WEST && block2.isFullBlock() && !block3.isFullBlock())
+            {
+                enumfacing = EnumFacing.EAST;
+            }
+            else if (enumfacing == EnumFacing.EAST && block3.isFullBlock() && !block2.isFullBlock())
+            {
+                enumfacing = EnumFacing.WEST;
+            }
+
+            worldIn.setBlockState(p_176445_2_, p_176445_3_.withProperty(FACING, enumfacing), 2);
+        }
     }
 
 
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side)
+    public IBlockState getStateForEntityRender(IBlockState state)
     {
-        int meta = world.getBlockMetadata(x,y,z);
-
-        return side == meta ? IconFront : side == 1 ? IconTop : IconSide;
+        return this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH);
     }
 
-    @Override
-    public IIcon getIcon(int side, int metadata)
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-
-        return side == 4 ? IconFront : side == 1 ? IconTop : IconSide;
-    }
-
-    public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
-    {
-        int l = MathHelper.floor_double((double)(par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-
-        if (l == 0)
-        {
-            par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 2);
-        }
-
-        if (l == 1)
-        {
-            par1World.setBlockMetadataWithNotify(par2, par3, par4, 5, 2);
-        }
-
-        if (l == 2)
-        {
-            par1World.setBlockMetadataWithNotify(par2, par3, par4, 3, 2);
-        }
-
-        if (l == 3)
-        {
-            par1World.setBlockMetadataWithNotify(par2, par3, par4, 4, 2);
-        }
-
+        return this.getDefaultState().withProperty(FACING, placer.func_174811_aO().getOpposite());
     }
 
 }

@@ -3,7 +3,10 @@ package com.circuit.CircuitMod.Blocks.EventRecivers;
 import MiscUtils.Block.ModBlockContainer;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityRedstoneEmitter;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -18,19 +21,14 @@ public class ModBlockRedstoneEmitter extends ModBlockContainer {
         return new TileEntityRedstoneEmitter();
     }
 
-    public int isProvidingWeakPower(IBlockAccess block, int x, int y, int z, int p_149709_5_)
+    public int isProvidingWeakPower(IBlockAccess block, BlockPos pos, IBlockState state, EnumFacing side)
     {
-        if(block.getTileEntity(x,y,z) instanceof TileEntityRedstoneEmitter){
-            return (((TileEntityRedstoneEmitter) block.getTileEntity(x,y,z)).Do < ((TileEntityRedstoneEmitter) block.getTileEntity(x,y,z)).Finish ? 15 : 0);
+        if(block.getTileEntity(pos) instanceof TileEntityRedstoneEmitter){
+            return (((TileEntityRedstoneEmitter) block.getTileEntity(pos)).Do < ((TileEntityRedstoneEmitter) block.getTileEntity(pos)).Finish ? 15 : 0);
         }
 
 
         return 0;
-    }
-
-    public int isProvidingStrongPower(IBlockAccess bl, int x, int y, int z, int f)
-    {
-        return isProvidingWeakPower(bl, x, y, z, f);
     }
 
     public boolean canProvidePower()

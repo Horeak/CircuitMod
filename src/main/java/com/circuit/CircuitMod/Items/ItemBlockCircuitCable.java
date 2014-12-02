@@ -2,16 +2,17 @@ package com.circuit.CircuitMod.Items;
 
 import com.circuit.CircuitMod.Main.ModBlocks;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -27,38 +28,41 @@ public class ItemBlockCircuitCable extends ItemBlock {
 
         if(Meta > 0){
 
-            return StatCollector.translateToLocal("item.fireworksCharge." + ItemDye.field_150923_a[15 - stack.getItemDamage()]) + " " + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
+            return EnumDyeColor.func_176764_b(stack.getMetadata()).func_176762_d() + " " + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
         }
 
         return ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float p_77648_8_, float p_77648_9_, float p_77648_10_)
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
 
-      ForgeDirection dir = ForgeDirection.getOrientation(side).getOpposite();
-        if(dir == ForgeDirection.UP || dir == ForgeDirection.DOWN)
+      EnumFacing dir = side.getOpposite();
+
+        if(dir == EnumFacing.UP || dir == EnumFacing.DOWN)
             dir = dir.getOpposite();
 
-        int xCord = x - dir.offsetX, yCord = y - dir.offsetY, zCord = z - dir.offsetZ;
+        int xCord = pos.getX() - dir.getFrontOffsetX(), yCord = pos.getY() - dir.getFrontOffsetY(), zCord = pos.getZ() - dir.getFrontOffsetZ();
 
-        if(dir == ForgeDirection.DOWN){
-            xCord = x;
-            yCord = y - 1;
-            zCord = z;
-        }else if(dir == ForgeDirection.UP){
-            xCord = x;
-            yCord = y + 1;
-            zCord = z;
+        if(dir == EnumFacing.DOWN){
+            xCord = pos.getX();
+            yCord = pos.getY() - 1;
+            zCord = pos.getZ();
+        }else if(dir == EnumFacing.UP){
+            xCord = pos.getX();
+            yCord = pos.getY() + 1;
+            zCord = pos.getZ();
         }
 
-        if(world.isSideSolid(x, y, z, dir) && ModBlocks.CircuitCable.canPlaceBlockAt(world, xCord, yCord, zCord)){
-            world.setBlock(xCord, yCord, zCord, ModBlocks.CircuitCable, stack.getItemDamage(), 2);
-            world.playSoundEffect((double)((float)xCord + 0.5F), (double)((float)yCord + 0.5F), (double)((float)zCord + 0.5F), this.field_150939_a.stepSound.func_150496_b(), (this.field_150939_a.stepSound.getVolume() + 1.0F) / 2.0F, this.field_150939_a.stepSound.getPitch() * 0.8F);
-           world.setTileEntity(xCord,yCord,zCord, new TileEntityCircuitCable());
+        BlockPos newPos = new BlockPos(xCord, yCord, zCord);
 
-        if(world.getTileEntity(xCord,yCord,zCord) instanceof TileEntityCircuitCable)
-          ((TileEntityCircuitCable)world.getTileEntity(xCord,yCord,zCord)).Direction = dir;
+        if(world.isSideSolid(pos, dir) && ModBlocks.CircuitCable.canPlaceBlockAt(world, newPos)){
+            world.setBlockState(newPos, ModBlocks.CircuitCable.getStateFromMeta(stack.getItemDamage()));
+
+           world.setTileEntity(newPos, new TileEntityCircuitCable());
+
+        if(world.getTileEntity(newPos) instanceof TileEntityCircuitCable)
+          ((TileEntityCircuitCable)world.getTileEntity(newPos)).Direction = dir;
 
             if(!player.capabilities.isCreativeMode)
             player.inventory.getCurrentItem().stackSize -= 1;

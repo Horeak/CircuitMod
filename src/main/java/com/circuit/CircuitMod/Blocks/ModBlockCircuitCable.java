@@ -3,32 +3,24 @@ package com.circuit.CircuitMod.Blocks;
 import MiscUtils.Block.ModBlockCustomModel;
 import com.circuit.CircuitMod.Main.ModBlocks;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
 public class ModBlockCircuitCable extends ModBlockCustomModel {
-
-    public int damageDropped(int meta)
-    {
-        return meta;
-    }
-
-    public int getDamageValue(World world, int x, int y, int z)
-    {
-        return world.getBlockMetadata(x,y,z);
-    }
 
     public ModBlockCircuitCable() {
         super(Material.ground);
@@ -50,22 +42,22 @@ public class ModBlockCircuitCable extends ModBlockCustomModel {
         }
     }
 
-    public boolean canBlockStay(World world, int x, int y, int z)
+    public boolean canBlockStay(World world, BlockPos pos)
     {
 
-        if(world.getTileEntity(x,y,z) instanceof TileEntityCircuitCable){
-            TileEntityCircuitCable tile = (TileEntityCircuitCable)world.getTileEntity(x,y,z);
+        if(world.getTileEntity(pos) instanceof TileEntityCircuitCable){
+            TileEntityCircuitCable tile = (TileEntityCircuitCable)world.getTileEntity(pos);
 
-            ForgeDirection dir = tile.Direction;
+            EnumFacing dir = tile.Direction;
 
-            if(dir == ForgeDirection.UP || dir == ForgeDirection.DOWN)
+            if(dir == EnumFacing.UP || dir == EnumFacing.DOWN)
                 dir = dir.getOpposite();
 
-            int xCord = x + dir.offsetX;
-            int yCord = y + dir.offsetY;
-            int zCord = z + dir.offsetZ;
+            int xCord = pos.getX() + dir.getFrontOffsetX();
+            int yCord = pos.getY() + dir.getFrontOffsetY();
+            int zCord = pos.getZ() + dir.getFrontOffsetZ();
 
-            if(!world.isSideSolid(xCord, yCord, zCord, dir)){
+            if(!world.isSideSolid(new BlockPos(xCord, yCord, zCord), dir)){
                 return false;
             }
 
@@ -75,11 +67,11 @@ public class ModBlockCircuitCable extends ModBlockCustomModel {
     }
 
 
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        if(world.getBlock(x,y,z) == ModBlocks.CircuitCable) {
-            if (!canBlockStay((World) world, x, y, z)) {
-                world.getBlock(x, y, z).dropBlockAsItem((World) world, x, y, z, world.getBlockMetadata(x, y, z), 1);
-                ((World) world).setBlock(x, y, z, Blocks.air, 0, 2);
+    public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
+        if(world.getBlockState(pos).getBlock() == ModBlocks.CircuitCable) {
+            if (!canBlockStay((World) world, pos)) {
+                world.getBlockState(pos).getBlock().dropBlockAsItem((World) world, pos, world.getBlockState(pos), 1);
+                ((World) world).setBlockState(pos, Blocks.air.getDefaultState());
 
             }
         }
@@ -87,26 +79,26 @@ public class ModBlockCircuitCable extends ModBlockCustomModel {
 
 
 
-    public void setBlockBoundsBasedOnState(IBlockAccess block, int x, int y, int z) {
+    public void setBlockBoundsBasedOnState(IBlockAccess block, BlockPos pos) {
 
 
 
-        if(block.getTileEntity(x,y,z) instanceof TileEntityCircuitCable){
-            TileEntityCircuitCable tile = (TileEntityCircuitCable)block.getTileEntity(x,y,z);
+        if(block.getTileEntity(pos) instanceof TileEntityCircuitCable){
+            TileEntityCircuitCable tile = (TileEntityCircuitCable)block.getTileEntity(pos);
 
-            if(tile.Direction == ForgeDirection.DOWN) {
+            if(tile.Direction == EnumFacing.DOWN) {
                 setBlockBounds(0, 0.8F, 0, 1F, 1F, 1F);
 
-            }else if(tile.Direction == ForgeDirection.NORTH){
+            }else if(tile.Direction == EnumFacing.NORTH){
                 setBlockBounds(0F, 0F, 0F, 1F, 1F, 0.2F);
 
-            }else if(tile.Direction == ForgeDirection.SOUTH){
+            }else if(tile.Direction == EnumFacing.SOUTH){
                 setBlockBounds(0F, 0F, 0.8F, 1F, 1F, 1F);
 
-            }else if(tile.Direction == ForgeDirection.WEST){
+            }else if(tile.Direction == EnumFacing.WEST){
                 setBlockBounds(0F, 0F, 0F, 0.2F, 1F, 1F);
 
-            }else if(tile.Direction == ForgeDirection.EAST){
+            }else if(tile.Direction == EnumFacing.EAST){
                 setBlockBounds(0.8F, 0F, 0F, 1F, 1F, 1F);
 
             }else{

@@ -7,11 +7,11 @@ import com.circuit.CircuitMod.Utils.DataPacket;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public class TileEntityDataConverter extends TileEntityEventSender implements IDataRec {
 
-    public ForgeDirection dir = ForgeDirection.UNKNOWN;
+    public EnumFacing dir = null;
     public String DataTagUse = DataPacket.DEFAULT_DATA_STORAGE, DataTagFrom = DataPacket.DEFAULT_DATA_STORAGE;
 
     @Override
@@ -53,7 +53,7 @@ public class TileEntityDataConverter extends TileEntityEventSender implements ID
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 
@@ -61,7 +61,7 @@ public class TileEntityDataConverter extends TileEntityEventSender implements ID
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
         super.readFromNBT(nbtTagCompound);
 
-        dir = ForgeDirection.getOrientation(nbtTagCompound.getInteger("Dir"));
+        dir = EnumFacing.getFront(nbtTagCompound.getInteger("Dir"));
         DataTagUse = nbtTagCompound.getString("Tag");
         DataTagFrom = nbtTagCompound.getString("DataTagFrom");
 

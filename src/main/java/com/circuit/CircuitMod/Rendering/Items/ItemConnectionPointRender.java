@@ -1,11 +1,7 @@
 package com.circuit.CircuitMod.Rendering.Items;
 
-import MiscUtils.Render.RenderHelper;
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
-
-import java.awt.*;
 
 public class ItemConnectionPointRender implements IItemRenderer
 {
@@ -52,10 +48,10 @@ public class ItemConnectionPointRender implements IItemRenderer
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-        Block block = Block.getBlockFromItem(item.getItem());
-
-        Color color = new Color(block.getRenderColor(item.getItemDamage()));
-
-        RenderHelper.RenderInventoryBlockWithColor(type, item, color);
+//        Block block = Block.getBlockFromItem(item.getItem());
+//
+//        Color color = new Color(block.getRenderColor(item.getItemDamage()));
+//
+//        RenderHelper.RenderInventoryBlockWithColor(type, item, color);
     }
 }

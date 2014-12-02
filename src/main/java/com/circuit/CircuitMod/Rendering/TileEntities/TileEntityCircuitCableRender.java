@@ -1,16 +1,19 @@
 package com.circuit.CircuitMod.Rendering.TileEntities;
 
+import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Rendering.Models.CircuitCableModel;
-import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
+import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.Utils.Ref;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemDye;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -27,7 +30,7 @@ public class TileEntityCircuitCableRender extends TileEntitySpecialRenderer {
 
 
     @Override
-    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale) {
+    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale, int f) {
 
         RenderWithDirection((TileEntityCircuitCable)te, x, y, z);
     }
@@ -44,10 +47,12 @@ public class TileEntityCircuitCableRender extends TileEntitySpecialRenderer {
 
         GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
 
-        int Meta = tile.getWorldObj().getBlockMetadata(tile.xCoord, tile.yCoord, tile.zCoord);
+        IBlockState meta = tile.getWorld().getBlockState(new BlockPos(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()));
 
+        int Meta = Integer.parseInt(meta.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString());
+        
         if(Meta != 0) {
-            Color c = new Color(ItemDye.field_150922_c[15 - Meta]);
+            Color c = new Color(ItemDye.dyeColors[15 - Meta]);
             float r = (float)c.getRed() / (float)255, g = (float)c.getGreen() / (float)255, b = (float)c.getBlue() / (float)255;
             GL11.glColor4f(r, g, b, 1F);
         }else{
@@ -55,29 +60,29 @@ public class TileEntityCircuitCableRender extends TileEntitySpecialRenderer {
             float r = (float)c.getRed() / (float)255, g = (float)c.getGreen() / (float)255, b = (float)c.getBlue() / (float)255;
             GL11.glColor4f(r, g, b, 1F);
         }
-        World world = tile.getWorldObj();
+        World world = tile.getWorld();
 
-        ForgeDirection direction = tile.Direction;
+        EnumFacing direction = tile.Direction;
 
 
 
-      if(direction == ForgeDirection.DOWN){
+      if(direction == EnumFacing.DOWN){
             GL11.glTranslatef(0, 2F, 0);
             GL11.glRotatef(180, 1.0F, 0.0F, 0.0F);
 
-        }else if(direction == ForgeDirection.WEST){
+        }else if(direction == EnumFacing.WEST){
           GL11.glTranslatef(-1, 1, 0);
             GL11.glRotatef(-90, 0.0F, 0.0F, 1.0F);
 
-        }else if(direction == ForgeDirection.EAST){
+        }else if(direction == EnumFacing.EAST){
           GL11.glTranslatef(1, 1, 0);
           GL11.glRotatef(90, 0.0F, 0.0F, 1.0F);
 
-      }else if(direction == ForgeDirection.NORTH){
+      }else if(direction == EnumFacing.NORTH){
         GL11.glTranslatef(0, 1, 1);
         GL11.glRotatef(180 + 90, 1.0F, 0.0F, 0.0F);
 
-    }else if(direction == ForgeDirection.SOUTH){
+    }else if(direction == EnumFacing.SOUTH){
           GL11.glTranslatef(0, 1, -1);
           GL11.glRotatef(180 - 90, 1.0F, 0.0F, 0.0F);
 
@@ -95,47 +100,47 @@ public class TileEntityCircuitCableRender extends TileEntitySpecialRenderer {
 
 
 
-        if(direction == ForgeDirection.UP) {
+        if(direction == EnumFacing.UP) {
             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F,
-                    Check(world, tile.xCoord + ForgeDirection.NORTH.offsetX, tile.yCoord + ForgeDirection.NORTH.offsetY, tile.zCoord + ForgeDirection.NORTH.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.SOUTH.offsetX, tile.yCoord + ForgeDirection.SOUTH.offsetY, tile.zCoord + ForgeDirection.SOUTH.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.EAST.offsetX, tile.yCoord + ForgeDirection.EAST.offsetY, tile.zCoord + ForgeDirection.EAST.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.WEST.offsetX, tile.yCoord + ForgeDirection.WEST.offsetY, tile.zCoord + ForgeDirection.WEST.offsetZ, tile));
+                    Check(world, tile.getPos().getX() + EnumFacing.NORTH.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.NORTH.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.NORTH.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.SOUTH.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.SOUTH.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.SOUTH.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.EAST.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.EAST.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.EAST.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.WEST.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.WEST.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.WEST.getFrontOffsetZ(), tile));
 
-        }else if(direction == ForgeDirection.DOWN){
+        }else if(direction == EnumFacing.DOWN){
             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F,
-                    Check(world, tile.xCoord + ForgeDirection.SOUTH.offsetX, tile.yCoord + ForgeDirection.SOUTH.offsetY, tile.zCoord + ForgeDirection.SOUTH.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.NORTH.offsetX, tile.yCoord + ForgeDirection.NORTH.offsetY, tile.zCoord + ForgeDirection.NORTH.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.EAST.offsetX, tile.yCoord + ForgeDirection.EAST.offsetY, tile.zCoord + ForgeDirection.EAST.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.WEST.offsetX, tile.yCoord + ForgeDirection.WEST.offsetY, tile.zCoord + ForgeDirection.WEST.offsetZ, tile));
+                    Check(world, tile.getPos().getX() + EnumFacing.SOUTH.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.SOUTH.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.SOUTH.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.NORTH.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.NORTH.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.NORTH.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.EAST.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.EAST.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.EAST.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.WEST.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.WEST.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.WEST.getFrontOffsetZ(), tile));
 
-        }else if(direction == ForgeDirection.WEST){
+        }else if(direction == EnumFacing.WEST){
             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F,
-                    Check(world, tile.xCoord + ForgeDirection.NORTH.offsetX, tile.yCoord + ForgeDirection.NORTH.offsetY, tile.zCoord + ForgeDirection.NORTH.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.SOUTH.offsetX, tile.yCoord + ForgeDirection.SOUTH.offsetY, tile.zCoord + ForgeDirection.SOUTH.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.DOWN.offsetX, tile.yCoord + ForgeDirection.DOWN.offsetY, tile.zCoord + ForgeDirection.DOWN.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.UP.offsetX, tile.yCoord + ForgeDirection.UP.offsetY, tile.zCoord + ForgeDirection.UP.offsetZ, tile));
+                    Check(world, tile.getPos().getX() + EnumFacing.NORTH.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.NORTH.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.NORTH.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.SOUTH.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.SOUTH.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.SOUTH.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.DOWN.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.DOWN.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.DOWN.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.UP.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.UP.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.UP.getFrontOffsetZ(), tile));
 
-        }else if(direction == ForgeDirection.EAST){
+        }else if(direction == EnumFacing.EAST){
             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F,
-                    Check(world, tile.xCoord + ForgeDirection.NORTH.offsetX, tile.yCoord + ForgeDirection.NORTH.offsetY, tile.zCoord + ForgeDirection.NORTH.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.SOUTH.offsetX, tile.yCoord + ForgeDirection.SOUTH.offsetY, tile.zCoord + ForgeDirection.SOUTH.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.UP.offsetX, tile.yCoord + ForgeDirection.UP.offsetY, tile.zCoord + ForgeDirection.UP.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.DOWN.offsetX, tile.yCoord + ForgeDirection.DOWN.offsetY, tile.zCoord + ForgeDirection.DOWN.offsetZ, tile));
+                    Check(world, tile.getPos().getX() + EnumFacing.NORTH.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.NORTH.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.NORTH.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.SOUTH.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.SOUTH.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.SOUTH.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.UP.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.UP.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.UP.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.DOWN.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.DOWN.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.DOWN.getFrontOffsetZ(), tile));
 
-        }else if(direction == ForgeDirection.NORTH){
+        }else if(direction == EnumFacing.NORTH){
             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F,
-                    Check(world, tile.xCoord + ForgeDirection.UP.offsetX, tile.yCoord + ForgeDirection.UP.offsetY, tile.zCoord + ForgeDirection.UP.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.DOWN.offsetX, tile.yCoord + ForgeDirection.DOWN.offsetY, tile.zCoord + ForgeDirection.DOWN.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.EAST.offsetX, tile.yCoord + ForgeDirection.EAST.offsetY, tile.zCoord + ForgeDirection.EAST.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.WEST.offsetX, tile.yCoord + ForgeDirection.WEST.offsetY, tile.zCoord + ForgeDirection.WEST.offsetZ, tile));
+                    Check(world, tile.getPos().getX() + EnumFacing.UP.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.UP.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.UP.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.DOWN.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.DOWN.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.DOWN.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.EAST.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.EAST.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.EAST.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.WEST.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.WEST.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.WEST.getFrontOffsetZ(), tile));
 
-        }else if(direction == ForgeDirection.SOUTH){
+        }else if(direction == EnumFacing.SOUTH){
             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F,
-                    Check(world, tile.xCoord + ForgeDirection.DOWN.offsetX, tile.yCoord + ForgeDirection.DOWN.offsetY, tile.zCoord + ForgeDirection.DOWN.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.UP.offsetX, tile.yCoord + ForgeDirection.UP.offsetY, tile.zCoord + ForgeDirection.UP.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.EAST.offsetX, tile.yCoord + ForgeDirection.EAST.offsetY, tile.zCoord + ForgeDirection.EAST.offsetZ, tile),
-                    Check(world, tile.xCoord + ForgeDirection.WEST.offsetX, tile.yCoord + ForgeDirection.WEST.offsetY, tile.zCoord + ForgeDirection.WEST.offsetZ, tile));
+                    Check(world, tile.getPos().getX() + EnumFacing.DOWN.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.DOWN.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.DOWN.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.UP.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.UP.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.UP.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.EAST.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.EAST.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.EAST.getFrontOffsetZ(), tile),
+                    Check(world, tile.getPos().getX() + EnumFacing.WEST.getFrontOffsetX(), tile.getPos().getY() + EnumFacing.WEST.getFrontOffsetY(), tile.getPos().getZ() + EnumFacing.WEST.getFrontOffsetZ(), tile));
 
         }
 
@@ -149,22 +154,23 @@ public class TileEntityCircuitCableRender extends TileEntitySpecialRenderer {
     public boolean Check(World world, int x, int y, int z, TileEntityCircuitCable tile){
         if(tile instanceof ICircuitConnector) {
             ICircuitConnector ic = (ICircuitConnector) tile;
+            BlockPos pos = new BlockPos(x,y,z);
 
-            ForgeDirection di = ForgeDirection.UNKNOWN;
+            EnumFacing di = null;
 
-            for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
-                if(tile.xCoord + dir.offsetX == x &&  tile.yCoord + dir.offsetY == y && tile.zCoord + dir.offsetZ == z){
+            for(EnumFacing dir : EnumFacing.values()){
+                if(tile.getPos().getX() + dir.getFrontOffsetX() == x &&  tile.getPos().getY() + dir.getFrontOffsetY() == y && tile.getPos().getZ() + dir.getFrontOffsetZ() == z){
                     di = dir;
                     break;
                 }
             }
 
-            if(world.getTileEntity(x,y,z) instanceof TileEntityCircuitCable){
-                TileEntityCircuitCable ci = (TileEntityCircuitCable)world.getTileEntity(x,y,z);
-                return world.getTileEntity(x, y, z) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(x, y, z)).CanConnectToTile(tile, di.getOpposite()) && ic.CanConnectToTile(world.getTileEntity(x, y, z), di) && ci.Direction == tile.Direction;
+            if(world.getTileEntity(pos) instanceof TileEntityCircuitCable){
+                TileEntityCircuitCable ci = (TileEntityCircuitCable)world.getTileEntity(pos);
+                return world.getTileEntity(pos) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(pos)).CanConnectToTile(tile, di.getOpposite()) && ic.CanConnectToTile(world.getTileEntity(pos), di) && ci.Direction == tile.Direction;
             }
 
-            return world.getTileEntity(x, y, z) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(x, y, z)).CanConnectToTile(tile, di.getOpposite()) && ic.CanConnectToTile(world.getTileEntity(x, y, z), di);
+            return world.getTileEntity(pos) instanceof ICircuitConnector && ((ICircuitConnector) world.getTileEntity(pos)).CanConnectToTile(tile, di.getOpposite()) && ic.CanConnectToTile(world.getTileEntity(pos), di);
 
         }
 

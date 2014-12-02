@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "normal": { "model": "circuit:data_chat_output" }
+    }
+}

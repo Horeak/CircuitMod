@@ -3,11 +3,14 @@ package com.circuit.CircuitMod.Blocks.EventSenders;
 import MiscUtils.Block.ModBlockCustomModel;
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitCounter;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 
 public class ModBlockOneDigitCounter extends ModBlockCustomModel {
 
@@ -22,10 +25,10 @@ public class ModBlockOneDigitCounter extends ModBlockCustomModel {
         return new TileEntityOneDigitCounter();
     }
 
-    public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
     {
 
-        FMLNetworkHandler.openGui(par5EntityPlayer, CircuitMod.instance, 0, par1World, par2, par3, par4);
+        FMLNetworkHandler.openGui(player, CircuitMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
         return true;
 
     }

@@ -1,13 +1,16 @@
 package com.circuit.CircuitMod.Items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -16,22 +19,21 @@ public class ItemBlockCableConnectionPoint extends ItemBlock {
         super(p_i45328_1_);
     }
 
-    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState)
     {
 
-        if (!world.setBlock(x, y, z, field_150939_a, metadata, 3))
+        if (!world.setBlockState(pos, block.getDefaultState()))
         {
             return false;
         }
 
-        if (world.getBlock(x, y, z) == field_150939_a)
+        if (world.getBlockState(pos).getBlock() == block)
         {
-            field_150939_a.onBlockPlacedBy(world, x, y, z, player, stack);
-            field_150939_a.onPostBlockPlaced(world, x, y, z, metadata);
+            block.onBlockPlacedBy(world, pos, newState, player, stack);
         }
 
 
-        world.setBlockMetadataWithNotify(x,y,z, stack.getItemDamage(), 2);
+        world.setBlockState(pos, block.getStateFromMeta(stack.getItemDamage()));
         return true;
     }
 

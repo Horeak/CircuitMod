@@ -31,7 +31,7 @@ public class TIleEntityMultiDigitDisplayRender  extends TileEntitySpecialRendere
 
 
     @Override
-    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float sc) {
+    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float sc, int f) {
 
         if (te instanceof TileEntityMultiDigitDisplay) {
             TileEntityMultiDigitDisplay tile = (TileEntityMultiDigitDisplay) te;

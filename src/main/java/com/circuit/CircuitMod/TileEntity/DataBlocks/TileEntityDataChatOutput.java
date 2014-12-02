@@ -9,8 +9,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class TileEntityDataChatOutput extends TileEntityEventSender{
 
     @Override
     public void OnRecived(EventPacket packet) {
+        BlockPos pos = new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ());
+
         if(packet.ByteValue == ByteValues.MultiDigitNumber.Value() || packet.ByteValue == ByteValues.OneDigitNumber.Value()){
 
             if(Range != RANGE_DEFAULT){
@@ -54,17 +57,17 @@ public class TileEntityDataChatOutput extends TileEntityEventSender{
 
             DataPacket dtPacket = (DataPacket)packet;
 
-            String Pre = EnumChatFormatting.GRAY + "[" + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + "]: " + EnumChatFormatting.RESET;
+            String Pre = EnumChatFormatting.GRAY + "[" + worldObj.getBlockState(pos).getBlock().getLocalizedName() + "]: " + EnumChatFormatting.RESET;
 
             String Message = Pre + dtPacket.GetTotalData();
 
             double rn = (Range + 1);
-            List list = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - rn, yCoord - rn, zCoord - rn, xCoord + rn, yCoord + rn, zCoord + rn));
+            List list = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.fromBounds(pos.getX() - rn, pos.getY() - rn, pos.getZ() - rn, pos.getX() + rn, pos.getY() + rn, pos.getZ() + rn));
 
             for(Object r : list){
                 if(r instanceof EntityPlayer){
                     EntityPlayer player = (EntityPlayer)r;
-                    if(player.getDistance(xCoord, yCoord, zCoord) <= Range) {
+                    if(player.getDistance(pos.getX(), pos.getY(), pos.getZ()) <= Range) {
 
                         if(!worldObj.isRemote)
                         ChatMessageHandler.sendChatToPlayer(player, Message);
@@ -78,7 +81,7 @@ public class TileEntityDataChatOutput extends TileEntityEventSender{
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 

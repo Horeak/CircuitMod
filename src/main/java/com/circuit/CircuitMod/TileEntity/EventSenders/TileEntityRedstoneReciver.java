@@ -1,15 +1,16 @@
 package com.circuit.CircuitMod.TileEntity.EventSenders;
 
-import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
+import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+
 
 public class TileEntityRedstoneReciver extends TileEntityEventSender {
 
     public void updateEntity(){
-        if(worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)){
+        if(worldObj.isBlockPowered(getPos())){
             SendPacketToAround(new EventPacket(-1, ByteValues.OnSignal.Value()));
         }
     }
@@ -25,7 +26,7 @@ public class TileEntityRedstoneReciver extends TileEntityEventSender {
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 }

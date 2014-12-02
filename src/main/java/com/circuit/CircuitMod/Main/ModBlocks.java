@@ -83,8 +83,9 @@ public class ModBlocks {
 
     //TODO Add sensors and text based event types (for example player sensors that outputs the player name and maybe range from the sensor? will also need some kind of constant and display)
 
+    public static BlockRegister Utils = new BlockRegister(CircuitMod.config, Ref.ModId);
+
     public static void RegisterBlocks(){
-        BlockRegister Utils = new BlockRegister(CircuitMod.config, Ref.ModId);
 
 
         //Main blocks
@@ -94,7 +95,7 @@ public class ModBlocks {
         CircuitCable = new ModBlockCircuitCable().setCreativeTab(CircuitMod.CreativeTab);
         Utils.Register(CircuitCable, ItemBlockCircuitCable.class, "Circuit Cable",  TileEntityCircuitCable.class);
 
-        CableConnectionPoint = new ModBlockCableConnectionPoint().setCreativeTab(CircuitMod.CreativeTab).setBlockTextureName(Ref.ModId.toLowerCase() + ":CableConnectionPoint");
+        CableConnectionPoint = new ModBlockCableConnectionPoint().setCreativeTab(CircuitMod.CreativeTab);
         Utils.Register(CableConnectionPoint, ItemBlockCableConnectionPoint.class, "Cable Connection Point", TileEntityCableConnectionPoint.class);
 
         Lamp = new ModBlockLamp().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
@@ -103,10 +104,10 @@ public class ModBlocks {
 
 
         //Redstone handlers
-        RedstoneReciver = new ModBlockRedstoneReciver().setCreativeTab(CircuitMod.CreativeTab).setBlockTextureName(Ref.ModId.toLowerCase() + ":RedstoneEventReciver").setHardness(1F);
+        RedstoneReciver = new ModBlockRedstoneReciver().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(RedstoneReciver, "Redstone Reciver", TileEntityRedstoneReciver.class);
 
-        RedstoneEmitter = new ModBlockRedstoneEmitter().setCreativeTab(CircuitMod.CreativeTab).setBlockTextureName(Ref.ModId.toLowerCase() + ":RedstoneEmitter").setHardness(1F);
+        RedstoneEmitter = new ModBlockRedstoneEmitter().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(RedstoneEmitter, "Redstone Emitter", TileEntityRedstoneEmitter.class);
 
 
@@ -183,7 +184,7 @@ public class ModBlocks {
         DataReceiver = new ModBlockDataReceiver().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(DataReceiver, "Data Receiver", TileEntityDataReceiver.class);
 
-        DataChatOutput = new ModBlockDataChatOutput().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F).setBlockTextureName(Ref.ModId + ":DataChatOutput");
+        DataChatOutput = new ModBlockDataChatOutput().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(DataChatOutput, "Data Chat output", TileEntityDataChatOutput.class);
 
         DataSelector = new ModBlockDataSelector().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);

@@ -1,10 +1,12 @@
 package com.circuit.CircuitMod.TileEntity.Utils;
 
+import com.circuit.CircuitMod.Main.ModBlocks;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 
 public abstract class TileEntityTwoSidedEventChecker extends TileEntityEventSender {
 
@@ -20,7 +22,7 @@ public abstract class TileEntityTwoSidedEventChecker extends TileEntityEventSend
     public int ResetPacketA = 0, ResetPacketB = 0;
     public int ResetAt = 4;
 
-    public ForgeDirection dir = ForgeDirection.UNKNOWN;
+    public EnumFacing dir = null;
 
 
     public void updateEntity(){
@@ -79,7 +81,7 @@ public abstract class TileEntityTwoSidedEventChecker extends TileEntityEventSend
         ResetPacketA = nbtTagCompound.getInteger("ResetPacketA");
         ResetPacketB = nbtTagCompound.getInteger("ResetPacketB");
 
-        dir = ForgeDirection.getOrientation(nbtTagCompound.getInteger("Dir"));
+        dir = EnumFacing.getFront(nbtTagCompound.getInteger("Dir"));
 
 
     }
@@ -97,39 +99,39 @@ public abstract class TileEntityTwoSidedEventChecker extends TileEntityEventSend
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 
 
-    public ForgeDirection GetOutputSide(){
+    public EnumFacing GetOutputSide(){
         return dir;
     }
 
-    public ForgeDirection GetDirectionA(){
+    public EnumFacing GetDirectionA(){
 
-        ForgeDirection dir = ForgeDirection.getOrientation(worldObj.getBlockMetadata(xCoord, yCoord, zCoord));
-        ForgeDirection A = ForgeDirection.UNKNOWN;
+        EnumFacing dir = EnumFacing.getFront(ModBlocks.AdditionGate.getMetaFromState(worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ()))));
+        EnumFacing A = null;
 
-        if(dir == ForgeDirection.NORTH)
-            A = ForgeDirection.EAST;
+        if(dir == EnumFacing.NORTH)
+            A = EnumFacing.EAST;
 
-        if(dir == ForgeDirection.WEST)
-            A = ForgeDirection.NORTH;
+        if(dir == EnumFacing.WEST)
+            A = EnumFacing.NORTH;
 
-        if(dir == ForgeDirection.EAST)
-            A = ForgeDirection.SOUTH;
+        if(dir == EnumFacing.EAST)
+            A = EnumFacing.SOUTH;
 
-        if(dir == ForgeDirection.SOUTH)
-            A = ForgeDirection.WEST;
+        if(dir == EnumFacing.SOUTH)
+            A = EnumFacing.WEST;
 
-        if(dir == ForgeDirection.DOWN || dir == ForgeDirection.UP)
-            A = ForgeDirection.WEST;
+        if(dir == EnumFacing.DOWN || dir == EnumFacing.UP)
+            A = EnumFacing.WEST;
 
         return A;
     }
 
-    public ForgeDirection GetDirectionB(){
-        return GetDirectionA().getOpposite();
+    public EnumFacing GetDirectionB(){
+        return GetDirectionA();
     }
 }

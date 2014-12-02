@@ -30,7 +30,7 @@ public class TileEntityOneDigitDisplayRender extends TileEntitySpecialRenderer {
 
 
     @Override
-    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale) {
+    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale, int f) {
 
         if (te instanceof TileEntityOneDigitDisplay) {
             TileEntityOneDigitDisplay tile = (TileEntityOneDigitDisplay) te;

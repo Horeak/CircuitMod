@@ -7,8 +7,8 @@ import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class TileEntityOneDigitConstant extends TileEntityEventSender implements
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 
@@ -64,7 +64,7 @@ public class TileEntityOneDigitConstant extends TileEntityEventSender implements
     @Override
     public void Info(ArrayList<String> Strings) {
 
-        Strings.add(EnumChatFormatting.WHITE + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + EnumChatFormatting.RESET);
+        Strings.add(EnumChatFormatting.WHITE + worldObj.getBlockState(pos).getBlock().getLocalizedName() + EnumChatFormatting.RESET);
             Strings.add(StatCollector.translateToLocal("blockinfo.constant.constant").replace("$Number", (EnumChatFormatting.GRAY + "" + Constant + EnumChatFormatting.RESET)));
 
     }

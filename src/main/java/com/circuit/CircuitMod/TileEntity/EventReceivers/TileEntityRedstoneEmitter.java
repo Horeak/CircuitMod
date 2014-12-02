@@ -2,11 +2,12 @@ package com.circuit.CircuitMod.TileEntity.EventReceivers;
 
 import MiscUtils.TileEntity.ModTileEntity;
 import com.circuit.CircuitMod.Utils.ByteValues;
-import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.Utils.CircuitUtils.IEventRec;
+import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+
 
 public class TileEntityRedstoneEmitter extends ModTileEntity implements IEventRec, ICircuitConnector {
 
@@ -18,15 +19,16 @@ public class TileEntityRedstoneEmitter extends ModTileEntity implements IEventRe
         if(Do < Finish){
             Do += 1;
         }else{
-            if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 1) {
-                worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 3);
-                worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
-            }
+            //TODO Finish
+//            if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 1) {
+//                worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 3);
+//                worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+//            }
         }
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 
@@ -35,10 +37,10 @@ public class TileEntityRedstoneEmitter extends ModTileEntity implements IEventRe
         if(packet.ByteValue == ByteValues.OnSignal.Value()) {
             Do = 0;
 
-            if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 0) {
-                worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
-                worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
-            }
+//            if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 0) {
+//                worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
+//                worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+//            }
         }
     }
 

@@ -4,9 +4,9 @@ import MiscUtils.TileEntity.ModTileEntity;
 import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.Utils.CircuitUtils.IEventRec;
 import com.circuit.CircuitMod.Utils.EventPacket;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 
 import javax.vecmath.Vector3d;
 
@@ -14,11 +14,11 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
 
 
 
-    public void SendPacketTo(EventPacket packet,ForgeDirection dir){
+    public void SendPacketTo(EventPacket packet,EnumFacing dir){
 
-            if(dir != packet.LastSentFrom && dir != ForgeDirection.UNKNOWN && packet != null && !packet.TimedOut) {
-                if (worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof IEventRec) {
-                    TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+            if(dir != packet.LastSentFrom && dir !=null && packet != null && !packet.TimedOut) {
+                if (worldObj.getTileEntity(new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(), getPos().getZ() + dir.getFrontOffsetZ())) instanceof IEventRec) {
+                    TileEntity tile = worldObj.getTileEntity(new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(), getPos().getZ() + dir.getFrontOffsetZ()));
 
                     if (tile instanceof ICircuitConnector) {
 
@@ -29,24 +29,14 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
                             if (tile instanceof IEventRec) {
                                 IEventRec tileE = (IEventRec) tile;
                                 if (tileE.CanRecive(packet) && tileE != null) {
-                                    Vector3d vec = new Vector3d(tile.xCoord, tile.yCoord, tile.zCoord);
+                                    Vector3d vec = new Vector3d(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ());
 
                                     if(!EventPacket.ContainesVactor(packet, vec)) {
 
                                         EventPacket sendPacket = packet.GetInstance();
 
-                                        NBTTagCompound nbt = new NBTTagCompound();
-                                        packet.SaveToNBT(nbt);
-
                                         sendPacket.RecreatingPacket(packet);
-
-                                        sendPacket.NBT = packet.NBT;
-                                        sendPacket.LoadFromNBT(nbt);
                                         sendPacket.LastSentFrom = dir.getOpposite();
-
-                                        sendPacket.Resend();
-
-                                        sendPacket.Postitions = packet.Postitions;
                                         sendPacket.Postitions.add(vec);
 
 
@@ -74,7 +64,7 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
     }
 
     public void SendPacketToAround(EventPacket packet){
-        for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
+        for(EnumFacing dir : EnumFacing.values()){
             if(dir != packet.LastSentFrom && packet != null)
            SendPacketTo(packet, dir);
         }
@@ -93,5 +83,5 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
     }
 
     @Override
-    public abstract boolean CanConnectToTile(TileEntity tile, ForgeDirection dir);
+    public abstract boolean CanConnectToTile(TileEntity tile, EnumFacing dir);
 }

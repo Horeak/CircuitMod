@@ -4,11 +4,12 @@ import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+
 
 public class TileEntitySignalShortender extends TileEntityEventSender{
 
-    public ForgeDirection dir = ForgeDirection.UNKNOWN;
+    public EnumFacing dir = null;
     int Reset = 0;
     static int ResetAt = 1;
     boolean Resetting;
@@ -45,7 +46,7 @@ public class TileEntitySignalShortender extends TileEntityEventSender{
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 
@@ -55,7 +56,7 @@ public class TileEntitySignalShortender extends TileEntityEventSender{
 
         super.readFromNBT(nbtTagCompound);
 
-        dir = ForgeDirection.getOrientation(nbtTagCompound.getInteger("Dir"));
+        dir = EnumFacing.getFront(nbtTagCompound.getInteger("Dir"));
         Resetting = nbtTagCompound.getBoolean("Resetting");
         Reset = nbtTagCompound.getInteger("Reset");
 

@@ -1,11 +1,12 @@
 package com.circuit.CircuitMod.TileEntity.EventSenders;
 
-import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.Utils.TileEntityTwoSidedEventChecker;
+import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+
 
 public class TileEntitySignalGate extends TileEntityTwoSidedEventChecker {
 
@@ -47,7 +48,7 @@ public class TileEntitySignalGate extends TileEntityTwoSidedEventChecker {
     public void OnRecived(EventPacket packet) {
         super.OnRecived(packet);
 
-        ForgeDirection di = packet.LastSentFrom;
+        EnumFacing di = packet.LastSentFrom;
         if(di != GetOutputSide() && di != GetDirectionA() && di != GetDirectionB()){
             if(packet.ByteValue == ByteValues.OnSignal.Value()){
                 ActiveInputSignal = true;
@@ -80,7 +81,7 @@ public class TileEntitySignalGate extends TileEntityTwoSidedEventChecker {
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 

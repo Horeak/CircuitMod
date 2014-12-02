@@ -13,7 +13,6 @@ import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemOneDigitCounterRe
 import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemRandomNumberComponentRender;
 import com.circuit.CircuitMod.Rendering.Items.ItemCircuitBoxRender;
 import com.circuit.CircuitMod.Rendering.Items.ItemCircuitCableRender;
-import com.circuit.CircuitMod.Rendering.Items.ItemConnectionPointRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TIleEntityMultiDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TileEntityLampRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TileEntityOneDigitDisplayRender;
@@ -36,9 +35,9 @@ import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitCounter;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityRandomNumber;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
-import cpw.mods.fml.client.registry.ClientRegistry;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class ClientProxy extends ServerProxy  implements ProxyInterface {
 
@@ -64,7 +63,7 @@ public class ClientProxy extends ServerProxy  implements ProxyInterface {
 
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.CircuitCable), new ItemCircuitCableRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.CircuitBox), new ItemCircuitBoxRender());
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.CableConnectionPoint), new ItemConnectionPointRender());
+        //MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.CableConnectionPoint), new ItemConnectionPointRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.Lamp), new ItemLampRender());
 
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.Variable), new ItemVariableRender());

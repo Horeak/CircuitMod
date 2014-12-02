@@ -7,7 +7,8 @@ import com.circuit.CircuitMod.Utils.CircuitUtils.IEventRec;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+
 
 public class TileEntityMultiDigitDisplay extends ModTileEntity implements IEventRec, ICircuitConnector {
 
@@ -80,7 +81,7 @@ public class TileEntityMultiDigitDisplay extends ModTileEntity implements IEvent
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 }

@@ -1,7 +1,7 @@
 package com.circuit.CircuitMod.Utils;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 import javax.vecmath.Vector3d;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class EventPacket {
         return false;
     }
 
-    public ForgeDirection LastSentFrom = ForgeDirection.UNKNOWN;
+    public EnumFacing LastSentFrom = null;
     int TimeOutValue = 0;
     public int TimeOut;
 
@@ -44,6 +44,14 @@ public class EventPacket {
     }
 
     public void RecreatingPacket(EventPacket packet){
+        NBTTagCompound nbt = new NBTTagCompound();
+        packet.SaveToNBT(nbt);
+
+        NBT = packet.NBT;
+        LoadFromNBT(nbt);
+
+        Resend();
+        Postitions = packet.Postitions;
 
     }
 
@@ -61,7 +69,7 @@ public class EventPacket {
 
     public void LoadFromNBT(NBTTagCompound nbt) {
 
-        LastSentFrom = ForgeDirection.getOrientation(nbt.getInteger("DIR"));
+        LastSentFrom = EnumFacing.getFront(nbt.getInteger("DIR"));
         TimeOutValue = nbt.getInteger("TimeOutValue");
         TimeOut = nbt.getInteger("TimeOut");
         ByteValue = nbt.getByte("ByteValue");

@@ -5,11 +5,11 @@ import MiscUtils.GuideBase.Utils.GuideTab;
 import MiscUtils.GuideBase.Utils.ModGuideText;
 import com.circuit.CircuitMod.Main.ModBlocks;
 import com.circuit.CircuitMod.Utils.Ref;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CircuitModGuideInstance extends GuideInstance {
 

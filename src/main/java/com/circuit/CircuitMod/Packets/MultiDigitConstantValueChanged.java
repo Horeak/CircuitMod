@@ -4,10 +4,11 @@ import MiscUtils.Network.AbstractPacket;
 import MiscUtils.Network.PacketHandler;
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitConstant;
-import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class MultiDigitConstantValueChanged extends AbstractPacket{
 
@@ -16,9 +17,9 @@ public class MultiDigitConstantValueChanged extends AbstractPacket{
 
     public MultiDigitConstantValueChanged(){}
     public MultiDigitConstantValueChanged(TileEntityMultiDigitConstant tile, int Num){
-        x = tile.xCoord;
-        y = tile.yCoord;
-        z = tile.zCoord;
+        x = tile.getPos().getX();
+        y = tile.getPos().getY();
+        z = tile.getPos().getZ();
 
         value = Num;
     }
@@ -50,9 +51,10 @@ public class MultiDigitConstantValueChanged extends AbstractPacket{
 
 
         World world = player.getEntityWorld();
+        BlockPos pos = new BlockPos(x,y,z);
 
-        if(world.getTileEntity(x,y,z) instanceof TileEntityMultiDigitConstant){
-            TileEntityMultiDigitConstant tile = (TileEntityMultiDigitConstant)world.getTileEntity(x,y,z);
+        if(world.getTileEntity(pos) instanceof TileEntityMultiDigitConstant){
+            TileEntityMultiDigitConstant tile = (TileEntityMultiDigitConstant)world.getTileEntity(pos);
             tile.Constant = value;
 
 
@@ -60,7 +62,7 @@ public class MultiDigitConstantValueChanged extends AbstractPacket{
                 PacketHandler.sendToAll(new MultiDigitConstantValueChanged(tile, value), CircuitMod.Utils.channels);
             }
 
-            world.notifyBlocksOfNeighborChange(x,y,z, world.getBlock(x,y,z));
+            world.notifyNeighborsOfStateChange(pos, world.getBlockState(pos).getBlock());
 
         }
 

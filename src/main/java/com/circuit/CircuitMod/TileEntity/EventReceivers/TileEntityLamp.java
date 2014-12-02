@@ -7,7 +7,8 @@ import com.circuit.CircuitMod.Utils.CircuitUtils.IEventRec;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 
 public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuitConnector {
 
@@ -18,7 +19,7 @@ public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuit
 
     public void updateEntity(){
 
-        if(Powered && !worldObj.isBlockIndirectlyGettingPowered(xCoord,yCoord, zCoord)) {
+        if(Powered && !worldObj.isBlockPowered(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ()))) {
             if (Reset >= ResetAt) {
                 SetState(false);
                 Reset = 0;
@@ -27,7 +28,7 @@ public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuit
             }
         }
 
-        if(worldObj.isBlockIndirectlyGettingPowered(xCoord,yCoord, zCoord)){
+        if(worldObj.isBlockPowered(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ()))){
             Reset = 0;
             SetState(true);
 
@@ -57,7 +58,7 @@ public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuit
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 
@@ -83,7 +84,7 @@ public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuit
     public void SetState(boolean t){
         Powered = t;
 
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        worldObj.markBlockForUpdate(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ()));
         //worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 
 

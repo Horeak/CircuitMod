@@ -1,10 +1,13 @@
 package com.circuit.CircuitMod.Items;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -16,26 +19,25 @@ public class ItemBlockLamp extends ItemBlock {
     public String getItemStackDisplayName(ItemStack stack)
     {
 
-            return StatCollector.translateToLocal("item.fireworksCharge." + ItemDye.field_150923_a[15 - stack.getItemDamage()]) + " " + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
+            return EnumDyeColor.func_176764_b(stack.getMetadata()).func_176762_d() + " " + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
 
     }
 
-    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState)
     {
 
-        if (!world.setBlock(x, y, z, field_150939_a, metadata, 3))
+        if (!world.setBlockState(pos, newState))
         {
             return false;
         }
 
-        if (world.getBlock(x, y, z) == field_150939_a)
+        if (world.getBlockState(pos).getBlock() == block)
         {
-            field_150939_a.onBlockPlacedBy(world, x, y, z, player, stack);
-            field_150939_a.onPostBlockPlaced(world, x, y, z, metadata);
+            block.onBlockPlacedBy(world, pos, newState, player, stack);
         }
 
 
-        world.setBlockMetadataWithNotify(x,y,z, stack.getItemDamage(), 2);
+        world.setBlockState(pos, block.getStateFromMeta(stack.getItemDamage()));
         return true;
     }
 

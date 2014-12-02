@@ -5,11 +5,12 @@ import MiscUtils.Network.PacketHandler;
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataReceiver;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataTransmitter;
-import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class DataChannelChanged extends AbstractPacket{
 
@@ -18,9 +19,9 @@ public class DataChannelChanged extends AbstractPacket{
 
     public DataChannelChanged(){}
     public DataChannelChanged(TileEntity tile, int Num){
-        x = tile.xCoord;
-        y = tile.yCoord;
-        z = tile.zCoord;
+        x = tile.getPos().getX();
+        y = tile.getPos().getY();
+        z = tile.getPos().getZ();
 
         value = Num;
     }
@@ -52,9 +53,10 @@ public class DataChannelChanged extends AbstractPacket{
 
 
         World world = player.getEntityWorld();
+        BlockPos pos = new BlockPos(x,y,z);
 
-        if(world.getTileEntity(x,y,z) instanceof TileEntityDataTransmitter){
-            TileEntityDataTransmitter tile = (TileEntityDataTransmitter)world.getTileEntity(x,y,z);
+        if(world.getTileEntity(pos) instanceof TileEntityDataTransmitter){
+            TileEntityDataTransmitter tile = (TileEntityDataTransmitter)world.getTileEntity(pos);
             tile.DataChannel = value;
 
 
@@ -62,10 +64,10 @@ public class DataChannelChanged extends AbstractPacket{
                 PacketHandler.sendToAll(new DataChannelChanged(tile, value), CircuitMod.Utils.channels);
             }
 
-            world.notifyBlocksOfNeighborChange(x,y,z, world.getBlock(x,y,z));
+            world.notifyBlockOfStateChange(pos, world.getBlockState(pos).getBlock());
 
-        }else  if(world.getTileEntity(x,y,z) instanceof TileEntityDataReceiver){
-            TileEntityDataReceiver tile = (TileEntityDataReceiver)world.getTileEntity(x,y,z);
+        }else  if(world.getTileEntity(pos) instanceof TileEntityDataReceiver){
+            TileEntityDataReceiver tile = (TileEntityDataReceiver)world.getTileEntity(pos);
             tile.DataChannel = value;
 
 
@@ -73,7 +75,7 @@ public class DataChannelChanged extends AbstractPacket{
                 PacketHandler.sendToAll(new DataChannelChanged(tile, value), CircuitMod.Utils.channels);
             }
 
-            world.notifyBlocksOfNeighborChange(x,y,z, world.getBlock(x,y,z));
+            world.notifyNeighborsOfStateChange(pos, world.getBlockState(pos).getBlock());
 
         }
 

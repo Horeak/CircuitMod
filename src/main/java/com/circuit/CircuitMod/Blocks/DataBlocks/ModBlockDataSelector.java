@@ -3,29 +3,21 @@ package com.circuit.CircuitMod.Blocks.DataBlocks;
 import MiscUtils.Block.ModBlockContainer;
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataSelector;
-import com.circuit.CircuitMod.Utils.Ref;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 
 public class ModBlockDataSelector extends ModBlockContainer {
 
-    IIcon front, Side;
-
-    public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
     {
 
-        FMLNetworkHandler.openGui(par5EntityPlayer, CircuitMod.instance, 0, par1World, par2, par3, par4);
+        FMLNetworkHandler.openGui(player, CircuitMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
         return true;
 
     }
@@ -39,51 +31,4 @@ public class ModBlockDataSelector extends ModBlockContainer {
         return new TileEntityDataSelector();
     }
 
-    @SideOnly(cpw.mods.fml.relauncher.Side.CLIENT)
-    public void registerBlockIcons(IIconRegister par1IconRegister)
-    {
-        front = par1IconRegister.registerIcon(Ref.ModId + ":" + "DataSelectorFront");
-        Side = par1IconRegister.registerIcon(Ref.ModId + ":" + "DataTransmitterSides");
-
-    }
-
-
-    @Override
-    public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-
-        if(world.getTileEntity(x,y,z) instanceof TileEntityDataSelector) {
-            TileEntityDataSelector tile = (TileEntityDataSelector)world.getTileEntity(x,y,z);
-
-
-            if(side == tile.dir.ordinal())
-                return front;
-
-        }
-
-        return Side;
-
-    }
-
-    @Override
-    @SideOnly(cpw.mods.fml.relauncher.Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
-
-        if (side == 4)
-            return front;
-
-        return Side;
-
-    }
-
-
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
-    {
-
-        int g = BlockPistonBase.determineOrientation(world, x, y, z, par5EntityLivingBase);
-
-        if(world.getTileEntity(x,y,z) instanceof TileEntityDataSelector){
-            TileEntityDataSelector tile = (TileEntityDataSelector)world.getTileEntity(x,y,z);
-            tile.dir = ForgeDirection.getOrientation(g);
-        }
-    }
 }

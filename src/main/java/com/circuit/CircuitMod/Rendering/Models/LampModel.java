@@ -139,7 +139,7 @@ public class LampModel extends ModelBase
 
         GL11.glPushMatrix();
 
-        Color c = new Color(ItemDye.field_150922_c[15 - Meta]);
+        Color c = new Color(ItemDye.dyeColors[15 - Meta]);
         int r = c.getRed();
         int g = c.getGreen();
         int b = c.getBlue();

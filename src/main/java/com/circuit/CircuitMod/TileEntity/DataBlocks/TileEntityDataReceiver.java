@@ -6,7 +6,7 @@ import com.circuit.CircuitMod.Utils.CircuitUtils.IDataRec;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public class TileEntityDataReceiver extends TileEntityEventSender implements IDataRec{
 
@@ -24,7 +24,7 @@ public class TileEntityDataReceiver extends TileEntityEventSender implements IDa
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
         return true;
     }
 

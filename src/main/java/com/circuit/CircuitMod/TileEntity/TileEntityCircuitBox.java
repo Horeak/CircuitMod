@@ -1,15 +1,18 @@
 package com.circuit.CircuitMod.TileEntity;
 
 import MiscUtils.TileEntity.IBlockInfo;
+import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Utils.ByteValues;
-import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
+import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.Utils.Modes.CircuitBoxMode;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import javax.vecmath.Vector3d;
 import java.util.ArrayList;
@@ -19,10 +22,10 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
     public String Mode = "EMPTY";
     public int ModeNum = 0;
     public boolean[] Sides;
-    public ForgeDirection[] SidesDir = new ForgeDirection[]{ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST};
+    public EnumFacing[] SidesDir = new EnumFacing[]{EnumFacing.NORTH, EnumFacing.SOUTH, EnumFacing.EAST, EnumFacing.WEST};
     public int[] ResetCount = new int[4];
     public CircuitBoxMode CurrentMode;
-    public ForgeDirection[] Inputs = new ForgeDirection[3];
+    public EnumFacing[] Inputs = new EnumFacing[3];
 
 
 
@@ -84,24 +87,24 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
         Sides = new boolean[4];
     }
 
-    public void SetSideState(ForgeDirection dir, boolean t){
+    public void SetSideState(EnumFacing dir, boolean t){
 
-            if(dir == ForgeDirection.NORTH) {
+            if(dir == EnumFacing.NORTH) {
                 Sides[0] = t;
 
                 if(ResetCount != null && ResetCount[0] > 0)
                 ResetCount[0] = 0;
-            }else if(dir == ForgeDirection.SOUTH) {
+            }else if(dir == EnumFacing.SOUTH) {
                 Sides[1] = t;
 
                 if(ResetCount != null && ResetCount[1] > 0)
                 ResetCount[1] = 0;
-            }else if(dir == ForgeDirection.EAST) {
+            }else if(dir == EnumFacing.EAST) {
                 Sides[2] = t;
 
                 if(ResetCount != null && ResetCount[2] > 0)
                 ResetCount[2] = 0;
-            }else  if(dir == ForgeDirection.WEST) {
+            }else  if(dir == EnumFacing.WEST) {
                 Sides[3] = t;
 
                 if(ResetCount != null && ResetCount[3] > 0)
@@ -129,15 +132,15 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
         return false;
     }
 
-    public boolean GetSideState(ForgeDirection dir){
+    public boolean GetSideState(EnumFacing dir){
 
-        if(dir == ForgeDirection.NORTH) {
+        if(dir == EnumFacing.NORTH) {
             return Sides[0];
-        }else if(dir == ForgeDirection.SOUTH) {
+        }else if(dir == EnumFacing.SOUTH) {
             return Sides[1];
-        }else if(dir == ForgeDirection.EAST) {
+        }else if(dir == EnumFacing.EAST) {
             return Sides[2];
-        }else  if(dir == ForgeDirection.WEST) {
+        }else  if(dir == EnumFacing.WEST) {
             return Sides[3];
         }
 
@@ -145,11 +148,11 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
 
     }
 
-    public ForgeDirection GetOutputSide(){
+    public EnumFacing GetOutputSide(){
         if(Rotation == 0)
-            return ForgeDirection.UNKNOWN;
+            return null;
 
-        return ForgeDirection.getOrientation(Rotation);
+        return EnumFacing.getFront(Rotation);
     }
 
     public void updateEntity(){
@@ -159,7 +162,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
 
                 EventPacket packet = new EventPacket(CurrentMode.SignalTimeout(), ByteValues.OnSignal.Value());
                 packet.LastSentFrom = GetOutputSide().getOpposite();
-                packet.Postitions.add(new Vector3d(xCoord, yCoord, zCoord));
+                packet.Postitions.add(new Vector3d(getPos().getX(), getPos().getY(), getPos().getZ()));
 
                 CurrentMode.OnUpdate(this, packet);
             }
@@ -171,10 +174,10 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
 
         }
 
-        ArrayList<ForgeDirection> dd = new ArrayList<ForgeDirection>();
+        ArrayList<EnumFacing> dd = new ArrayList<EnumFacing>();
 
         for(int i = 0; i < SidesDir.length; i++){
-            ForgeDirection side = SidesDir[i];
+            EnumFacing side = SidesDir[i];
 
             if(side != GetOutputSide()){
                 dd.add(side);
@@ -201,10 +204,14 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
     }
 
     @Override
-    public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
-        int metaZ = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-        int metaX = tile.getWorldObj().getBlockMetadata(tile.xCoord, tile.yCoord, tile.zCoord);
-        boolean t = tile instanceof TileEntityCircuitCable ? ((TileEntityCircuitCable)tile).Direction == ForgeDirection.UP : true;
+    public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
+        IBlockState metaZZ = worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ()));
+        IBlockState metaXX = tile.getWorld().getBlockState(new BlockPos(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()));
+
+        int metaZ = Integer.parseInt(metaZZ.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString());
+        int metaX = Integer.parseInt(metaXX.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString());
+
+        boolean t = tile instanceof TileEntityCircuitCable ? ((TileEntityCircuitCable)tile).Direction == EnumFacing.UP : true;
         boolean g = metaZ == 0 && metaX == 0 || metaZ == metaX;
         boolean j = tile instanceof TileEntityCircuitCable || tile instanceof TileEntityCircuitBox;
 
@@ -218,7 +225,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
 
     @Override
     public void OnRecived(EventPacket packet) {
-        if(GetOutputSide() != null && GetOutputSide() != ForgeDirection.UNKNOWN
+        if(GetOutputSide() != null && GetOutputSide() != null
                 && packet.LastSentFrom != GetOutputSide()) {
             SetSideState(packet.LastSentFrom, true);
         }
@@ -231,7 +238,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
 
     @Override
     public void Info(ArrayList<String> Strings) {
-        Strings.add(EnumChatFormatting.WHITE + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + EnumChatFormatting.RESET);
+        Strings.add(EnumChatFormatting.WHITE + worldObj.getBlockState(getPos()).getBlock().getLocalizedName() + EnumChatFormatting.RESET);
         if (CurrentMode != null) {
             Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.mode").replace("$Mode", (EnumChatFormatting.GRAY + CurrentMode.ModeName() + EnumChatFormatting.RESET)));
             Strings.add(StatCollector.translateToLocal("blockinfo.all.shiftchange"));
