@@ -1,7 +1,7 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "circuit:blocks/data_chat_output"
+        "all": "circuit:blocks/redstone_receiver"
     }
 }
 

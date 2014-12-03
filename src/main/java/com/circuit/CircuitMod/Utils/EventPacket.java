@@ -45,6 +45,8 @@ public class EventPacket {
 
     public void RecreatingPacket(EventPacket packet){
         NBTTagCompound nbt = new NBTTagCompound();
+        LastSentFrom = packet.LastSentFrom;
+
         packet.SaveToNBT(nbt);
 
         NBT = packet.NBT;
@@ -57,7 +59,7 @@ public class EventPacket {
 
     public void SaveToNBT(NBTTagCompound nbt) {
 
-        nbt.setInteger("DIR", LastSentFrom.ordinal());
+
         nbt.setInteger("TimeOutValue", TimeOutValue);
         nbt.setInteger("TimeOut", TimeOut);
         nbt.setByte("ByteValue", ByteValue);
@@ -69,7 +71,6 @@ public class EventPacket {
 
     public void LoadFromNBT(NBTTagCompound nbt) {
 
-        LastSentFrom = EnumFacing.getFront(nbt.getInteger("DIR"));
         TimeOutValue = nbt.getInteger("TimeOutValue");
         TimeOut = nbt.getInteger("TimeOut");
         ByteValue = nbt.getByte("ByteValue");

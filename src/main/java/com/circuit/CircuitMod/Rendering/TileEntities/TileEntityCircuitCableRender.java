@@ -1,6 +1,5 @@
 package com.circuit.CircuitMod.Rendering.TileEntities;
 
-import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Rendering.Models.CircuitCableModel;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
 import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
@@ -49,7 +48,7 @@ public class TileEntityCircuitCableRender extends TileEntitySpecialRenderer {
 
         IBlockState meta = tile.getWorld().getBlockState(new BlockPos(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()));
 
-        int Meta = Integer.parseInt(meta.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString());
+        int Meta = tile.Color;
         
         if(Meta != 0) {
             Color c = new Color(ItemDye.dyeColors[15 - Meta]);

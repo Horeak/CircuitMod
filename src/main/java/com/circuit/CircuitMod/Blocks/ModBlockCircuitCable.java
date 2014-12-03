@@ -24,7 +24,6 @@ public class ModBlockCircuitCable extends ModBlockCustomModel {
 
     public ModBlockCircuitCable() {
         super(Material.ground);
-        setTickRandomly(true);
     }
 
     @Override

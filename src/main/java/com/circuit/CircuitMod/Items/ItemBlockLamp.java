@@ -19,14 +19,13 @@ public class ItemBlockLamp extends ItemBlock {
     public String getItemStackDisplayName(ItemStack stack)
     {
 
-            return EnumDyeColor.func_176764_b(stack.getMetadata()).func_176762_d() + " " + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
+            return StatCollector.translateToLocal("item.fireworksCharge." + EnumDyeColor.func_176766_a(stack.getItemDamage()).func_176762_d()) + " " + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
 
     }
 
     public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState)
     {
-
-        if (!world.setBlockState(pos, newState))
+        if (!world.setBlockState(pos, block.getDefaultState()))
         {
             return false;
         }
@@ -38,6 +37,7 @@ public class ItemBlockLamp extends ItemBlock {
 
 
         world.setBlockState(pos, block.getStateFromMeta(stack.getItemDamage()));
+
         return true;
     }
 

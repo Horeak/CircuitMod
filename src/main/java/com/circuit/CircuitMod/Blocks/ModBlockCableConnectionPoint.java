@@ -4,7 +4,6 @@ import MiscUtils.Block.ModBlockContainer;
 import com.circuit.CircuitMod.Main.ModBlocks;
 import com.circuit.CircuitMod.TileEntity.TileEntityCableConnectionPoint;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -33,41 +32,39 @@ public class ModBlockCableConnectionPoint extends ModBlockContainer{
     }
 
     @SideOnly(Side.CLIENT)
-    public int getRenderColor(IBlockState state)
-    {
-        if(state != null){
-            //TODO FIX?
-            return new Color(ItemDye.dyeColors[15 - Integer.parseInt(state.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString())]).getRGB();
-        }
-
-        return 16777215;
-    }
-
-    @SideOnly(Side.CLIENT)
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
     {
+        if(worldIn.getTileEntity(pos) instanceof TileEntityCableConnectionPoint){
+            int color = ((TileEntityCableConnectionPoint)worldIn.getTileEntity(pos)).Color;
+
+            return new Color(ItemDye.dyeColors[15 - color]).getRGB();
+        }
+
         return getRenderColor(worldIn.getBlockState(pos));
     }
 
-    public static final PropertyInteger COLOR = PropertyInteger.create("color", 0, 16);
+
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (playerIn.inventory.getCurrentItem() != null && playerIn.inventory.getCurrentItem().getItem() == Item.getItemFromBlock(ModBlocks.CircuitCable)) {
-            worldIn.setBlockState(pos, getDefaultState().withProperty(COLOR, playerIn.inventory.getCurrentItem().getItemDamage()), 2);
 
+            TileEntity te = worldIn.getTileEntity(pos);
+            if(te instanceof TileEntityCableConnectionPoint){
+                TileEntityCableConnectionPoint tile = (TileEntityCableConnectionPoint)te;
+
+                tile.Color = playerIn.inventory.getCurrentItem().getItemDamage();
+                worldIn.notifyNeighborsOfStateChange(pos, worldIn.getBlockState(pos).getBlock());
+
+
+
+            }
 
                 return true;
-
-
 
         }
 
         return false;
     }
 
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(COLOR, meta);
-    }
 
   }

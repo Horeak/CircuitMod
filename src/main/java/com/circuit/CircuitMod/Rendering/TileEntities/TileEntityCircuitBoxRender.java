@@ -1,12 +1,11 @@
 package com.circuit.CircuitMod.Rendering.TileEntities;
 
 import MiscUtils.Render.TileEntityBlockInfoRender;
-import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Rendering.Models.CircuitBoxModel;
 import com.circuit.CircuitMod.Rendering.Models.CircuitCableModel;
-import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
+import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.Utils.Ref;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -43,7 +42,7 @@ public class TileEntityCircuitBoxRender extends TileEntityBlockInfoRender {
 
             IBlockState meta = tile.getWorld().getBlockState(new BlockPos(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()));
 
-            int Meta = Integer.parseInt(meta.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString());
+            int Meta = tile.Color;
 
 
             GL11.glPushMatrix();

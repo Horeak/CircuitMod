@@ -65,13 +65,6 @@ public class CircuitMod {
         localizationUpdater = new LocalizationUpdater("tm1990", "CircuitMod", "master", "src/main/resources/assets/circuit/lang/");
         localizationUpdater.initializeThread(config.GetConfigFile());
 
-        proxy.PreInt();
-
-
-        ModBlocks.RegisterBlocks();
-        ModItems.RegisterItems();
-
-        proxy.RegisterRenderThings();
 
 
         CircuitBoxModeUtils.RegisterModes();
@@ -85,8 +78,14 @@ public class CircuitMod {
     @Mod.EventHandler
     public void Init(FMLInitializationEvent event){
 
+        ModBlocks.RegisterBlocks();
+        ModItems.RegisterItems();
+
         ModBlocks.Utils.RegisterIcons();
         ModItems.Utils.RegisterIcons();
+
+        proxy.PreInt();
+        proxy.RegisterRenderThings();
 
     }
 

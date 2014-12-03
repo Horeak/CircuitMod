@@ -54,7 +54,7 @@ public class TileEntityVariable extends TileEntityEventSender implements IBlockI
         super.writeToNBT(nbtTagCompound);
 
         nbtTagCompound.setInteger("Number", StoredNumber);
-        nbtTagCompound.setInteger("DirFrom", dirFrom.ordinal());
+        nbtTagCompound.setInteger("DirFrom", dirFrom.getIndex());
 
     }
 

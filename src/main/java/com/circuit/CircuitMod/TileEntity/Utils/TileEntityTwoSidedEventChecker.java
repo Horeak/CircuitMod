@@ -22,7 +22,7 @@ public abstract class TileEntityTwoSidedEventChecker extends TileEntityEventSend
     public int ResetPacketA = 0, ResetPacketB = 0;
     public int ResetAt = 4;
 
-    public EnumFacing dir = null;
+    public EnumFacing dir = EnumFacing.UP;
 
 
     public void updateEntity(){
@@ -93,7 +93,7 @@ public abstract class TileEntityTwoSidedEventChecker extends TileEntityEventSend
         nbtTagCompound.setInteger("ResetPacketA", ResetPacketA);
         nbtTagCompound.setInteger("ResetPacketB", ResetPacketB);
 
-        nbtTagCompound.setInteger("Dir", dir.ordinal());
+        nbtTagCompound.setInteger("Dir", dir.getIndex());
 
 
     }

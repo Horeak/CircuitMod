@@ -1,5 +1,5 @@
 {
-    "parent": "circuit:block/data_chat_output",
+    "parent": "circuit:block/data_receiver",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

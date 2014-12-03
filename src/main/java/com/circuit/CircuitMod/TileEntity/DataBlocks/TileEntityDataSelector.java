@@ -11,7 +11,7 @@ import net.minecraft.util.EnumFacing;
 
 public class TileEntityDataSelector extends TileEntityEventSender implements IDataRec {
 
-    public EnumFacing dir = null;
+    public EnumFacing dir = EnumFacing.UP;
     public String DataTagUse = DataPacket.DEFAULT_DATA_STORAGE;
 
     //0 = Whitelist
@@ -85,7 +85,7 @@ public class TileEntityDataSelector extends TileEntityEventSender implements IDa
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
 
-        nbtTagCompound.setInteger("Dir", dir.ordinal());
+        nbtTagCompound.setInteger("Dir", dir.getIndex());
         nbtTagCompound.setString("Tag", DataTagUse);
 
     }

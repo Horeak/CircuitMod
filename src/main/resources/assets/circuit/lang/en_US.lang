@@ -5,7 +5,7 @@ tile.circuit_cable.name=Circuit Cable
 tile.cable_connection_point.name=Cable Connection Point
 tile.lamp.name=Lamp
 
-tile.redstone_reciver.name=Redstone Receiver
+tile.redstone_receiver.name=Redstone Receiver
 tile.redstone_emitter.name=Redstone Emitter
 
 tile.variable.name=Variable

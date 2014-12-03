@@ -9,7 +9,7 @@ import net.minecraft.util.EnumFacing;
 
 public class TileEntitySignalShortender extends TileEntityEventSender{
 
-    public EnumFacing dir = null;
+    public EnumFacing dir = EnumFacing.UP;
     int Reset = 0;
     static int ResetAt = 1;
     boolean Resetting;
@@ -67,7 +67,7 @@ public class TileEntitySignalShortender extends TileEntityEventSender{
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
 
-        nbtTagCompound.setInteger("Dir", dir.ordinal());
+        nbtTagCompound.setInteger("Dir", dir.getIndex());
         nbtTagCompound.setInteger("Reset", Reset);
         nbtTagCompound.setBoolean("Resetting", Resetting);
 

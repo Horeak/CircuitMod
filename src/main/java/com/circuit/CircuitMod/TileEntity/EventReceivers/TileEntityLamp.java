@@ -17,6 +17,8 @@ public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuit
     int Reset = 0;
     static int ResetAt = 2;
 
+    public int Color = 0;
+
     public void updateEntity(){
 
         if(Powered && !worldObj.isBlockPowered(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ()))) {
@@ -42,6 +44,7 @@ public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuit
 
         super.readFromNBT(nbtTagCompound);
 
+        Color = nbtTagCompound.getInteger("Color");
         Powered = nbtTagCompound.getBoolean("Powered");
         Reset = nbtTagCompound.getInteger("Reset");
 
@@ -52,6 +55,7 @@ public class TileEntityLamp extends ModTileEntity implements IEventRec, ICircuit
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
 
+        nbtTagCompound.setInteger("Color", Color);
         nbtTagCompound.setBoolean("Powered", Powered);
         nbtTagCompound.setInteger("Reset", Reset);
 

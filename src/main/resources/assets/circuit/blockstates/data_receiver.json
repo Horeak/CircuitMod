@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "circuit:data_receiver" },
+        "facing=south": { "model": "circuit:data_receiver", "y": 180 },
+        "facing=west":  { "model": "circuit:data_receiver", "y": 270 },
+        "facing=east":  { "model": "circuit:data_receiver", "y": 90 }
+    }
+}

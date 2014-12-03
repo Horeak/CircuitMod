@@ -1,0 +1,8 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+	    "top": "circuit:blocks/data_block_sides",
+        "front": "circuit:blocks/data_converter_front",
+        "side": "circuit:blocks/data_block_sides"
+    }
+}

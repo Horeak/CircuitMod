@@ -1,11 +1,8 @@
 package com.circuit.CircuitMod.TileEntity;
 
-import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Utils.EventPacket;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 
 import java.awt.*;
@@ -13,6 +10,8 @@ import java.awt.*;
 public class TileEntityCircuitCable extends TileEntityEventSender {
 
     public static Color BaseColor = new Color(0x002810);
+
+    public int Color = 0;
 
     @Override
     public void OnRecived(EventPacket packet) {
@@ -33,11 +32,17 @@ public class TileEntityCircuitCable extends TileEntityEventSender {
         if(tile == null)
             return false;
 
-        IBlockState metaZZ = worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ()));
-        IBlockState metaXX = tile.getWorld().getBlockState(new BlockPos(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()));
+        int metaZ = this.Color;
+        int metaX = 0;
 
-        int metaZ = Integer.parseInt(metaZZ.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString());
-        int metaX = Integer.parseInt(metaXX.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString());
+        if(tile instanceof TileEntityCableConnectionPoint)
+            metaX = ((TileEntityCableConnectionPoint) tile).Color;
+
+        else if(tile instanceof TileEntityCircuitCable)
+            metaX = ((TileEntityCircuitCable) tile).Color;
+
+        else if(tile instanceof TileEntityCircuitBox)
+            metaX = ((TileEntityCircuitBox) tile).Color;
 
         boolean t = tile instanceof TileEntityCircuitCable || tile instanceof TileEntityCircuitBox;
         boolean g = metaX == 0 && metaZ == 0 || metaZ == metaX;
@@ -53,6 +58,7 @@ public class TileEntityCircuitCable extends TileEntityEventSender {
 
         super.readFromNBT(nbtTagCompound);
 
+        Color = nbtTagCompound.getInteger("Color");
         Direction = EnumFacing.getFront(nbtTagCompound.getInteger("DIR"));
 
 
@@ -62,7 +68,9 @@ public class TileEntityCircuitCable extends TileEntityEventSender {
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
 
-        nbtTagCompound.setInteger("DIR", Direction.ordinal());
+
+        nbtTagCompound.setInteger("Color", Color);
+        nbtTagCompound.setInteger("DIR", Direction.getIndex());
 
     }
 

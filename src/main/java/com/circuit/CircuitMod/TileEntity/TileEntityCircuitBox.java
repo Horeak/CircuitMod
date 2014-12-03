@@ -1,15 +1,12 @@
 package com.circuit.CircuitMod.TileEntity;
 
 import MiscUtils.TileEntity.IBlockInfo;
-import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.Utils.Modes.CircuitBoxMode;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
@@ -26,6 +23,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
     public int[] ResetCount = new int[4];
     public CircuitBoxMode CurrentMode;
     public EnumFacing[] Inputs = new EnumFacing[3];
+    public int Color = 0;
 
 
 
@@ -41,6 +39,8 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
 
         super.readFromNBT(nbtTagCompound);
+
+        Color = nbtTagCompound.getInteger("Color");
 
         Rotation = nbtTagCompound.getInteger("ROT");
         ModeNum = nbtTagCompound.getInteger("ModeNum");
@@ -63,6 +63,8 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
     @Override
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
+
+        nbtTagCompound.setInteger("Color", Color);
 
         nbtTagCompound.setInteger("ROT", Rotation);
 
@@ -205,11 +207,17 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
 
     @Override
     public boolean CanConnectToTile(TileEntity tile, EnumFacing dir) {
-        IBlockState metaZZ = worldObj.getBlockState(new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ()));
-        IBlockState metaXX = tile.getWorld().getBlockState(new BlockPos(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()));
+        int metaZ = this.Color;
+        int metaX = 0;
 
-        int metaZ = Integer.parseInt(metaZZ.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString());
-        int metaX = Integer.parseInt(metaXX.getProperties().get(ModBlockCableConnectionPoint.COLOR).toString());
+        if(tile instanceof TileEntityCableConnectionPoint)
+            metaX = ((TileEntityCableConnectionPoint) tile).Color;
+
+        else if(tile instanceof TileEntityCircuitCable)
+            metaX = ((TileEntityCircuitCable) tile).Color;
+
+        else if(tile instanceof TileEntityCircuitBox)
+            metaX = ((TileEntityCircuitBox) tile).Color;
 
         boolean t = tile instanceof TileEntityCircuitCable ? ((TileEntityCircuitCable)tile).Direction == EnumFacing.UP : true;
         boolean g = metaZ == 0 && metaX == 0 || metaZ == metaX;
@@ -239,6 +247,7 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
     @Override
     public void Info(ArrayList<String> Strings) {
         Strings.add(EnumChatFormatting.WHITE + worldObj.getBlockState(getPos()).getBlock().getLocalizedName() + EnumChatFormatting.RESET);
+
         if (CurrentMode != null) {
             Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.mode").replace("$Mode", (EnumChatFormatting.GRAY + CurrentMode.ModeName() + EnumChatFormatting.RESET)));
             Strings.add(StatCollector.translateToLocal("blockinfo.all.shiftchange"));

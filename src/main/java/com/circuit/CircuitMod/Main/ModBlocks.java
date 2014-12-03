@@ -105,7 +105,7 @@ public class ModBlocks {
 
         //Redstone handlers
         RedstoneReciver = new ModBlockRedstoneReciver().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
-        Utils.Register(RedstoneReciver, "Redstone Reciver", TileEntityRedstoneReciver.class);
+        Utils.Register(RedstoneReciver, "Redstone receiver", TileEntityRedstoneReciver.class);
 
         RedstoneEmitter = new ModBlockRedstoneEmitter().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(RedstoneEmitter, "Redstone Emitter", TileEntityRedstoneEmitter.class);

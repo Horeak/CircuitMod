@@ -3,6 +3,7 @@ package com.circuit.CircuitMod.Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -17,6 +18,19 @@ import java.util.List;
 public class ItemBlockCableConnectionPoint extends ItemBlock {
     public ItemBlockCableConnectionPoint(Block p_i45328_1_) {
         super(p_i45328_1_);
+    }
+
+    public String getItemStackDisplayName(ItemStack stack)
+    {
+
+        int Meta = stack.getItemDamage();
+
+        if(Meta > 0){
+
+            return StatCollector.translateToLocal("item.fireworksCharge." + EnumDyeColor.func_176766_a(Meta).func_176762_d()) + " " + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
+        }
+
+        return ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
     }
 
     public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState)

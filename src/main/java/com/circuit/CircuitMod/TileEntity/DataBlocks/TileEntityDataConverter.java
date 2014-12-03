@@ -11,7 +11,7 @@ import net.minecraft.util.EnumFacing;
 
 public class TileEntityDataConverter extends TileEntityEventSender implements IDataRec {
 
-    public EnumFacing dir = null;
+    public EnumFacing dir = EnumFacing.UP;
     public String DataTagUse = DataPacket.DEFAULT_DATA_STORAGE, DataTagFrom = DataPacket.DEFAULT_DATA_STORAGE;
 
     @Override
@@ -72,7 +72,8 @@ public class TileEntityDataConverter extends TileEntityEventSender implements ID
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
 
-        nbtTagCompound.setInteger("Dir", dir.ordinal());
+        nbtTagCompound.setInteger("Dir", dir.getIndex());
+
         nbtTagCompound.setString("Tag", DataTagUse);
         nbtTagCompound.setString("DataTagFrom", DataTagFrom);
 

@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "facing=north": { "model": "circuit:data_selector" },
+        "facing=south": { "model": "circuit:data_selector", "y": 180 },
+        "facing=west":  { "model": "circuit:data_selector", "y": 270 },
+        "facing=east":  { "model": "circuit:data_selector", "y": 90 },
+        "facing=up":  { "model": "circuit:data_selector", "x": 270 },
+        "facing=down":  { "model": "circuit:data_selector", "x": 90 }
+    }
+}
