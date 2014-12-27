@@ -47,7 +47,6 @@ public class CircuitModGuideInstance extends GuideInstance {
         BlocksTab = new GuideTab(this, ModBlocks.CircuitBox, "guide.circuit.tab.blocks");
 
         for(Object r : Block.blockRegistry) {
-
             Block bl = (Block) r;
             if (bl != null) {
 
