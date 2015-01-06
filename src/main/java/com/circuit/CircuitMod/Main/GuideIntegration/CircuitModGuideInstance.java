@@ -51,7 +51,7 @@ public class CircuitModGuideInstance extends GuideInstance {
             if (bl != null) {
 
                 GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(bl);
-                if (id != null & id.modId.equalsIgnoreCase(Ref.ModId))
+                if (id != null && id.modId != null && id.modId.equalsIgnoreCase(Ref.ModId))
                     BlocksTab.Register(bl);
 
             }
