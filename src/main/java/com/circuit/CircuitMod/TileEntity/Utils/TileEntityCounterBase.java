@@ -1,6 +1,7 @@
 package com.circuit.CircuitMod.TileEntity.Utils;
 
 import MiscUtils.TileEntity.IBlockInfo;
+import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.EventPacket;
@@ -155,6 +156,9 @@ public abstract class TileEntityCounterBase extends TileEntityEventSender  imple
 
     @Override
     public void Info(ArrayList<String> Strings) {
+
+        if(!CircuitMod.ShowHoverText)
+            return;
 
         Strings.add(EnumChatFormatting.WHITE + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + EnumChatFormatting.RESET);
         Strings.add(StatCollector.translateToLocal("blockinfo.counter.currentcount").replace("$Number", EnumChatFormatting.GRAY + "" + CurrentCount + EnumChatFormatting.RESET));

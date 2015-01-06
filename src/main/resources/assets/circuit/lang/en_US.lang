@@ -71,7 +71,7 @@ item.desc.changeblockcolorfromcable.half2=right clicking with a colored cable
 item.desc.differentcolorsnoconnect=Different colors wont connect together
 
 
-guide.circuit.name=CircuitMod Guide
+guide.circuit.name=DataCircuit Mod Guide
 
 guide.circuit.tab.main=Main Tab
 guide.circuit.tab.blocks=Blocks Tab

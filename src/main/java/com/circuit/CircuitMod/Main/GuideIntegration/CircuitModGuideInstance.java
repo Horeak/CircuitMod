@@ -25,7 +25,7 @@ public class CircuitModGuideInstance extends GuideInstance {
 
     @Override
     public String ModPageName() {
-        return "guide.circuit.name";
+        return Ref.ModName + " Mod Guide";
     }
 
     @Override
@@ -35,7 +35,7 @@ public class CircuitModGuideInstance extends GuideInstance {
 
     @Override
     public String ModDescription() {
-        return "The circuit mod is a mod that adds more advanced circuit mechanics then what is already in minecraft.";
+        return "The " + Ref.ModName + " mod is a mod aiming to add more advanced signal and data transfer system in minecraft and allowing players to more easily make more complex contraptions in the game.";
     }
 
     ModGuideText MainTab;

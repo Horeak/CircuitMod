@@ -1,7 +1,7 @@
 [
 {
   "modid": "Circuit",
-  "name": "Circuit",
+  "name": "DataCircuits",
   "description": "",
   "version": "${version}",
   "url": "",

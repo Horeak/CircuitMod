@@ -1,6 +1,7 @@
 package com.circuit.CircuitMod.TileEntity.EventSenders;
 
 import MiscUtils.TileEntity.IBlockInfo;
+import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.EventPacket;
@@ -65,6 +66,9 @@ public class TileEntityRandomNumber extends TileEntityEventSender implements IBl
 
     @Override
     public void Info(ArrayList<String> Strings) {
+
+        if(!CircuitMod.ShowHoverText)
+            return;
 
         Strings.add(EnumChatFormatting.WHITE + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + EnumChatFormatting.RESET);
         Strings.add(StatCollector.translateToLocal("blockinfo.randomnumbercomponent.posnum").replace("$Number", (EnumChatFormatting.GRAY + "1 -> " + MaxValue + EnumChatFormatting.RESET)));

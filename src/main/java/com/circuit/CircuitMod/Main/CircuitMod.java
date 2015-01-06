@@ -43,6 +43,8 @@ public class CircuitMod {
     public static ChannelUtils Utils;
     public static Config config;
 
+    public static boolean ShowHoverText = true;
+
     public static CreativeTabs CreativeTab = new CreativeTabs("tabCircuit") {
         @Override
         @SideOnly(Side.CLIENT)
@@ -70,6 +72,8 @@ public class CircuitMod {
 
         ModBlocks.RegisterBlocks();
         ModItems.RegisterItems();
+
+        Crafting.RegisterCrafting();
 
         proxy.RegisterRenderThings();
 

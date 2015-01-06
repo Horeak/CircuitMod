@@ -1,6 +1,7 @@
 package com.circuit.CircuitMod.TileEntity;
 
 import MiscUtils.TileEntity.IBlockInfo;
+import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
@@ -231,6 +232,9 @@ public class TileEntityCircuitBox extends TileEntityEventSender implements IBloc
 
     @Override
     public void Info(ArrayList<String> Strings) {
+        if(!CircuitMod.ShowHoverText)
+            return;
+
         Strings.add(EnumChatFormatting.WHITE + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + EnumChatFormatting.RESET);
         if (CurrentMode != null) {
             Strings.add(StatCollector.translateToLocal("blockinfo.circuitbox.mode").replace("$Mode", (EnumChatFormatting.GRAY + CurrentMode.ModeName() + EnumChatFormatting.RESET)));

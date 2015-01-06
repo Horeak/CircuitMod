@@ -1,6 +1,8 @@
 package com.circuit.CircuitMod.Blocks;
 
 import MiscUtils.Block.ModBlockCustomModel;
+import MiscUtils.Handlers.ChatMessageHandler;
+import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.Main.ModBlocks;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
@@ -61,7 +63,10 @@ public class ModBlockCircuitBox extends ModBlockCustomModel {
 
                 }else if(tile.ModeNum >= (CircuitBoxModeUtils.Modes.size()-1)){
                     tile.ModeNum = 0;
+                }
 
+                if(!CircuitMod.ShowHoverText){
+                    ChatMessageHandler.sendChatToPlayer(player, world.getBlock(x,y,z).getLocalizedName() + ": " + CircuitBoxModeUtils.Modes.get(tile.ModeNum).ModeName());
                 }
 
                 tile.SetMode(CircuitBoxModeUtils.Modes.get(tile.ModeNum));

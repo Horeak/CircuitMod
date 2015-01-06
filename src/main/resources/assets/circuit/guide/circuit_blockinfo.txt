@@ -1,1 +1,50 @@
-block.info.circuit_box=This is a test message to see if this test message works!
+//Transfer
+block.info.circuit_box=The circuit box is a block used to control different redstone signal through different gate modes like and gate or gate and others. The mode of the circuit box can be changed by shift right clicking it. The circuit box will output a signal out the red side when the gate mode allows it and it will take input from the three green sides.
+block.info.circuit_cable=The circuit cable is what is used to transfer signals around. It can connect with all of the blocks from the mod and can receive and send signals. The cables can not change from one face to another so you cant have it going from the floor up a wall then it has to go into a cable connection point.
+block.info.cable_connection_point=The cable connection point is a block version of the circuit cable. It can take input from any side and will try to output from all other sides.
+
+//Redstone
+block.info.redstone_reciver=The redstone receiver is a block used from converting a redstone signal into a data signal. It will when receiving a redstone signal output a data signal to any blocks adjacent to it including cables and other signal transferring blocks.
+block.info.redstone_emitter=The redstone is another block used for redstone implementation. The emitter will output a redstone when receiving a data signal.
+ 
+ //RedstoneBlocks
+block.info.lamp=The lamp is a toggle able light block just like the vanilla redstone lamp but it colorable and can be controlled with normal redstone and a signal from a redstone receiver sent through a cable. 
+
+
+//NumberBlocks
+block.info.variable=The variable block is a block used to store a number signal from for example a Random number component. It will when receiving a number signal store that signal then start outputting it again. (It can not change it's self)
+block.info.random_number_component=The random number component will generate and output a random number between 1 and the number that is given in the gui when it receives a redstone data signal.
+ 
+//SignalHandeling
+block.info.signal_short-tender=The signal shortender is a block which can be both used to prevent a signal from staying on for longer then one tick and it can also be used to prevent a signal from going in a certain direction by putting the output side in the right direction. The red side is the output and all others are input.
+block.info.equals_gate=The equals gate will output a signal if both of its output sides have the same number value. The side with a circle is the output side. 
+block.info.greater_gate=The greater gate will output a signal if its input number 1 is greater then the input number 2.
+block.info.less_gate=The less gate will output a signal if its input number 1 is less then the input number 2.
+block.info.signal_gate=The signal gate is used to control which signal should be let through. It can accept a signal from the red and green side and a redstone data signal to any other side. If it is receiving a redstone data signal it will output the green side through the front and if it is not receiving a redstone data signal it will output the red side.
+
+//MathBlocks
+block.info.addition_gate=The addition component is one of the blocks used to handle numbers it will output the value that it gets by adding the side 1 number together with the side 2 number.
+block.info.subtraction_gate=The subtraction component is one of the blocks used to handle numbers it will output the value that it gets by subtraction the side 2 number from the side 1 number.
+block.info.multiplication_gate=The multiplication component is one of the blocks used to handle numbers it will output the value that it gets by multiplying the side 1 number together with the side 2 number.
+block.info.dividation_gate=The dividation component is one of the blocks used to handle numbers it will output the value that it gets by dividing the side 1 number by the side 2 number.
+
+//NumberBlocks - One Digit
+block.info.one-digit_display=The one digit display is a block for showing small number signals that are smaller then 10. When receiving a number signal it will display that number.
+block.info.one-digit_constant=The one digit constant works almost like a manual variable where it can be given a number in its gui and will then output it.
+block.info.one-digit_counter=The one digit counter counts the amount of times it has been activated before reaching the reset value set in the gui. The counter can be given an increment value by inputing a number signal from for example a constant. The counter will increase its count whenever it receives a redstone data signal. The counter will reset its number and output a redstone data signal when it reaches the number set in its gui.
+
+//NumberBlocks - Multi Digit
+block.info.multi-digit_display=The multi digit display works just like the one digit display but instead of max 10 it can display and accept numbers up to 9999.
+block.info.multi-digit_constant=The multi digit constant works just like the one digit constant but instead of max 10 it can output numbers up to 9999.
+block.info.multi-digit_counter=The multi digit counter works just like the one digit counter but instead of max 10 it can count up to 9999.
+
+//DataSystem
+block.info.data_transmitter=The data transmitter will accept any data packet and transmit it to any receivers within a 50block radius that has the same channel id as its self.
+block.info.data_receiver=The data receiver will receive any data packet sent from a data transmitter if they both have the same channel id. When the data receiver receives a data packet it outputs it.
+block.info.data_constructor=The data constructor can construct and save data packets through its gui. When a data packet is saved it can be sent multiple times by just sending a redstone data signal to it. When a data packet is constructed it uses the standard channel name.
+block.info.data_chat_output=The data chat output will send the contents of a data packet to any player within its radius which is default to 10 but can be changed by inputting a number signal.
+
+block.info.data_selector=The data tag reader works like a data packet gate by only allowing packets which has been encoded with the correct data tag to pass through it. The data tag reader can both white or blacklist one data tag name.
+block.info.data_converter=The data tag encoder will take any packet with the specified from tag and convert its channel tag to the specified name and can there for be used to sort signals from different sources to different sources.
+
+

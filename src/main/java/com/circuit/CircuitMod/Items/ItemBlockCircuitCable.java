@@ -27,7 +27,10 @@ public class ItemBlockCircuitCable extends ItemBlock {
 
         if(Meta > 0){
 
-            return StatCollector.translateToLocal("item.fireworksCharge." + ItemDye.field_150923_a[15 - stack.getItemDamage()]) + " " + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
+            if(Meta > 15)
+                Meta = 15;
+
+            return StatCollector.translateToLocal("item.fireworksCharge." + ItemDye.field_150923_a[15 - Meta]) + " " + ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
         }
 
         return ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
