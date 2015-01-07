@@ -1,6 +1,5 @@
 package com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers;
 
-import MiscUtils.MiscUtilsMain;
 import com.circuit.CircuitMod.Rendering.Models.DefaultCircuitBlockModel;
 import com.circuit.CircuitMod.Rendering.Models.DigitDisplayModel;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
@@ -59,7 +58,15 @@ public class TIleEntityMultiDigitDisplayRender  extends TileEntitySpecialRendere
 
 
             if(!(Integer.toString(Number)).isEmpty()) {
-                String nums = new StringBuilder(Integer.toString(Number)).reverse().toString();
+                String nums = Integer.toString(Number);
+                if(nums.length() < 4){
+                    int t = 4 - nums.length();
+
+                    for(int i = 0; i < t; i++){
+                        nums = "X" + nums;
+                    }
+                }
+
                 String[] Numbers = nums.split("");
                 int Tens = nums.length();
 
@@ -72,67 +79,37 @@ public class TIleEntityMultiDigitDisplayRender  extends TileEntitySpecialRendere
 
                 GL11.glPushMatrix();
 
-                GL11.glTranslatef(0.322F, 0.61F, -0.22F);
-
+                GL11.glTranslatef(-(offset/1.85F), 0.61F, -0.22F);
                 GL11.glScalef(scale, scale, 0.5F);
 
-                for (int i = 0; i < (MiscUtilsMain.IsLoadedInDev ? 4 : 5); i++) {
+                for(int i = 0; i < 4; i++){
+                    if(Numbers.length > i && Number != -1){
 
-                    if(i != 0)
-                        GL11.glTranslatef(-offset, 0F, 0F);
+                        if(Numbers[i].equalsIgnoreCase("X")){
 
+                            this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, false, false, false, false, false, false, false);
+                        }else {
 
-                    if(i == 4){
-                        if (Numbers.length > 4 && Numbers[4].length() > 0) {
-                            Integer tempg = Integer.decode(Numbers[4]);
+                            Integer tempg = Integer.decode(Numbers[i]);
                             boolean[] Num = GetStateForNumber(tempg);
 
-                            this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, Num[0], Num[1], Num[2], Num[3], Num[4], Num[5], Num[6]);
 
-                        }else{
+                            if (Num != null) {
+                                this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, Num[0], Num[1], Num[2], Num[3], Num[4], Num[5], Num[6]);
+                            }
+
+                        }
+                    }else{
                             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, false, false, false, false, false, false, false);
                         }
 
-
-
-                        GL11.glPopMatrix();
-                        GL11.glPopMatrix();
-                        GL11.glPopMatrix();
-                        return;
-                    }
-
-                    if (Number == -1) {
-                        this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, false, false, false, false, false, false, false);
-                        continue;
-                    }
-
-                    boolean RenderFalse = true;
-
-                            if (Tens >= i && Numbers.length > i) {
-
-                                while(Numbers[i].length() <= 0 && i < 4)
-                                    i += 1;
-
-
-                                if (Numbers[i].length() > 0) {
-                                    Integer tempg = Integer.decode(Numbers[i]);
-                                    boolean[] Num = GetStateForNumber(tempg);
-
-                                    this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, Num[0], Num[1], Num[2], Num[3], Num[4], Num[5], Num[6]);
-                                    RenderFalse = false;
-
-                                }
-
-                            }
-
-
-                    if (RenderFalse) {
-                        this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, false, false, false, false, false, false, false);
-                    }
-
+                    GL11.glTranslatef(offset, 0, 0);
 
                 }
+
+
             }
+
             GL11.glPopMatrix();
             GL11.glPopMatrix();
             GL11.glPopMatrix();
@@ -147,6 +124,9 @@ public class TIleEntityMultiDigitDisplayRender  extends TileEntitySpecialRendere
     public static boolean[] GetStateForNumber(Integer Number){
         boolean[] Num = new boolean[7];
 
+
+        if(Number == null)
+            return null;
 
         if(Number == 1){
             Num[2] = true;

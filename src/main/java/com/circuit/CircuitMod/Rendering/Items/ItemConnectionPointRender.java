@@ -1,6 +1,6 @@
 package com.circuit.CircuitMod.Rendering.Items;
 
-import MiscUtils.Render.RenderHelper;
+import MiscUtils.Render.RendererHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
@@ -56,6 +56,6 @@ public class ItemConnectionPointRender implements IItemRenderer
 
         Color color = new Color(block.getRenderColor(item.getItemDamage()));
 
-        RenderHelper.RenderInventoryBlockWithColor(type, item, color);
+        RendererHelper.RenderInventoryBlockWithColor(type, item, color);
     }
 }
