@@ -32,38 +32,65 @@ public class TileEntityDataSelector extends TileEntityEventSender implements IDa
     public void OnRecived(EventPacket packet) {
         DataPacket pack = (DataPacket)packet;
 
-       if(pack != null && pack.DataStorageFree != null)
-        for(int i = 0; i < pack.DataStorageFree.size(); i++){
-            String t = pack.DataStorageFree.get(i);
+       if(pack != null && pack.DataStorageFree != null) {
+           boolean Contains = false;
 
-            boolean Keep = false;
+           for (String t : pack.DataTagsFree) {
+               if (Mode == 0 && !t.equals(DataTagUse) || Mode == 1 && t.equals(DataTagUse)) {
+                   Contains = true;
+               }
+           }
 
-                String[] dt_Text = t.split(DataPacket.SPLIT_DATA_TAG);
-                String DataTag = dt_Text[0];
+           if (Contains) {
+               for (int i = 0; i < pack.DataStorageFree.size(); i++) {
+                   String text = pack.DataStorageFree.get(i);
 
-            if(Mode == 0){
-                if(DataTag.equals(DataTagUse)) {
-                    Keep = true;
-                }
+                   String[] dt_Text = text.split(DataPacket.SPLIT_DATA_TAG);
+                   String DataTag = dt_Text[0];
 
+                   if (!Check(text))
+                       pack.RemoveData(DataTag);
+
+               }
+
+               //Java why ?!
+               String text = pack.DataStorageFree.get(pack.DataStorageFree.size()-1);
+               String[] dt_Text = text.split(DataPacket.SPLIT_DATA_TAG);
+               String DataTag = dt_Text[0];
+
+               if (!Check(text))
+                   pack.RemoveData(DataTag);
+
+           }
+       }
+
+        if(!pack.GetTotalData().isEmpty()) {
+            SendPacketTo(pack, dir);
+
+        }
+
+    }
+
+    public boolean Check(String t){
+        boolean Keep = false;
+
+        String[] dt_Text = t.split(DataPacket.SPLIT_DATA_TAG);
+        String DataTag = dt_Text[0];
+
+        if (Mode == 0) {
+            if (DataTag.equals(DataTagUse)) {
+                Keep = true;
             }
 
-            if(Mode == 1){
-                if(!DataTag.equals(DataTagUse)) {
-                    Keep = true;
-                }
+        }
+
+        if (Mode == 1) {
+            if (!DataTag.equals(DataTagUse)) {
+                Keep = true;
             }
+        }
 
-            if(!Keep)
-                pack.RemoveData(DataTag);
-
-
-            }
-
-        if(!pack.GetTotalData().isEmpty())
-        SendPacketTo(pack, dir);
-
-
+        return Keep;
     }
 
     @Override

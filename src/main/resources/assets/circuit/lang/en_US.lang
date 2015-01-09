@@ -36,6 +36,9 @@ tile.data_receiver.name=Data Receiver
 tile.data_chat_output.name=Data Chat-Output
 tile.data_selector.name=Data Tag Reader
 tile.data_converter.name=Data Tag Encoder
+tile.data_screen.name=Data Screen
+
+tile.entity_detector.name=Entity Detector
 
 
 blockinfo.all.shiftchange=Shift-right click to change

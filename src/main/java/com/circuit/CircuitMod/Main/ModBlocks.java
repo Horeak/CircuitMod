@@ -1,12 +1,14 @@
 package com.circuit.CircuitMod.Main;
 
 import MiscUtils.Register.BlockRegister;
+import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataScreen;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataChatOutput;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataConstructor;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataConverter;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataReceiver;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataSelector;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataTransmitter;
+import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockEntityDetector;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockLamp;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockMultiDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockOneDigitDisplay;
@@ -38,8 +40,10 @@ import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataChatOutput;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataConstructor;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataConverter;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataReceiver;
+import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataScreen;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataSelector;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataTransmitter;
+import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityEntityDetector;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityLamp;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
@@ -78,7 +82,8 @@ public class ModBlocks {
     public static Block OneDigitDisplay, OneDigitConstant, OneDigitCounter;
     public static Block MultiDigitDisplay, MultiDigitConstant, MultiDigitCounter;
 
-    public static Block DataTransmitter, DataConstructor, DataReceiver, DataChatOutput, DataSelector, DataConverter;
+    public static Block DataTransmitter, DataConstructor, DataReceiver, DataChatOutput, DataSelector, DataConverter, DataScreen;
+    public static Block EntityDetector;
 
 
     //TODO Add sensors and text based event types (for example player sensors that outputs the player name and maybe range from the sensor? will also need some kind of constant and display)
@@ -191,6 +196,13 @@ public class ModBlocks {
 
         DataConverter = new ModBlockDataConverter().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(DataConverter, "Data Converter", TileEntityDataConverter.class);
+
+        DataScreen = new ModBlockDataScreen().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
+        Utils.Register(DataScreen, "Data Screen", TileEntityDataScreen.class);
+
+
+        EntityDetector = new ModBlockEntityDetector().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
+        Utils.Register(EntityDetector, "Entity Detector", TileEntityEntityDetector.class);
 
 
     }

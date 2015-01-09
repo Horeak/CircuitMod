@@ -45,10 +45,6 @@ public class TileEntityVariableRender extends TileEntityBlockInfoRender {
             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, Def, Bord);
 
             GL11.glPopMatrix();
-            GL11.glPopMatrix();
-
-            GL11.glPushMatrix();
-
 
             GL11.glPopMatrix();
 

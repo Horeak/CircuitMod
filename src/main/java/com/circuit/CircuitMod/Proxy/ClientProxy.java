@@ -2,6 +2,8 @@ package com.circuit.CircuitMod.Proxy;
 
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.Main.ModBlocks;
+import com.circuit.CircuitMod.Rendering.Items.DataBlocks.DataScreenItemRender;
+import com.circuit.CircuitMod.Rendering.Items.DataBlocks.EntityDetectorItemRender;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemLampRender;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemMultiDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemOneDigitDisplayRender;
@@ -14,6 +16,8 @@ import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemRandomNumberCompo
 import com.circuit.CircuitMod.Rendering.Items.ItemCircuitBoxRender;
 import com.circuit.CircuitMod.Rendering.Items.ItemCircuitCableRender;
 import com.circuit.CircuitMod.Rendering.Items.ItemConnectionPointRender;
+import com.circuit.CircuitMod.Rendering.TileEntities.DataBlocks.TileEntityDataScreenRender;
+import com.circuit.CircuitMod.Rendering.TileEntities.DataBlocks.TileEntityEntityDetectorRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TIleEntityMultiDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TileEntityLampRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TileEntityOneDigitDisplayRender;
@@ -25,6 +29,8 @@ import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityOneD
 import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityRandomNumberComponentRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.TileEntityCircuitBoxRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.TileEntityCircuitCableRender;
+import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataScreen;
+import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityEntityDetector;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityLamp;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
@@ -60,6 +66,9 @@ public class ClientProxy extends ServerProxy  implements ProxyInterface {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMultiDigitConstant.class, new TileEntityMultiDigitConstantRender());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMultiDigitCounter.class, new TileEntityMultiDigitCounterRender());
 
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDataScreen.class, new TileEntityDataScreenRender());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEntityDetector.class, new TileEntityEntityDetectorRender());
+
 
 
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.CircuitCable), new ItemCircuitCableRender());
@@ -77,6 +86,9 @@ public class ClientProxy extends ServerProxy  implements ProxyInterface {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.MultiDigitDisplay), new ItemMultiDigitDisplayRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.MultiDigitConstant), new ItemMultiDigitConstantRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.MultiDigitCounter), new ItemMultiDigitCounterRender());
+
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.DataScreen), new DataScreenItemRender());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.EntityDetector), new EntityDetectorItemRender());
 
     }
 
