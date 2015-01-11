@@ -9,6 +9,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TileEntityDataSelector extends TileEntityEventSender implements IDataRec {
 
     public ForgeDirection dir = ForgeDirection.UNKNOWN;
@@ -32,42 +35,33 @@ public class TileEntityDataSelector extends TileEntityEventSender implements IDa
     public void OnRecived(EventPacket packet) {
         DataPacket pack = (DataPacket)packet;
 
-       if(pack != null && pack.DataStorageFree != null) {
-           boolean Contains = false;
+       if(pack != null && pack.GetDataAcces() != null) {
 
-           for (String t : pack.DataTagsFree) {
-               if (Mode == 0 && !t.equals(DataTagUse) || Mode == 1 && t.equals(DataTagUse)) {
-                   Contains = true;
+           HashMap<String, String> Temp = new HashMap<String, String>();
+
+           if(Mode == 0){
+               for(Map.Entry<String, String> ent : pack.GetDataAcces().entrySet()){
+                   if(ent.getKey().equals(DataTagUse)){
+                       Temp.put(ent.getKey(), ent.getValue());
+                   }
+               }
+           }else if(Mode == 1){
+               for(Map.Entry<String, String> ent : pack.GetDataAcces().entrySet()){
+                   if(!ent.getKey().equals(DataTagUse)){
+                       Temp.put(ent.getKey(), ent.getValue());
+                   }
                }
            }
 
-           if (Contains) {
-               for (int i = 0; i < pack.DataStorageFree.size(); i++) {
-                   String text = pack.DataStorageFree.get(i);
-
-                   String[] dt_Text = text.split(DataPacket.SPLIT_DATA_TAG);
-                   String DataTag = dt_Text[0];
-
-                   if (!Check(text))
-                       pack.RemoveData(DataTag);
-
-               }
-
-               //Java why ?!
-               String text = pack.DataStorageFree.get(pack.DataStorageFree.size()-1);
-               String[] dt_Text = text.split(DataPacket.SPLIT_DATA_TAG);
-               String DataTag = dt_Text[0];
-
-               if (!Check(text))
-                   pack.RemoveData(DataTag);
-
-           }
+           pack.SetData(Temp);
        }
 
-        if(!pack.GetTotalData().isEmpty()) {
-            SendPacketTo(pack, dir);
 
-        }
+           if (!pack.GetTotalData().isEmpty()) {
+               SendPacketTo(pack, dir);
+
+           }
+
 
     }
 

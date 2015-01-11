@@ -4,6 +4,7 @@ import net.minecraft.util.EnumChatFormatting;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class DataPacket extends EventPacket {
     public DataPacket(int TimeOut, byte Value) {
@@ -13,66 +14,153 @@ public class DataPacket extends EventPacket {
     public static final String DEFAULT_DATA_STORAGE = "Data";
     public static final String SPLIT_DATA_TAG = "_|_";
 
+    //TODO Add proper channel handling system!
     private HashMap<String, String> DataStorage = new HashMap<String, String>();
-    public ArrayList<String> DataStorageFree = new ArrayList<String>();
-    public ArrayList<String> DataTagsFree = new ArrayList<String>();
 
-    public EventPacket GetInstance(){
-        return new DataPacket(TimeOut, ByteValue);
+    private boolean Encrypted = false;
+    private String EncryptedKey = null;
+
+    private String DecryptionKey = null;
+
+
+
+    //TODO Add encryption (Finish it) (Add usage ingame) (Make all data handeling use CanAccessData check)
+    public boolean CanAccessData(){
+        return Encrypted && DecryptionKey != null && EncryptedKey != null && DecryptionKey.equals(EncryptedKey) || !Encrypted;
     }
 
-    public void SaveData(String DataTag, String Data){
-            DataStorage.put(DataTag, Data);
-            DataStorageFree.add(DataTag + SPLIT_DATA_TAG + Data);
-            DataTagsFree.add(DataTag);
+    //Since strings are so secure for saving passwords... (not at all)
+    public void DecryptionUseAccess(String Password){
+        if(!Encrypted)
+            return;
+
+        DecryptionKey = Password;
     }
 
-    public void RemoveData(String DataTag){
-            String data = ReadData(DataTag);
 
-            DataStorage.remove(DataTag, data);
-            DataStorageFree.remove(DataTag + SPLIT_DATA_TAG + data);
+    public void DecryptPacket(String Password){
+        if(!Encrypted)
+            return;
 
-        for(int i = 0; i < DataTagsFree.size(); i++){
-            String t = DataTagsFree.get(i);
+        DecryptionKey = Password;
 
-            if(t.equals(DataTag)){
-                DataTagsFree.remove(i);
+        if(CanAccessData()){
+            Encrypted = false;
+            EncryptedKey = null;
 
-            }
-
+            DecryptionKey = null;
         }
 
-
     }
 
-    public String ReadData(String DataTag){
-        String Data = DataStorage.get(DataTag);
 
-        return Data;
+    public void Encrypt(String Password){
+        EncryptedKey = Password;
+        Encrypted = true;
+    }
+
+
+
+
+
+
+    public EventPacket GetInstance(){
+            return new DataPacket(TimeOut, ByteValue);
+    }
+
+
+
+
+
+    public void SaveData(String DataTag, String Data){
+        if(!CanAccessData())
+            return;
+
+            DataStorage.put(DataTag, Data);
+    }
+
+
+    public void RemoveData(String DataTag){
+        if(!CanAccessData())
+            return;
+
+        for(Map.Entry<String, String> ent : DataStorage.entrySet()){
+            if(ent.getKey().equals(DataTag)){
+                DataStorage.remove(ent.getKey(), ent.getValue());
+            }
+        }
+    }
+
+
+    public HashMap<String, String> GetDataAcces(){
+        if(!CanAccessData())
+            return null;
+
+
+        return DataStorage;
+    }
+
+    public void SetData(HashMap<String, String> data){
+        if(CanAccessData()){
+            DataStorage = data;
+        }
+    }
+
+
+    public String ReadData(String DataTag){
+        if(!CanAccessData())
+            return EnumChatFormatting.DARK_RED + "NULL: Data encrypted" + EnumChatFormatting.RESET;
+
+        return GetTotalDataWhitelist(DataTag);
     }
 
     public String GetTotalData(){
         return GetTotalDataExcluding("");
     }
 
+    public String GetTotalDataWhitelist(String whitelisted){
+        return GetTotalDataExcluding("!_ " + whitelisted);
+    }
+
     public String GetTotalDataExcluding(String Exclude){
+        if(!CanAccessData())
+            return EnumChatFormatting.DARK_RED + "NULL: Data encrypted" + EnumChatFormatting.RESET;
+
         String data = "";
 
-        for(String t : DataStorageFree){
-            String[] dt_Text = t.split(SPLIT_DATA_TAG);
-            if(dt_Text.length >= 2) {
-                String DataTag = dt_Text[0];
 
-                if(Exclude.isEmpty() || !DataTag.equalsIgnoreCase(Exclude)) {
+        ArrayList<String> TempT = new ArrayList<String>();
 
-                    String text = dt_Text[2];
+        for(Map.Entry<String, String> ent : DataStorage.entrySet()) {
+            if(!TempT.contains(ent.getKey()))
+                TempT.add(ent.getKey());
+        }
 
-                    if(DataTagsFree.size() > 1){
-                        text = (EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC +  "[" + DataTag + "]" + EnumChatFormatting.RESET) + text;
+        boolean multi = TempT.size() > 1;
+
+        for(Map.Entry<String, String> ent : DataStorage.entrySet()) {
+
+            if (Exclude.startsWith("!_")) {
+                Exclude = Exclude.substring(2);
+
+                if (Exclude.isEmpty() || ent.getKey().equals(Exclude)) {
+                    if (multi) {
+                        data = data + (data.isEmpty() ? "" : ", ") + (EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + "[" + ent.getKey() + "]" + EnumChatFormatting.RESET) + ent.getValue() + " ";
+                    } else {
+                        data = data + (data.isEmpty() ? "" : ", ") + ent.getValue();
+                    }
+                }
+
+            } else {
+
+                if (Exclude.isEmpty() || !ent.getKey().equals(Exclude)) {
+
+                    if (multi) {
+                        data = data + (data.isEmpty() ? "" : ", ") + (EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + "[" + ent.getKey() + "] " + EnumChatFormatting.RESET) + ent.getValue() + " ";
+                    } else {
+                        data = data + (data.isEmpty() ? "" : ", ") + ent.getValue();
                     }
 
-                    data = data + (data.isEmpty() ? "" : ", ") + text;
                 }
             }
         }
@@ -88,9 +176,18 @@ public class DataPacket extends EventPacket {
         DataPacket pack = (DataPacket)packet;
 
         DataStorage = pack.DataStorage;
-        DataStorageFree = pack.DataStorageFree;
-        DataTagsFree = pack.DataTagsFree;
+
+
+        Encrypted = pack.Encrypted;
+        EncryptedKey = pack.EncryptedKey;
+
+        if(Encrypted && DecryptionKey != null)
+            DecryptionKey = null;
+
+
+
 
     }
 
 }
+

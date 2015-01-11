@@ -82,11 +82,12 @@ public class ModBlocks {
     public static Block OneDigitDisplay, OneDigitConstant, OneDigitCounter;
     public static Block MultiDigitDisplay, MultiDigitConstant, MultiDigitCounter;
 
-    public static Block DataTransmitter, DataConstructor, DataReceiver, DataChatOutput, DataSelector, DataConverter, DataScreen;
+    public static Block DataTransmitter, DataConstructor, DataReceiver, DataChatOutput, DataScreen;
+    public static Block DataSelector, DataConverter, DataEncryptor, DataDecryptor;
     public static Block EntityDetector;
 
-
-    //TODO Add sensors and text based event types (for example player sensors that outputs the player name and maybe range from the sensor? will also need some kind of constant and display)
+    //TODO Add encryption/Decryption block
+    //TODO Add a block which can interact with data packets through commands like if EntityName equals xxxx output signal
 
     public static void RegisterBlocks(){
         BlockRegister Utils = new BlockRegister(CircuitMod.config, Ref.ModId);

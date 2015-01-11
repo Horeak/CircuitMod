@@ -48,6 +48,10 @@ public class TileEntityEntityDetector extends TileEntityEventSender {
 
                     String name = null;
 
+                    String d = (e.getDistance(xCoord, yCoord, zCoord) + "");
+                    if(d.length() >= 4)
+                        d = d.substring(0, 4);
+
                     //Find another way around this?
                     while(name == null || name.equalsIgnoreCase("unkown")){
                         name =  e.getCommandSenderName();
@@ -55,7 +59,7 @@ public class TileEntityEntityDetector extends TileEntityEventSender {
 
                     packet.SaveData("EntityName", name);
                     packet.SaveData("EntityId", Integer.toString(e.getEntityId()));
-                    packet.SaveData("EntityDistance", e.getDistance(xCoord, yCoord, zCoord) + "");
+                    packet.SaveData("EntityDistance", d);
 
                     SendPacketToAround(packet);
 

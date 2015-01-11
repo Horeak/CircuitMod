@@ -16,7 +16,7 @@ public class TileEntityDataScreen extends ModTileEntity implements IEventRec, IC
     public DataPacket CurrentPacket = null;
 
     int UpdateTick = 0;
-    static int ToUpdate = 20;
+    static int ToUpdate = 30;
 
     public void updateEntity(){
         CanReceive = CurrentPacket == null;

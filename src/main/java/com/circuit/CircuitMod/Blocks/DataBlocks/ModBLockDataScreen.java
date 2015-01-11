@@ -1,17 +1,21 @@
 package com.circuit.CircuitMod.Blocks.DataBlocks;
 
-import MiscUtils.Block.ModBlockCustomModel;
+import MiscUtils.Block.ModBlockContainer;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataScreen;
 import com.circuit.CircuitMod.Utils.Ref;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class ModBlockDataScreen extends ModBlockCustomModel {
+public class ModBlockDataScreen extends ModBlockContainer {
 
     public ModBlockDataScreen() {
         super(Material.iron);
@@ -22,12 +26,34 @@ public class ModBlockDataScreen extends ModBlockCustomModel {
         return new TileEntityDataScreen();
     }
 
+    IIcon front, Iconside;
+
+
+    @SideOnly(cpw.mods.fml.relauncher.Side.CLIENT)
     public void registerBlockIcons(IIconRegister par1IconRegister)
     {
-        blockIcon = par1IconRegister.registerIcon(Ref.ModId + ":" + "DataTransmitterSides");
+
+        front = par1IconRegister.registerIcon(Ref.ModId + ":" + "datascreen/DataScreenStandard");
+        Iconside = par1IconRegister.registerIcon(Ref.ModId + ":" + "DataTransmitterSides");
+        blockIcon = Iconside;
+
     }
 
 
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side)
+    {
+        int meta = world.getBlockMetadata(x,y,z);
+        return side == meta ? front : Iconside;
+
+    }
+
+    @Override
+    public IIcon getIcon(int side, int metadata)
+    {
+
+        return side == 4 ? front : Iconside;
+    }
 
     public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
     {

@@ -9,6 +9,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TileEntityDataConverter extends TileEntityEventSender implements IDataRec {
 
     public ForgeDirection dir = ForgeDirection.UNKNOWN;
@@ -26,29 +29,27 @@ public class TileEntityDataConverter extends TileEntityEventSender implements ID
 
     @Override
     public void OnRecived(EventPacket packet) {
-        DataPacket pack = (DataPacket)packet;
+        DataPacket pack = (DataPacket) packet;
 
-       if(pack != null && pack.DataStorageFree != null)
-        for(int i = 0; i < pack.DataStorageFree.size(); i++){
-            String t = pack.DataStorageFree.get(i);
+        if (pack != null && pack.GetDataAcces() != null){
 
-
-                String[] dt_Text = t.split(DataPacket.SPLIT_DATA_TAG);
-                    String DataTag = dt_Text[0];
-                    String text = dt_Text[2];
-
-                     if(DataTag.equals(DataTagFrom)) {
-
-                         pack.RemoveData(DataTag);
-                         pack.SaveData(DataTagUse, text);
-
-                     }
+            HashMap<String, String> Temp = new HashMap<String, String>();
+                for(Map.Entry<String, String> ent : pack.GetDataAcces().entrySet()){
+                    if(ent.getKey().equals(DataTagFrom)){
+                        Temp.put(DataTagUse, ent.getValue());
+                    }
                 }
 
 
-        if(!pack.GetTotalData().isEmpty())
-        SendPacketTo(pack, dir);
+            pack.SetData(Temp);
 
+
+}
+
+        if(!pack.GetTotalData().isEmpty()) {
+            SendPacketTo(pack, dir);
+
+        }
 
     }
 

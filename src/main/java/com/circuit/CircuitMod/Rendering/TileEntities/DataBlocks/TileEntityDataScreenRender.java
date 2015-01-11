@@ -1,23 +1,15 @@
 package com.circuit.CircuitMod.Rendering.TileEntities.DataBlocks;
 
-import com.circuit.CircuitMod.Rendering.BlockBase;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataScreen;
-import com.circuit.CircuitMod.Utils.Ref;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
 public class TileEntityDataScreenRender  extends TileEntitySpecialRenderer
 {
-
-    BlockBase base = new BlockBase();
-    ResourceLocation texture = new ResourceLocation(Ref.ModId.toLowerCase(), "textures/models/datascreen.png");
 
     public void renderTileEntityAt(TileEntityDataScreen tile, double xx, double yy, double zz, float p_147500_8_)
     {
@@ -34,15 +26,6 @@ public class TileEntityDataScreenRender  extends TileEntitySpecialRenderer
         int face = dirr == 2 ? 0 : dirr == 3 ? 2 : dirr == 3 ? 3 : dirr == 5 ? 3 : 5;
         GL11.glRotatef(((face) * 90F), 0.0F, 1.0F, 0.0F);
 
-        this.bindTexture(texture);
-
-        GL11.glPushMatrix();
-        GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
-
-        //RenderModel
-        base.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-        GL11.glPopMatrix();
-
 
 
         GL11.glPushMatrix();
@@ -58,30 +41,33 @@ public class TileEntityDataScreenRender  extends TileEntitySpecialRenderer
 
         GL11.glTranslatef(0, 100, -51F);
 
+
+
         if(tile.CurrentPacket != null) {
             String text = tile.CurrentPacket.GetTotalData();
 
             List<String> list = fontrenderer.listFormattedStringToWidth(text, 70);
-             int size = list.size();
+            int size = list.size();
+
+                    if (size > 7) {
+                        size = 7;
+
+                        String temp = list.get(6);
+
+                        temp.substring(0, temp.length() - 3);
+                        temp = temp + "...";
+
+                        list.set(6, temp);
+                    }
 
 
-        if(size > 7) {
-            size = 7;
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+                    for (int i = 0; i < size; ++i) {
+                        String s = list.get(i);
+                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, i * 10 - size * 5, java.awt.Color.WHITE.getRGB());
+                    }
+                }
 
-            String temp = list.get(6);
-
-            temp.substring(0, temp.length() - 3);
-            temp = temp + "...";
-
-            list.set(6, temp);
-
-        }
-
-            for (int i = 0; i < size; ++i) {
-                String s = list.get(i);
-                fontrenderer.drawString(EnumChatFormatting.WHITE + s + EnumChatFormatting.RESET, -fontrenderer.getStringWidth(s) / 2, i * 10 - size * 5, (byte) 0);
-            }
-        }
 
         GL11.glDepthMask(true);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
