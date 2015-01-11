@@ -2,7 +2,6 @@ package com.circuit.CircuitMod.Proxy;
 
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.Main.ModBlocks;
-import com.circuit.CircuitMod.Rendering.Items.DataBlocks.DataScreenItemRender;
 import com.circuit.CircuitMod.Rendering.Items.DataBlocks.EntityDetectorItemRender;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemLampRender;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemMultiDigitDisplayRender;
@@ -87,7 +86,6 @@ public class ClientProxy extends ServerProxy  implements ProxyInterface {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.MultiDigitConstant), new ItemMultiDigitConstantRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.MultiDigitCounter), new ItemMultiDigitCounterRender());
 
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.DataScreen), new DataScreenItemRender());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.EntityDetector), new EntityDetectorItemRender());
 
     }
