@@ -3,6 +3,8 @@ package com.circuit.CircuitMod.TileEntity.DataBlocks;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.DataPacket;
+import com.circuit.CircuitMod.Utils.DataStorage.DataStringValue;
+import com.circuit.CircuitMod.Utils.DataStorage.DataValueStorage;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -28,7 +30,7 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
 
     }
 
-    public void SendPacketFromGUI(String Data){
+    public void SendPacketFromGUI(DataValueStorage Data){
         DataPacket packet = CreatePacket();
         packet.SaveData(DataPacket.DEFAULT_DATA_STORAGE, Data);
         SendPacketToAround(packet);
@@ -39,7 +41,7 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
         if(!Resetting){
 
         DataPacket SendPacket = CreatePacket();
-        SendPacket.SaveData(DataPacket.DEFAULT_DATA_STORAGE, SavedData);
+        SendPacket.SaveData(DataPacket.DEFAULT_DATA_STORAGE, new DataStringValue(SavedData));
         SendPacketToAround(SendPacket);
 
             Resetting = true;

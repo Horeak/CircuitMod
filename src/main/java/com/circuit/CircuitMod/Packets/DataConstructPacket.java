@@ -4,6 +4,7 @@ import MiscUtils.Network.AbstractPacket;
 import MiscUtils.Network.PacketHandler;
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataConstructor;
+import com.circuit.CircuitMod.Utils.DataStorage.DataStringValue;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
@@ -63,7 +64,7 @@ public class DataConstructPacket extends AbstractPacket{
         if(world.getTileEntity(x,y,z) instanceof TileEntityDataConstructor){
             TileEntityDataConstructor tile = (TileEntityDataConstructor)world.getTileEntity(x,y,z);
             if(!Save) {
-                tile.SendPacketFromGUI(value);
+                tile.SendPacketFromGUI(new DataStringValue(value));
                 tile.SavedData = null;
             } else {
                 tile.SavedData = value;

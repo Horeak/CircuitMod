@@ -1,5 +1,6 @@
 package com.circuit.CircuitMod.Utils;
 
+import com.circuit.CircuitMod.Utils.DataStorage.DataValueStorage;
 import net.minecraft.util.EnumChatFormatting;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class DataPacket extends EventPacket {
 
     public static final String DEFAULT_DATA_STORAGE = "Data";
 
-    private HashMap<String, String> DataStorage = new HashMap<String, String>();
+    private HashMap<String, DataValueStorage> DataStorage = new HashMap<String, DataValueStorage>();
 
     public boolean Encrypted = false;
     private String EncryptedKey = null;
@@ -74,7 +75,7 @@ public class DataPacket extends EventPacket {
 
 
 
-    public void SaveData(String DataTag, String Data){
+    public void SaveData(String DataTag, DataValueStorage Data){
         if(!CanAccessData())
             return;
 
@@ -86,7 +87,7 @@ public class DataPacket extends EventPacket {
         if(!CanAccessData())
             return;
 
-        for(Map.Entry<String, String> ent : DataStorage.entrySet()){
+        for(Map.Entry<String, DataValueStorage> ent : DataStorage.entrySet()){
             if(ent.getKey().equals(DataTag)){
                 DataStorage.remove(ent.getKey(), ent.getValue());
             }
@@ -94,7 +95,7 @@ public class DataPacket extends EventPacket {
     }
 
 
-    public HashMap<String, String> GetDataAcces(){
+    public HashMap<String, DataValueStorage> GetDataAcces(){
         if(!CanAccessData())
             return null;
 
@@ -102,7 +103,7 @@ public class DataPacket extends EventPacket {
         return DataStorage;
     }
 
-    public void SetData(HashMap<String, String> data){
+    public void SetData(HashMap<String, DataValueStorage> data){
         if(CanAccessData()){
             DataStorage = data;
         }
@@ -133,23 +134,23 @@ public class DataPacket extends EventPacket {
 
         ArrayList<String> TempT = new ArrayList<String>();
 
-        for(Map.Entry<String, String> ent : DataStorage.entrySet()) {
+        for(Map.Entry<String, DataValueStorage> ent : DataStorage.entrySet()) {
             if(!TempT.contains(ent.getKey()))
                 TempT.add(ent.getKey());
         }
 
         boolean multi = TempT.size() > 1;
 
-        for(Map.Entry<String, String> ent : DataStorage.entrySet()) {
+        for(Map.Entry<String, DataValueStorage> ent : DataStorage.entrySet()) {
 
             if (Exclude.startsWith("!_")) {
                 Exclude = Exclude.substring(2);
 
                 if (Exclude.isEmpty() || ent.getKey().equals(Exclude)) {
                     if (multi) {
-                        data = data + (data.isEmpty() ? "" : ", ") + (EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + "[" + ent.getKey() + "]" + EnumChatFormatting.RESET) + ent.getValue() + " ";
+                        data = data + (data.isEmpty() ? "" : ", ") + (EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + "[" + ent.getKey() + "]" + EnumChatFormatting.RESET) + ent.getValue().GetObjectString() + " ";
                     } else {
-                        data = data + (data.isEmpty() ? "" : ", ") + ent.getValue();
+                        data = data + (data.isEmpty() ? "" : ", ") + ent.getValue().GetObjectString();
                     }
                 }
 
@@ -158,9 +159,9 @@ public class DataPacket extends EventPacket {
                 if (Exclude.isEmpty() || !ent.getKey().equals(Exclude)) {
 
                     if (multi) {
-                        data = data + (data.isEmpty() ? "" : ", ") + (EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + "[" + ent.getKey() + "] " + EnumChatFormatting.RESET) + ent.getValue() + " ";
+                        data = data + (data.isEmpty() ? "" : ", ") + (EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + "[" + ent.getKey() + "] " + EnumChatFormatting.RESET) + ent.getValue().GetObjectString();
                     } else {
-                        data = data + (data.isEmpty() ? "" : ", ") + ent.getValue();
+                        data = data + (data.isEmpty() ? "" : ", ") + ent.getValue().GetObjectString();
                     }
 
                 }

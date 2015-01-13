@@ -3,6 +3,9 @@ package com.circuit.CircuitMod.TileEntity.DataBlocks;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.DataPacket;
+import com.circuit.CircuitMod.Utils.DataStorage.DataDoubleValue;
+import com.circuit.CircuitMod.Utils.DataStorage.DataIntegerValue;
+import com.circuit.CircuitMod.Utils.DataStorage.DataStringValue;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -57,9 +60,9 @@ public class TileEntityEntityDetector extends TileEntityEventSender {
                         name =  e.getCommandSenderName();
                     }
 
-                    packet.SaveData("EntityName", name);
-                    packet.SaveData("EntityId", Integer.toString(e.getEntityId()));
-                    packet.SaveData("EntityDistance", d);
+                    packet.SaveData("EntityName", new DataStringValue(name));
+                    packet.SaveData("EntityId", new DataIntegerValue(e.getEntityId()));
+                    packet.SaveData("EntityDistance", new DataDoubleValue(Double.parseDouble(d)));
 
                     SendPacketToAround(packet);
 

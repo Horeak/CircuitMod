@@ -4,6 +4,7 @@ import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.CircuitUtils.IDataRec;
 import com.circuit.CircuitMod.Utils.DataPacket;
+import com.circuit.CircuitMod.Utils.DataStorage.DataValueStorage;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -33,8 +34,8 @@ public class TileEntityDataConverter extends TileEntityEventSender implements ID
 
         if (pack != null && pack.GetDataAcces() != null){
 
-            HashMap<String, String> Temp = new HashMap<String, String>();
-                for(Map.Entry<String, String> ent : pack.GetDataAcces().entrySet()){
+            HashMap<String, DataValueStorage> Temp = new HashMap<String, DataValueStorage>();
+                for(Map.Entry<String, DataValueStorage> ent : pack.GetDataAcces().entrySet()){
                     if(ent.getKey().equals(DataTagFrom)){
                         Temp.put(DataTagUse, ent.getValue());
                     }

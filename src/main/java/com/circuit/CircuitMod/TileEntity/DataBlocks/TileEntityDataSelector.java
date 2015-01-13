@@ -4,6 +4,7 @@ import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.CircuitUtils.IDataRec;
 import com.circuit.CircuitMod.Utils.DataPacket;
+import com.circuit.CircuitMod.Utils.DataStorage.DataValueStorage;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -37,16 +38,16 @@ public class TileEntityDataSelector extends TileEntityEventSender implements IDa
 
        if(pack != null && pack.GetDataAcces() != null) {
 
-           HashMap<String, String> Temp = new HashMap<String, String>();
+           HashMap<String, DataValueStorage> Temp = new HashMap<String, DataValueStorage>();
 
            if(Mode == 0){
-               for(Map.Entry<String, String> ent : pack.GetDataAcces().entrySet()){
+               for(Map.Entry<String, DataValueStorage> ent : pack.GetDataAcces().entrySet()){
                    if(ent.getKey().equals(DataTagUse)){
                        Temp.put(ent.getKey(), ent.getValue());
                    }
                }
            }else if(Mode == 1){
-               for(Map.Entry<String, String> ent : pack.GetDataAcces().entrySet()){
+               for(Map.Entry<String, DataValueStorage> ent : pack.GetDataAcces().entrySet()){
                    if(!ent.getKey().equals(DataTagUse)){
                        Temp.put(ent.getKey(), ent.getValue());
                    }
