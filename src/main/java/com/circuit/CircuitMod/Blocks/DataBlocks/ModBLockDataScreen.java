@@ -39,6 +39,10 @@ public class ModBlockDataScreen extends ModBlockContainer {
 
     }
 
+    @Override
+    public boolean isOpaqueCube(){
+        return false;
+    }
 
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side)

@@ -40,6 +40,9 @@ tile.data_screen.name=Data Screen
 
 tile.entity_detector.name=Entity Detector
 
+tile.data_encryptor.name=Data Encryption Component
+tile.data_decryptor.name=Data Decryption Component
+
 
 blockinfo.all.shiftchange=Shift-right click to change
 blockinfo.all.inputnumber=Input number to change
@@ -68,6 +71,8 @@ gui.dataselector.default=Default
 gui.dataconverter.from=Convert from
 gui.dataconverter.to=Convert to
 gui.dataselector.read=Read Data Tag
+gui.encryption.save=Save Encryption key
+gui.decryption.save=Save Decryption Key
 
 item.desc.changeblockcolorfromcable.half1=The block color can be changed by 
 item.desc.changeblockcolorfromcable.half2=right clicking with a colored cable

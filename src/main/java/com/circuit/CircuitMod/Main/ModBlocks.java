@@ -1,11 +1,13 @@
 package com.circuit.CircuitMod.Main;
 
 import MiscUtils.Register.BlockRegister;
-import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataScreen;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataChatOutput;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataConstructor;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataConverter;
+import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataDecryptor;
+import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataEncryptor;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataReceiver;
+import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataScreen;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataSelector;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataTransmitter;
 import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockEntityDetector;
@@ -39,6 +41,8 @@ import com.circuit.CircuitMod.Items.ItemBlockLamp;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataChatOutput;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataConstructor;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataConverter;
+import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataDecryptor;
+import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataEncryptor;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataReceiver;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataScreen;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataSelector;
@@ -86,7 +90,6 @@ public class ModBlocks {
     public static Block DataSelector, DataConverter, DataEncryptor, DataDecryptor;
     public static Block EntityDetector;
 
-    //TODO Add encryption/Decryption block
     //TODO Add a block which can interact with data packets through commands like if EntityName equals xxxx output signal
 
     public static void RegisterBlocks(){
@@ -204,6 +207,13 @@ public class ModBlocks {
 
         EntityDetector = new ModBlockEntityDetector().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(EntityDetector, "Entity Detector", TileEntityEntityDetector.class);
+
+
+        DataEncryptor = new ModBlockDataEncryptor().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
+        Utils.Register(DataEncryptor, "Data Encryptor", TileEntityDataEncryptor.class);
+
+        DataDecryptor = new ModBlockDataDecryptor().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
+        Utils.Register(DataDecryptor, "Data Decryptor", TileEntityDataDecryptor.class);
 
 
     }

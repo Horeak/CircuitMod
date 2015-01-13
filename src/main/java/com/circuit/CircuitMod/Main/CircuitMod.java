@@ -8,6 +8,8 @@ import com.circuit.CircuitMod.Main.GuideIntegration.CircuitModGuideInstance;
 import com.circuit.CircuitMod.Packets.DataChannelChanged;
 import com.circuit.CircuitMod.Packets.DataConstructPacket;
 import com.circuit.CircuitMod.Packets.DataConverterPacket;
+import com.circuit.CircuitMod.Packets.DataDecryptionPacket;
+import com.circuit.CircuitMod.Packets.DataEncryptionPacket;
 import com.circuit.CircuitMod.Packets.DataSelectorPacket;
 import com.circuit.CircuitMod.Packets.MultiDigitConstantValueChanged;
 import com.circuit.CircuitMod.Packets.MultiDigitCounterValueChanged;
@@ -114,6 +116,8 @@ public class CircuitMod {
         Utils.handler.RegisterPacket(DataConstructPacket.class);
         Utils.handler.RegisterPacket(DataSelectorPacket.class);
         Utils.handler.RegisterPacket(DataConverterPacket.class);
+        Utils.handler.RegisterPacket(DataEncryptionPacket.class);
+        Utils.handler.RegisterPacket(DataDecryptionPacket.class);
 
     }
 

@@ -2,10 +2,13 @@ package com.circuit.CircuitMod.Rendering.TileEntities.DataBlocks;
 
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataScreen;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
 import java.util.List;
 
 public class TileEntityDataScreenRender  extends TileEntitySpecialRenderer
@@ -18,11 +21,7 @@ public class TileEntityDataScreenRender  extends TileEntitySpecialRenderer
         GL11.glPushMatrix();
         GL11.glTranslatef((float) xx + 0.5F, (float) yy + 1.5F, (float) zz + 0.5F);
 
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glEnable(GL11.GL_LIGHTING);
-
         int dirr = tile.getBlockMetadata();
-
         int face = dirr == 2 ? 0 : dirr == 3 ? 2 : dirr == 3 ? 3 : dirr == 5 ? 3 : 5;
         GL11.glRotatef(((face) * 90F), 0.0F, 1.0F, 0.0F);
 
@@ -30,7 +29,6 @@ public class TileEntityDataScreenRender  extends TileEntitySpecialRenderer
 
         GL11.glPushMatrix();
         FontRenderer fontrenderer = this.func_147498_b();
-        GL11.glDepthMask(false);
 
         float scale = 0.01F;
 
@@ -60,17 +58,27 @@ public class TileEntityDataScreenRender  extends TileEntitySpecialRenderer
                         list.set(6, temp);
                     }
 
+            //GL11.glDepthMask(false);
 
-            //TODO Fix text sometimes rendering dark?
+            //I have no idea why i needed this lightning code but i did :/
+            int bright = 0xF0;
+            int brightX = bright % 65536;
+            int brightY = bright / 65536;
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightX, brightY);
+
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+
                     for (int i = 0; i < size; ++i) {
                         String s = list.get(i);
-                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, i * 10 - size * 5, java.awt.Color.WHITE.getRGB());
+                        fontrenderer.drawString(EnumChatFormatting.WHITE + s, -fontrenderer.getStringWidth(s) / 2, i * 10 - size * 5, Color.WHITE.getRGB());
                     }
                 }
 
 
-        GL11.glDepthMask(true);
+      //  GL11.glDepthMask(true);
+
+
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glPopMatrix();
 

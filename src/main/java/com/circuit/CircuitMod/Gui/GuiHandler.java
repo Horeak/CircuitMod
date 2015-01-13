@@ -2,6 +2,8 @@ package com.circuit.CircuitMod.Gui;
 
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataConstructor;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataConverter;
+import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataDecryptor;
+import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataEncryptor;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataReceiver;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataSelector;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataTransmitter;
@@ -68,6 +70,12 @@ public class GuiHandler implements IGuiHandler{
 
         if(tile instanceof TileEntityDataConverter)
             return new GuiDataConverter((TileEntityDataConverter)tile);
+
+        if(tile instanceof TileEntityDataEncryptor)
+            return new GuiDataEncryptor((TileEntityDataEncryptor)tile);
+
+        if(tile instanceof TileEntityDataDecryptor)
+            return new GuiDataDecryptor((TileEntityDataDecryptor)tile);
 
 
         return null;

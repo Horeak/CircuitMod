@@ -12,35 +12,33 @@ public class DataPacket extends EventPacket {
     }
 
     public static final String DEFAULT_DATA_STORAGE = "Data";
-    public static final String SPLIT_DATA_TAG = "_|_";
 
-    //TODO Add proper channel handling system!
     private HashMap<String, String> DataStorage = new HashMap<String, String>();
 
-    private boolean Encrypted = false;
+    public boolean Encrypted = false;
     private String EncryptedKey = null;
 
     private String DecryptionKey = null;
 
 
 
-    //TODO Add encryption (Finish it) (Add usage ingame) (Make all data handeling use CanAccessData check)
     public boolean CanAccessData(){
         return Encrypted && DecryptionKey != null && EncryptedKey != null && DecryptionKey.equals(EncryptedKey) || !Encrypted;
     }
 
     //Since strings are so secure for saving passwords... (not at all)
-    public void DecryptionUseAccess(String Password){
+    public boolean DecryptionUseAccess(String Password){
         if(!Encrypted)
-            return;
+            return false;
 
         DecryptionKey = Password;
+        return CanAccessData();
     }
 
 
-    public void DecryptPacket(String Password){
+    public boolean DecryptPacket(String Password){
         if(!Encrypted)
-            return;
+            return false;
 
         DecryptionKey = Password;
 
@@ -49,8 +47,12 @@ public class DataPacket extends EventPacket {
             EncryptedKey = null;
 
             DecryptionKey = null;
+
+            return true;
         }
 
+        DecryptionKey = null;
+        return false;
     }
 
 

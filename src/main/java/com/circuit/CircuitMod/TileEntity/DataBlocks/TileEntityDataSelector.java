@@ -65,27 +65,6 @@ public class TileEntityDataSelector extends TileEntityEventSender implements IDa
 
     }
 
-    public boolean Check(String t){
-        boolean Keep = false;
-
-        String[] dt_Text = t.split(DataPacket.SPLIT_DATA_TAG);
-        String DataTag = dt_Text[0];
-
-        if (Mode == 0) {
-            if (DataTag.equals(DataTagUse)) {
-                Keep = true;
-            }
-
-        }
-
-        if (Mode == 1) {
-            if (!DataTag.equals(DataTagUse)) {
-                Keep = true;
-            }
-        }
-
-        return Keep;
-    }
 
     @Override
     public boolean CanConnectToTile(TileEntity tile, ForgeDirection dir) {
