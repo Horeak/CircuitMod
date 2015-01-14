@@ -4,6 +4,7 @@ import MiscUtils.TileEntity.ModTileEntity;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.CircuitUtils.ICircuitConnector;
 import com.circuit.CircuitMod.Utils.CircuitUtils.IEventRec;
+import com.circuit.CircuitMod.Utils.DataStorage.DataIntegerValue;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -60,10 +61,10 @@ public class TileEntityOneDigitDisplay extends ModTileEntity implements IEventRe
     public void OnRecived(EventPacket packet) {
         if(packet.ByteValue == ByteValues.OneDigitNumber.Value()){
             if(DisplayNumber != -1){
-                if(packet.NBT.getInteger("StoredNumber") != DisplayNumber)
+                if(packet.Data instanceof DataIntegerValue && ((DataIntegerValue)packet.Data).GetStoredObject() != DisplayNumber)
                     return;
             }
-            DisplayNumber = packet.NBT.getInteger("StoredNumber");
+            DisplayNumber = packet.Data instanceof DataIntegerValue ? ((DataIntegerValue)packet.Data).GetStoredObject() : 0;
             Reset = 0;
 
         }

@@ -47,4 +47,11 @@ block.info.data_chat_output=The data chat output will send the contents of a dat
 block.info.data_selector=The data tag reader works like a data packet gate by only allowing packets which has been encoded with the correct data tag to pass through it. The data tag reader can both white or blacklist one data tag name.
 block.info.data_converter=The data tag encoder will take any packet with the specified from tag and convert its channel tag to the specified name and can there for be used to sort signals from different sources to different sources.
 
+block.info.data_screen=The data screen is a block used to display information sent through the Data Packet system from for example a EntityDetector
+
+block.info.entity_detector=The entity detector is a block that searches a 10x10x10 area around every 5 seconds and will then output the range, id and name of a entity that was detected which was not in the last scan. The different parts of the message can be filtered with a data tag reader.
+
+block.info.data_encryptor=The data encryption component is a block used to secure packets for example private messaging system. The data encryption component takes a password in the gui and will encrypt any packet going through it with that password and when a packet is encrypted a decryption component is required in order to access the data.
+block.info.data_decryptor=The data decryption component works the opposite way that the encryption component does. It will when given a password in the gui try to use that password to decrypt (remove the password) from any packet passing through it.
+
 

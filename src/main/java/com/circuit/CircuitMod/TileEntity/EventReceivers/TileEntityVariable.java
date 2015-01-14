@@ -3,6 +3,7 @@ package com.circuit.CircuitMod.TileEntity.EventReceivers;
 import MiscUtils.TileEntity.IBlockInfo;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
+import com.circuit.CircuitMod.Utils.DataStorage.DataIntegerValue;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -20,7 +21,7 @@ public class TileEntityVariable extends TileEntityEventSender implements IBlockI
     public void updateEntity(){
 
         EventPacket packet = new EventPacket(-1, StoredNumber > 9 ? ByteValues.MultiDigitNumber.Value() : ByteValues.OneDigitNumber.Value());
-        packet.NBT.setInteger("StoredNumber", StoredNumber);
+        packet.Data = new DataIntegerValue(StoredNumber);
 
 
         for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
@@ -62,7 +63,7 @@ public class TileEntityVariable extends TileEntityEventSender implements IBlockI
     @Override
     public void OnRecived(EventPacket packet) {
         if(packet.ByteValue == ByteValues.MultiDigitNumber.Value() || packet.ByteValue == ByteValues.OneDigitNumber.Value())
-            StoredNumber = packet.NBT.getInteger("StoredNumber");
+            StoredNumber = packet.Data instanceof DataIntegerValue ? ((DataIntegerValue)packet.Data).GetStoredObject() : 0;
             dirFrom = packet.LastSentFrom;
 
 

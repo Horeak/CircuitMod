@@ -29,7 +29,7 @@ configFile.withReader {
 
 group= "com.circuit.CircuitMod" 
 version = config.mod_version 
-archivesBaseName = "CircuitMod"
+archivesBaseName = "DataCircuits"
 
 
 minecraft {

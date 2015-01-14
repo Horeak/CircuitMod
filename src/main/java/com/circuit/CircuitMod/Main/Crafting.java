@@ -58,6 +58,13 @@ public class Crafting {
         Utils.AddRecipe(new ItemStack(ModBlocks.DataSelector), new Object[]{"III", "BPB", "III", 'B', ModBlocks.CircuitBox, 'P', ModBlocks.CableConnectionPoint, 'I', Items.iron_ingot});
         Utils.AddRecipe(new ItemStack(ModBlocks.DataConverter), new Object[]{"III", "BBB", "III", 'B', ModBlocks.CircuitBox, 'I', Items.iron_ingot});
 
+        Utils.AddRecipe(new ItemStack(ModBlocks.DataEncryptor), new Object[]{"III", "EBE", "III", 'I', Items.iron_ingot, 'E', ModBlocks.DataConverter, 'B', ModBlocks.CircuitBox});
+        Utils.AddRecipe(new ItemStack(ModBlocks.DataDecryptor), new Object[]{"III", "EBE", "III", 'I', Items.iron_ingot, 'E', ModBlocks.DataSelector, 'B', ModBlocks.CircuitBox});
+
+        Utils.AddRecipe(new ItemStack(ModBlocks.DataScreen), new Object[]{"III", "ILI", "ICI", 'I', Items.iron_ingot, 'L', ModBlocks.Lamp, 'C', ModBlocks.CircuitCable});
+
+        Utils.AddRecipe(new ItemStack(ModBlocks.EntityDetector), new Object[]{"ITI", "BCB", "IOI", 'I', Items.iron_ingot, 'T', ModBlocks.DataTransmitter, 'B', ModBlocks.CircuitBox, 'C', ModBlocks.DataConstructor, 'O', ModBlocks.DataChatOutput});
+
 
 
 

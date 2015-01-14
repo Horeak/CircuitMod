@@ -2,6 +2,7 @@ package com.circuit.CircuitMod.TileEntity.EventSenders;
 
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.Utils.TileEntityTwoSidedEventChecker;
+import com.circuit.CircuitMod.Utils.DataStorage.DataIntegerValue;
 import com.circuit.CircuitMod.Utils.EventPacket;
 
 public class TileEntityDigitEquals extends TileEntityTwoSidedEventChecker {
@@ -19,8 +20,8 @@ public class TileEntityDigitEquals extends TileEntityTwoSidedEventChecker {
     public EventPacket OutPutPacket() {
 
             if(packetA != null && packetB != null){
-                    int a = packetA.NBT.getInteger("StoredNumber");
-                    int b = packetB.NBT.getInteger("StoredNumber");
+                    int a = packetA.Data instanceof DataIntegerValue ? ((DataIntegerValue)packetA.Data).GetStoredObject() : 0;
+                    int b = packetB.Data instanceof DataIntegerValue ? ((DataIntegerValue)packetB.Data).GetStoredObject() : 0;
 
                     if(a == b){
                         return new EventPacket(-1, ByteValues.OnSignal.Value());

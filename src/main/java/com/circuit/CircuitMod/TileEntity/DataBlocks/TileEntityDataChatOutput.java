@@ -4,6 +4,7 @@ import MiscUtils.Handlers.ChatMessageHandler;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.DataPacket;
+import com.circuit.CircuitMod.Utils.DataStorage.DataIntegerValue;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -43,11 +44,11 @@ public class TileEntityDataChatOutput extends TileEntityEventSender{
         if(packet.ByteValue == ByteValues.MultiDigitNumber.Value() || packet.ByteValue == ByteValues.OneDigitNumber.Value()){
 
             if(Range != RANGE_DEFAULT){
-                if(packet.NBT.getInteger("StoredNumber") != Range )
+                if(packet.Data instanceof DataIntegerValue && ((DataIntegerValue)packet.Data).GetStoredObject() != Range )
                     return;
             }
 
-            Range = packet.NBT.getInteger("StoredNumber");
+            Range = packet.Data instanceof DataIntegerValue ? ((DataIntegerValue)packet.Data).GetStoredObject() : 0;
             Reset = 0;
 
         }else if(packet.ByteValue == ByteValues.DataSignal.Value()){

@@ -56,7 +56,9 @@ public class TileEntityEntityDetector extends TileEntityEventSender {
                         d = d.substring(0, 4);
 
                     //Find another way around this?
-                    while(name == null || name.equalsIgnoreCase("unkown")){
+                    int i = 0, max = 10; // Max 10?
+                    while(name == null && i < max || name.equalsIgnoreCase("unkown") && i < max){
+                        i += 1;
                         name =  e.getCommandSenderName();
                     }
 

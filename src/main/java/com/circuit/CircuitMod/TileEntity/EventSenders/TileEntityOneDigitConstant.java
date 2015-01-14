@@ -4,6 +4,7 @@ import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import MiscUtils.TileEntity.IBlockInfo;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
+import com.circuit.CircuitMod.Utils.DataStorage.DataIntegerValue;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -21,7 +22,7 @@ public class TileEntityOneDigitConstant extends TileEntityEventSender implements
     public void updateEntity(){
 
         EventPacket packet = new EventPacket(-1, ByteValues.OneDigitNumber.Value());
-        packet.NBT.setInteger("StoredNumber", Constant);
+        packet.Data = new DataIntegerValue(Constant);
 
         SendPacketToAround(packet);
 

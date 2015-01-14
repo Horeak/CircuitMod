@@ -1,5 +1,6 @@
 package com.circuit.CircuitMod.Utils;
 
+import com.circuit.CircuitMod.Utils.DataStorage.DataValueStorage;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -27,8 +28,7 @@ public class EventPacket {
     public byte ByteValue;
 
     public boolean TimedOut;
-
-    public NBTTagCompound NBT = new NBTTagCompound();
+    public DataValueStorage Data;
 
     public EventPacket GetInstance(){
         return new EventPacket(TimeOut, ByteValue);
@@ -47,7 +47,7 @@ public class EventPacket {
         NBTTagCompound nbt = new NBTTagCompound();
         packet.SaveToNBT(nbt);
 
-        NBT = packet.NBT;
+        Data = packet.Data;
         LoadFromNBT(nbt);
 
         Resend();

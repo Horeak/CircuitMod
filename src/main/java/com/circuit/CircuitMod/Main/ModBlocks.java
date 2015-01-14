@@ -90,6 +90,7 @@ public class ModBlocks {
     public static Block DataSelector, DataConverter, DataEncryptor, DataDecryptor;
     public static Block EntityDetector;
 
+    //TODO Add packet converter block. Allows converting a data packet with DataIntegerValue to a number packet
     //TODO Add a block which can interact with data packets through commands like if EntityName equals xxxx output signal
 
     public static void RegisterBlocks(){

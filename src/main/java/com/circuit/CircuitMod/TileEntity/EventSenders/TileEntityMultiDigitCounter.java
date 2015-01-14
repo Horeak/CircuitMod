@@ -2,6 +2,7 @@ package com.circuit.CircuitMod.TileEntity.EventSenders;
 
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.Utils.TileEntityCounterBase;
+import com.circuit.CircuitMod.Utils.DataStorage.DataIntegerValue;
 import com.circuit.CircuitMod.Utils.EventPacket;
 
 public class TileEntityMultiDigitCounter extends TileEntityCounterBase {
@@ -66,7 +67,7 @@ public class TileEntityMultiDigitCounter extends TileEntityCounterBase {
     public void OnRecived(EventPacket packet) {
 
         if(packet.ByteValue == ByteValues.OneDigitNumber.Value() || packet.ByteValue == ByteValues.MultiDigitNumber.Value()){
-            Change = packet.NBT.getInteger("StoredNumber");
+            Change = packet.Data instanceof DataIntegerValue ? ((DataIntegerValue)packet.Data).GetStoredObject() : 0;
             ResetCount = 0;
         }
 

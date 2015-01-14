@@ -4,6 +4,7 @@ import MiscUtils.TileEntity.IBlockInfo;
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
+import com.circuit.CircuitMod.Utils.DataStorage.DataIntegerValue;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -45,7 +46,7 @@ public abstract class TileEntityCounterBase extends TileEntityEventSender  imple
     public void updateEntity(){
 
         EventPacket packet = new EventPacket(OutputTimeout(), OutputValue());
-        packet.NBT.setInteger("StoredNumber", CurrentCount);
+        packet.Data = new DataIntegerValue(CurrentCount);
 
         SendPacketToAround(packet);
 
@@ -126,7 +127,7 @@ public abstract class TileEntityCounterBase extends TileEntityEventSender  imple
     public void OnRecived(EventPacket packet) {
 
         if(InputValue() != -1 && packet.ByteValue == InputValue() || InputValue() == -1){
-            Change = packet.NBT.getInteger("StoredNumber");
+            Change = packet.Data instanceof DataIntegerValue ? ((DataIntegerValue)packet.Data).GetStoredObject() : 0;
             ResetCount = 0;
         }
 

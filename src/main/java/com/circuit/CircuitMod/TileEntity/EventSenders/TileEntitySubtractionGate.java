@@ -2,6 +2,7 @@ package com.circuit.CircuitMod.TileEntity.EventSenders;
 
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.Utils.TileEntityTwoSidedEventChecker;
+import com.circuit.CircuitMod.Utils.DataStorage.DataIntegerValue;
 import com.circuit.CircuitMod.Utils.EventPacket;
 
 public class TileEntitySubtractionGate  extends TileEntityTwoSidedEventChecker {
@@ -22,7 +23,10 @@ public class TileEntitySubtractionGate  extends TileEntityTwoSidedEventChecker {
             if(packetA.ByteValue == ByteValues.OneDigitNumber.Value() || packetA.ByteValue == ByteValues.MultiDigitNumber.Value()){
                 if(packetB.ByteValue == ByteValues.OneDigitNumber.Value() || packetB.ByteValue == ByteValues.MultiDigitNumber.Value()){
 
-                    int total = packetA.NBT.getInteger("StoredNumber") - packetB.NBT.getInteger("StoredNumber");
+                    int t1 = packetA.Data instanceof DataIntegerValue ? ((DataIntegerValue)packetA.Data).GetStoredObject() : 0;
+                    int t2 = packetB.Data instanceof DataIntegerValue ? ((DataIntegerValue)packetB.Data).GetStoredObject() : 0;
+
+                    int total = t1 - t2;
 
                     if(total > 9999)
                         total = 9999;
@@ -31,7 +35,7 @@ public class TileEntitySubtractionGate  extends TileEntityTwoSidedEventChecker {
                         total = 0;
 
                     EventPacket packet = new EventPacket(-1, total > 9 ? ByteValues.MultiDigitNumber.Value() : ByteValues.OneDigitNumber.Value());
-                    packet.NBT.setInteger("StoredNumber", total);
+                    packet.Data = new DataIntegerValue(total);
 
                     return packet;
 

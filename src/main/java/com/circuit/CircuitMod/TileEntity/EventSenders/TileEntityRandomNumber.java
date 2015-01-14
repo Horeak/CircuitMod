@@ -4,6 +4,7 @@ import MiscUtils.TileEntity.IBlockInfo;
 import com.circuit.CircuitMod.Main.CircuitMod;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
+import com.circuit.CircuitMod.Utils.DataStorage.DataIntegerValue;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -39,7 +40,7 @@ public class TileEntityRandomNumber extends TileEntityEventSender implements IBl
             if(CurrentOutput != -1){
 
                 EventPacket pack = new EventPacket(-1, CurrentOutput > 9 ? ByteValues.MultiDigitNumber.Value() : ByteValues.OneDigitNumber.Value());
-                pack.NBT.setInteger("StoredNumber", CurrentOutput);
+                pack.Data = new DataIntegerValue(CurrentOutput);
 
                 SendPacketToAround(pack);
 
