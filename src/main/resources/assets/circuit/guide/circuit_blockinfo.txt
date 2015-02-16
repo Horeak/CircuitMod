@@ -41,7 +41,7 @@ block.info.multi-digit_counter=The multi digit counter works just like the one d
 //DataSystem
 block.info.data_transmitter=The data transmitter will accept any data packet and transmit it to any receivers within a 50block radius that has the same channel id as its self.
 block.info.data_receiver=The data receiver will receive any data packet sent from a data transmitter if they both have the same channel id. When the data receiver receives a data packet it outputs it.
-block.info.data_constructor=The data constructor can construct and save data packets through its gui. When a data packet is saved it can be sent multiple times by just sending a redstone data signal to it. When a data packet is constructed it uses the standard channel name.
+block.info.data_constructor=The data constructor can construct and save data packets through its gui. When a data packet is saved it can be sent multiple times by just sending a vanilla redstone signal to it. When a data packet is constructed it uses the standard channel name.
 block.info.data_chat_output=The data chat output will send the contents of a data packet to any player within its radius which is default to 10 but can be changed by inputting a number signal.
 
 block.info.data_selector=The data tag reader works like a data packet gate by only allowing packets which has been encoded with the correct data tag to pass through it. The data tag reader can both white or blacklist one data tag name.

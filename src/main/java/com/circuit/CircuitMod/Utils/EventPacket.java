@@ -13,7 +13,7 @@ public class EventPacket {
 
     public static boolean ContainesVactor(EventPacket packet, Vector3d vec){
         for(Vector3d vecc : packet.Postitions){
-            if(vecc.equals(vec)){
+            if(vecc.x == vec.x && vecc.y == vec.y && vecc.z == vec.z){
                 return true;
             }
         }
@@ -44,27 +44,31 @@ public class EventPacket {
     }
 
     public void RecreatingPacket(EventPacket packet){
-        NBTTagCompound nbt = new NBTTagCompound();
-        packet.SaveToNBT(nbt);
+        Postitions = new ArrayList<Vector3d>();
 
-        Data = packet.Data;
-        LoadFromNBT(nbt);
+        for(Vector3d vec : packet.Postitions){
+            Postitions.add(vec);
+        }
+
+        NBTTagCompound nbt = new NBTTagCompound();
+
+        if(nbt != null && packet != null) {
+            packet.SaveToNBT(nbt);
+            Data = packet.Data;
+            LoadFromNBT(nbt);
+        }
 
         Resend();
-        Postitions = packet.Postitions;
 
     }
 
     public void SaveToNBT(NBTTagCompound nbt) {
 
-        nbt.setInteger("DIR", LastSentFrom.ordinal());
-        nbt.setInteger("TimeOutValue", TimeOutValue);
-        nbt.setInteger("TimeOut", TimeOut);
-        nbt.setByte("ByteValue", ByteValue);
-        nbt.setBoolean("TimedOut", TimedOut);
-
-
-
+            nbt.setInteger("DIR", LastSentFrom.ordinal());
+            nbt.setInteger("TimeOutValue", TimeOutValue);
+            nbt.setInteger("TimeOut", TimeOut);
+            nbt.setByte("ByteValue", ByteValue);
+            nbt.setBoolean("TimedOut", TimedOut);
     }
 
     public void LoadFromNBT(NBTTagCompound nbt) {
@@ -74,9 +78,6 @@ public class EventPacket {
         TimeOut = nbt.getInteger("TimeOut");
         ByteValue = nbt.getByte("ByteValue");
         TimedOut = nbt.getBoolean("TimedOut");
-
-
-
     }
 
 

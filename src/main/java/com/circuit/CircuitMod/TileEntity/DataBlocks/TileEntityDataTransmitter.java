@@ -27,6 +27,7 @@ public class TileEntityDataTransmitter extends TileEntityEventSender implements 
             int Radius = rad;
             List list = world.func_147486_a(xCoord - Radius, yCoord - Radius, zCoord - Radius, xCoord + Radius, yCoord + Radius, zCoord + Radius);
 
+
             for (Object r : list) {
                 if (r instanceof TileEntity) {
                     TileEntity te = (TileEntity) r;
@@ -38,24 +39,28 @@ public class TileEntityDataTransmitter extends TileEntityEventSender implements 
                         IEventRec rec = (IEventRec) te;
 
 
-                        if (data.CanReceivePacketWireless(packet, DataChannel)) {
-                            if (rec.CanRecive(packet)) {
-                                Vector3d vec = new Vector3d(te.xCoord, te.yCoord, te.zCoord);
+                        try {
+                            if (data.CanReceivePacketWireless(packet, DataChannel)) {
+                                if (rec.CanRecive(packet)) {
+                                    Vector3d vec = new Vector3d(te.xCoord, te.yCoord, te.zCoord);
 
-                                if (!EventPacket.ContainesVactor(packet, vec)) {
+                                    if (!EventPacket.ContainesVactor(packet, vec)) {
 
-                                    EventPacket sendPacket = packet.GetInstance();
+                                        EventPacket sendPacket = packet.GetInstance();
 
-                                    sendPacket.RecreatingPacket(packet);
-                                    sendPacket.LastSentFrom = ForgeDirection.UNKNOWN;
-                                    sendPacket.Postitions.add(vec);
-                                    rec.OnRecived(sendPacket);
+                                        sendPacket.RecreatingPacket(packet);
+                                        sendPacket.LastSentFrom = ForgeDirection.UNKNOWN;
+                                        sendPacket.Postitions.add(vec);
+                                        rec.OnRecived(sendPacket);
+
+                                    }
 
                                 }
-
-                            }
                             }
 
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
                         }
                     }
                 }

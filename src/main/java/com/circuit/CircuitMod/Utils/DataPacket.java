@@ -174,21 +174,16 @@ public class DataPacket extends EventPacket {
 
 
     public void RecreatingPacket(EventPacket packet){
-        super.RecreatingPacket(packet);
-
         DataPacket pack = (DataPacket)packet;
+        super.RecreatingPacket(pack);
 
         DataStorage = pack.DataStorage;
-
 
         Encrypted = pack.Encrypted;
         EncryptedKey = pack.EncryptedKey;
 
         if(Encrypted && DecryptionKey != null)
             DecryptionKey = null;
-
-
-
 
     }
 

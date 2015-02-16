@@ -18,6 +18,8 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
     boolean Resetting;
 
     public void updateEntity(){
+
+
         if(Resetting){
             if(Reset < ResetAt){
                 Reset += 1;
@@ -25,6 +27,23 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
                 Reset = 0;
                 Resetting = false;
             }
+        }
+
+        boolean powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+
+        if(powered){
+            if(Resetting == false){
+                    DataPacket SendPacket = CreatePacket();
+                    SendPacket.SaveData(DataPacket.DEFAULT_DATA_STORAGE, new DataStringValue(SavedData));
+
+                    if(SendPacket != null) {
+                        SendPacketToAround(SendPacket);
+                    }
+
+                    Resetting = true;
+                }else{
+                    Reset = 0;
+                }
         }
 
 
@@ -38,18 +57,6 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
 
     @Override
     public void OnRecived(EventPacket packet) {
-        if(!Resetting){
-
-        DataPacket SendPacket = CreatePacket();
-        SendPacket.SaveData(DataPacket.DEFAULT_DATA_STORAGE, new DataStringValue(SavedData));
-        SendPacketToAround(SendPacket);
-
-            Resetting = true;
-        }else{
-            Reset = 0;
-        }
-
-
     }
 
 
@@ -65,18 +72,15 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
 
     @Override
     public boolean CanRecive(EventPacket packet) {
-        return packet.ByteValue == ByteValues.OnSignal.Value() && SavedData != null;
+        return false;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
         super.readFromNBT(nbtTagCompound);
 
-        boolean t = nbtTagCompound.getBoolean("SavedDataNotNull");
-
-        if(t)
+        if(nbtTagCompound.getBoolean("SavedDataNotNull"))
         SavedData = nbtTagCompound.getString("SavedData");
-
 
         Resetting = nbtTagCompound.getBoolean("Resetting");
         Reset = nbtTagCompound.getInteger("Reset");
@@ -92,7 +96,6 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
 
         if(SavedData != null)
         nbtTagCompound.setString("SavedData", SavedData);
-
 
         nbtTagCompound.setInteger("Reset", Reset);
         nbtTagCompound.setBoolean("Resetting", Resetting);

@@ -14,51 +14,52 @@ public abstract class TileEntityEventSender extends ModTileEntity implements IEv
 
 
     public void SendPacketTo(EventPacket packet,ForgeDirection dir){
+        if(dir == packet.LastSentFrom || dir == ForgeDirection.UNKNOWN || packet == null || packet.TimedOut || packet.ByteValue < 0)
+            return;
 
-            if(dir != packet.LastSentFrom && dir != ForgeDirection.UNKNOWN && packet != null && !packet.TimedOut) {
-                if (worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof IEventRec) {
-                    TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+        try {
+            if (worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof IEventRec) {
+                TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
 
-                    if (tile instanceof ICircuitConnector) {
-
-
-                        if (((ICircuitConnector) tile).CanConnectToTile(this, dir.getOpposite()) && CanConnectToTile(tile, dir)) {
-
-
-                            if (tile instanceof IEventRec) {
-                                IEventRec tileE = (IEventRec) tile;
-                                if (tileE.CanRecive(packet) && tileE != null) {
-                                    Vector3d vec = new Vector3d(tile.xCoord, tile.yCoord, tile.zCoord);
-
-                                    if(!EventPacket.ContainesVactor(packet, vec)) {
-
-                                        EventPacket sendPacket = packet.GetInstance();
-
-                                        sendPacket.RecreatingPacket(packet);
-                                        sendPacket.LastSentFrom = dir.getOpposite();
-                                        sendPacket.Postitions.add(vec);
+                if (tile instanceof ICircuitConnector) {
 
 
-                                        tileE.OnRecived(sendPacket);
+                    if (((ICircuitConnector) tile).CanConnectToTile(this, dir.getOpposite()) && CanConnectToTile(tile, dir)) {
 
 
+                        if (tile instanceof IEventRec) {
+                            IEventRec tileE = (IEventRec) tile;
+                            if (tileE.CanRecive(packet) && tileE != null) {
+                                Vector3d vec = new Vector3d(tile.xCoord, tile.yCoord, tile.zCoord);
 
-                                    }
+                                if (!EventPacket.ContainesVactor(packet, vec)) {
+
+                                    EventPacket sendPacket = packet.GetInstance();
+                                    sendPacket.RecreatingPacket(packet);
+                                    sendPacket.LastSentFrom = dir.getOpposite();
+                                    sendPacket.Postitions.add(vec);
+
+
+                                    tileE.OnRecived(sendPacket);
 
 
                                 }
 
-                            }
 
+                            }
 
                         }
 
-                    }
-                }
 
-            }else{
-                return;
+                    }
+
+                }
             }
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 

@@ -39,9 +39,12 @@ tile.data_converter.name=Data Tag Encoder
 tile.data_screen.name=Data Screen
 
 tile.entity_detector.name=Entity Detector
+tile.data_detector.name=Data Detector
 
 tile.data_encryptor.name=Data Encryption Component
 tile.data_decryptor.name=Data Decryption Component
+
+tile.data_delay.name=Data Delay
 
 
 blockinfo.all.shiftchange=Shift-right click to change
@@ -58,6 +61,8 @@ blockinfo.circuitbox.activeinputs=Active Inputs: $Number
 blockinfo.circuitbox.outputting=Outputting: $Value
 blockinfo.variable.value=Variable Value: $Number
 blockinfo.randomnumbercomponent.posnum=Possible Numbers: $Number
+blockinfo.datadelay.tickDelay=Delay: $delay ticks
+blockinfo.datadelay.secondDelay=Delay: $delays
 
 gui.mulitidigitconstant.setvalue=Set Value
 gui.datatransmitter.setchannel=Set channel

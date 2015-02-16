@@ -1,35 +1,14 @@
 package com.circuit.CircuitMod.Main;
 
 import MiscUtils.Register.BlockRegister;
-import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataChatOutput;
-import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataConstructor;
-import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataConverter;
-import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataDecryptor;
-import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataEncryptor;
-import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataReceiver;
-import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataScreen;
-import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataSelector;
-import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockDataTransmitter;
-import com.circuit.CircuitMod.Blocks.DataBlocks.ModBlockEntityDetector;
+import com.circuit.CircuitMod.Blocks.DataBlocks.*;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockLamp;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockMultiDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockOneDigitDisplay;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockRedstoneEmitter;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockSignalShortender;
 import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockVariable;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockAddittionGate;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockDigitEquals;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockDividationGate;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockGreaterGate;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockLessGate;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiDigitConstant;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiDigitCounter;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockMultiplicationGate;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockOneDigitConstant;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockOneDigitCounter;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockRandomNumberComponent;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockRedstoneReciver;
-import com.circuit.CircuitMod.Blocks.EventSenders.ModBlockSubtractionGate;
+import com.circuit.CircuitMod.Blocks.EventSenders.*;
 import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Blocks.ModBlockCircuitBox;
 import com.circuit.CircuitMod.Blocks.ModBlockCircuitCable;
@@ -38,36 +17,14 @@ import com.circuit.CircuitMod.Items.ItemBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Items.ItemBlockCircuitBox;
 import com.circuit.CircuitMod.Items.ItemBlockCircuitCable;
 import com.circuit.CircuitMod.Items.ItemBlockLamp;
-import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataChatOutput;
-import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataConstructor;
-import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataConverter;
-import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataDecryptor;
-import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataEncryptor;
-import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataReceiver;
-import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataScreen;
-import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataSelector;
-import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataTransmitter;
-import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityEntityDetector;
+import com.circuit.CircuitMod.TileEntity.DataBlocks.*;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityLamp;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityRedstoneEmitter;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntitySignalShortender;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityVariable;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityAdditionGate;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityDigitEquals;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityDividationGate;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityGreaterGate;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityLessGate;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitConstant;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitCounter;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiplicationGate;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitConstant;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitCounter;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityRandomNumber;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityRedstoneReciver;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntitySignalGate;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntitySubtractionGate;
+import com.circuit.CircuitMod.TileEntity.EventSenders.*;
 import com.circuit.CircuitMod.TileEntity.TileEntityCableConnectionPoint;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
@@ -88,7 +45,8 @@ public class ModBlocks {
 
     public static Block DataTransmitter, DataConstructor, DataReceiver, DataChatOutput, DataScreen;
     public static Block DataSelector, DataConverter, DataEncryptor, DataDecryptor;
-    public static Block EntityDetector;
+    public static Block EntityDetector, DataDetector;
+    public static Block DataDelay;
 
     //TODO Add packet converter block. Allows converting a data packet with DataIntegerValue to a number packet
     //TODO Add a block which can interact with data packets through commands like if EntityName equals xxxx output signal
@@ -209,12 +167,19 @@ public class ModBlocks {
         EntityDetector = new ModBlockEntityDetector().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(EntityDetector, "Entity Detector", TileEntityEntityDetector.class);
 
+        DataDetector = new ModBlockDataDetector().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
+        Utils.Register(DataDetector, "Data Detector", TileEntityDataDetector.class);
+
 
         DataEncryptor = new ModBlockDataEncryptor().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(DataEncryptor, "Data Encryptor", TileEntityDataEncryptor.class);
 
         DataDecryptor = new ModBlockDataDecryptor().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(DataDecryptor, "Data Decryptor", TileEntityDataDecryptor.class);
+
+
+        DataDelay = new ModBlockDataDelay().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
+        Utils.Register(DataDelay, "Data Delay", TileEntityDataDelay.class);
 
 
     }

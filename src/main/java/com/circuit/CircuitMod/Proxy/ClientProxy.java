@@ -7,38 +7,28 @@ import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemLampRender;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemMultiDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemOneDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.Items.EventRecivers.ItemVariableRender;
-import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemMultiDigitConstantRender;
-import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemMultiDigitCounterRender;
-import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemOneDigitConstantRender;
-import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemOneDigitCounterRender;
-import com.circuit.CircuitMod.Rendering.Items.EventSenders.ItemRandomNumberComponentRender;
+import com.circuit.CircuitMod.Rendering.Items.EventSenders.*;
 import com.circuit.CircuitMod.Rendering.Items.ItemCircuitBoxRender;
 import com.circuit.CircuitMod.Rendering.Items.ItemCircuitCableRender;
 import com.circuit.CircuitMod.Rendering.Items.ItemConnectionPointRender;
+import com.circuit.CircuitMod.Rendering.TileEntities.DataBlocks.TileEntityDataDelayRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.DataBlocks.TileEntityDataScreenRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.DataBlocks.TileEntityEntityDetectorRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TIleEntityMultiDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TileEntityLampRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TileEntityOneDigitDisplayRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.EventReceivers.TileEntityVariableRender;
-import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityMultiDigitConstantRender;
-import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityMultiDigitCounterRender;
-import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityOneDigitConstantRender;
-import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityOneDigitCounterRender;
-import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.TileEntityRandomNumberComponentRender;
+import com.circuit.CircuitMod.Rendering.TileEntities.EventSenders.*;
 import com.circuit.CircuitMod.Rendering.TileEntities.TileEntityCircuitBoxRender;
 import com.circuit.CircuitMod.Rendering.TileEntities.TileEntityCircuitCableRender;
+import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataDelay;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataScreen;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityEntityDetector;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityLamp;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
 import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityVariable;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitConstant;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityMultiDigitCounter;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitConstant;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityOneDigitCounter;
-import com.circuit.CircuitMod.TileEntity.EventSenders.TileEntityRandomNumber;
+import com.circuit.CircuitMod.TileEntity.EventSenders.*;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitCable;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -67,6 +57,8 @@ public class ClientProxy extends ServerProxy  implements ProxyInterface {
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDataScreen.class, new TileEntityDataScreenRender());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEntityDetector.class, new TileEntityEntityDetectorRender());
+
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDataDelay.class, new TileEntityDataDelayRender());
 
 
 

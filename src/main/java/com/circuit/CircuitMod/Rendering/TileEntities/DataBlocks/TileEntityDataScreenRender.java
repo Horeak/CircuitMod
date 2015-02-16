@@ -1,8 +1,8 @@
 package com.circuit.CircuitMod.Rendering.TileEntities.DataBlocks;
 
+import MiscUtils.Render.RenderHelper;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataScreen;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
@@ -58,14 +58,7 @@ public class TileEntityDataScreenRender  extends TileEntitySpecialRenderer
                         list.set(6, temp);
                     }
 
-            //GL11.glDepthMask(false);
-
-            //I have no idea why i needed this lightning code but i did :/
-            int bright = 0xF0;
-            int brightX = bright % 65536;
-            int brightY = bright / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightX, brightY);
-
+            RenderHelper.lightningFix();
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 
@@ -74,10 +67,6 @@ public class TileEntityDataScreenRender  extends TileEntitySpecialRenderer
                         fontrenderer.drawString(EnumChatFormatting.WHITE + s, -fontrenderer.getStringWidth(s) / 2, i * 10 - size * 5, Color.WHITE.getRGB());
                     }
                 }
-
-
-      //  GL11.glDepthMask(true);
-
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glPopMatrix();
