@@ -5,21 +5,12 @@ import MiscUtils.Network.ChannelUtils;
 import MiscUtils.Utils.LocalizationUpdater;
 import com.circuit.CircuitMod.Gui.GuiHandler;
 import com.circuit.CircuitMod.Main.GuideIntegration.CircuitModGuideInstance;
-import com.circuit.CircuitMod.Packets.DataChannelChanged;
-import com.circuit.CircuitMod.Packets.DataConstructPacket;
-import com.circuit.CircuitMod.Packets.DataConverterPacket;
-import com.circuit.CircuitMod.Packets.DataDecryptionPacket;
-import com.circuit.CircuitMod.Packets.DataEncryptionPacket;
-import com.circuit.CircuitMod.Packets.DataSelectorPacket;
-import com.circuit.CircuitMod.Packets.MultiDigitConstantValueChanged;
-import com.circuit.CircuitMod.Packets.MultiDigitCounterValueChanged;
-import com.circuit.CircuitMod.Packets.OneDigitConstantValueChanged;
-import com.circuit.CircuitMod.Packets.OneDigitCounterValueChanged;
-import com.circuit.CircuitMod.Packets.RandomNumberComponentValueChanged;
+import com.circuit.CircuitMod.Packets.*;
 import com.circuit.CircuitMod.Proxy.ServerProxy;
 import com.circuit.CircuitMod.Utils.CircuitBoxModeUtils;
 import com.circuit.CircuitMod.Utils.Config;
 import com.circuit.CircuitMod.Utils.Ref;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -46,6 +37,9 @@ public class CircuitMod {
     public static Config config;
 
     public static boolean ShowHoverText = true;
+
+    //Mod integration
+    public static boolean ComputerCraftLoaded = Loader.isModLoaded("ComputerCraft");
 
     public static CreativeTabs CreativeTab = new CreativeTabs("tabCircuit") {
         @Override
@@ -89,8 +83,8 @@ public class CircuitMod {
     }
 
     @Mod.EventHandler
-    public void Init(FMLInitializationEvent event){
-
+    public void Init(FMLInitializationEvent event)
+    {
 
     }
 
@@ -100,12 +94,11 @@ public class CircuitMod {
     public void PostInit(FMLPostInitializationEvent event)
     {
 
-
-
     }
 
 
-    public static void RegisterPackets(){
+    public static void RegisterPackets()
+    {
 
         Utils.handler.RegisterPacket(MultiDigitConstantValueChanged.class);
         Utils.handler.RegisterPacket(MultiDigitCounterValueChanged.class);
@@ -114,6 +107,7 @@ public class CircuitMod {
         Utils.handler.RegisterPacket(OneDigitCounterValueChanged.class);
         Utils.handler.RegisterPacket(DataChannelChanged.class);
         Utils.handler.RegisterPacket(DataConstructPacket.class);
+	    Utils.handler.RegisterPacket(DataConstructorSavePacket.class);
         Utils.handler.RegisterPacket(DataSelectorPacket.class);
         Utils.handler.RegisterPacket(DataConverterPacket.class);
         Utils.handler.RegisterPacket(DataEncryptionPacket.class);
@@ -121,5 +115,4 @@ public class CircuitMod {
 
     }
 
-
-    }
+}

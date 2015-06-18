@@ -2,12 +2,7 @@ package com.circuit.CircuitMod.Main;
 
 import MiscUtils.Register.BlockRegister;
 import com.circuit.CircuitMod.Blocks.DataBlocks.*;
-import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockLamp;
-import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockMultiDigitDisplay;
-import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockOneDigitDisplay;
-import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockRedstoneEmitter;
-import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockSignalShortender;
-import com.circuit.CircuitMod.Blocks.EventRecivers.ModBlockVariable;
+import com.circuit.CircuitMod.Blocks.EventRecivers.*;
 import com.circuit.CircuitMod.Blocks.EventSenders.*;
 import com.circuit.CircuitMod.Blocks.ModBlockCableConnectionPoint;
 import com.circuit.CircuitMod.Blocks.ModBlockCircuitBox;
@@ -18,12 +13,7 @@ import com.circuit.CircuitMod.Items.ItemBlockCircuitBox;
 import com.circuit.CircuitMod.Items.ItemBlockCircuitCable;
 import com.circuit.CircuitMod.Items.ItemBlockLamp;
 import com.circuit.CircuitMod.TileEntity.DataBlocks.*;
-import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityLamp;
-import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityMultiDigitDisplay;
-import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityOneDigitDisplay;
-import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityRedstoneEmitter;
-import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntitySignalShortender;
-import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityVariable;
+import com.circuit.CircuitMod.TileEntity.EventReceivers.*;
 import com.circuit.CircuitMod.TileEntity.EventSenders.*;
 import com.circuit.CircuitMod.TileEntity.TileEntityCableConnectionPoint;
 import com.circuit.CircuitMod.TileEntity.TileEntityCircuitBox;
@@ -46,10 +36,14 @@ public class ModBlocks {
     public static Block DataTransmitter, DataConstructor, DataReceiver, DataChatOutput, DataScreen;
     public static Block DataSelector, DataConverter, DataEncryptor, DataDecryptor;
     public static Block EntityDetector, DataDetector;
-    public static Block DataDelay;
+    public static Block DataDelay, PacketExtender;
+
+    public static Block ComputerInterface;
 
     //TODO Add packet converter block. Allows converting a data packet with DataIntegerValue to a number packet
     //TODO Add a block which can interact with data packets through commands like if EntityName equals xxxx output signal
+
+    //TODO Add integration with computercraft? Signal type that excecutes commands when recived by a peripheral block
 
     public static void RegisterBlocks(){
         BlockRegister Utils = new BlockRegister(CircuitMod.config, Ref.ModId);
@@ -180,6 +174,21 @@ public class ModBlocks {
 
         DataDelay = new ModBlockDataDelay().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
         Utils.Register(DataDelay, "Data Delay", TileEntityDataDelay.class);
+
+	    PacketExtender = new ModBlockPacketExtender().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
+	    Utils.Register(PacketExtender, "Packet Extender", TileEntityPacketExtender.class);
+
+
+
+
+		//TODO Fix proplems with world syncing
+//        if(CircuitMod.ComputerCraftLoaded){
+//            ComputerInterface = new ModBlockComputerInterface().setCreativeTab(CircuitMod.CreativeTab).setHardness(1F);
+//            Utils.Register(ComputerInterface, "Computer Interface", TileEntityComputerInterface.class);
+//
+//            PeripheralProvider.addPeripherals();
+//        }
+
 
 
     }

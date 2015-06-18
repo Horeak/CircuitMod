@@ -25,9 +25,6 @@ public class TileEntityOneDigitConstant extends TileEntityEventSender implements
         packet.Data = new DataIntegerValue(Constant);
 
         SendPacketToAround(packet);
-
-
-
     }
 
     @Override

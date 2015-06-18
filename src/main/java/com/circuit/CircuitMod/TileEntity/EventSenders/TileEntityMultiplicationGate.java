@@ -29,6 +29,7 @@ public class TileEntityMultiplicationGate   extends TileEntityTwoSidedEventCheck
 
                     int total =t1 * t2;
 
+
                     if(total > 9999)
                         total = 9999;
 

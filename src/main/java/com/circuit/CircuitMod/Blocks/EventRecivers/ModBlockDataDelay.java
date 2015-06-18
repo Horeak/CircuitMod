@@ -1,7 +1,7 @@
-package com.circuit.CircuitMod.Blocks.DataBlocks;
+package com.circuit.CircuitMod.Blocks.EventRecivers;
 
 import MiscUtils.Block.ModBlockContainer;
-import com.circuit.CircuitMod.TileEntity.DataBlocks.TileEntityDataDelay;
+import com.circuit.CircuitMod.TileEntity.EventReceivers.TileEntityDataDelay;
 import com.circuit.CircuitMod.Utils.Ref;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockPistonBase;

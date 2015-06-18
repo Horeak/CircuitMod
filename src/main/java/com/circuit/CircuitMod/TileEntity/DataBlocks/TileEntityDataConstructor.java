@@ -1,9 +1,11 @@
 package com.circuit.CircuitMod.TileEntity.DataBlocks;
 
+import MiscUtils.Network.PacketHandler;
+import com.circuit.CircuitMod.Main.CircuitMod;
+import com.circuit.CircuitMod.Packets.DataConstructPacket;
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
 import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.DataPacket;
-import com.circuit.CircuitMod.Utils.DataStorage.DataStringValue;
 import com.circuit.CircuitMod.Utils.DataStorage.DataValueStorage;
 import com.circuit.CircuitMod.Utils.EventPacket;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,6 +15,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class TileEntityDataConstructor extends TileEntityEventSender {
 
     public String SavedData;
+	public int SavedMode;
+
     int Reset = 0;
     static int ResetAt = 1;
     boolean Resetting;
@@ -31,15 +35,10 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
 
         boolean powered = worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
 
+	    if(!worldObj.isRemote)
         if(powered){
             if(Resetting == false){
-                    DataPacket SendPacket = CreatePacket();
-                    SendPacket.SaveData(DataPacket.DEFAULT_DATA_STORAGE, new DataStringValue(SavedData));
-
-                    if(SendPacket != null) {
-                        SendPacketToAround(SendPacket);
-                    }
-
+	                 SendPacket();
                     Resetting = true;
                 }else{
                     Reset = 0;
@@ -48,6 +47,11 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
 
 
     }
+
+    public void SendPacketFromGUI(EventPacket packet){
+        SendPacketToAround(packet);
+    }
+
 
     public void SendPacketFromGUI(DataValueStorage Data){
         DataPacket packet = CreatePacket();
@@ -61,7 +65,7 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
 
 
     public DataPacket CreatePacket(){
-        DataPacket packet = new DataPacket(-1 ,ByteValues.DataSignal.Value());
+        DataPacket packet = new DataPacket(-1);
         return packet;
     }
 
@@ -81,6 +85,7 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
 
         if(nbtTagCompound.getBoolean("SavedDataNotNull"))
         SavedData = nbtTagCompound.getString("SavedData");
+		SavedMode = nbtTagCompound.getInteger("SavedMode");
 
         Resetting = nbtTagCompound.getBoolean("Resetting");
         Reset = nbtTagCompound.getInteger("Reset");
@@ -96,10 +101,24 @@ public class TileEntityDataConstructor extends TileEntityEventSender {
 
         if(SavedData != null)
         nbtTagCompound.setString("SavedData", SavedData);
+	    nbtTagCompound.setInteger("SavedMode", SavedMode);
+
 
         nbtTagCompound.setInteger("Reset", Reset);
         nbtTagCompound.setBoolean("Resetting", Resetting);
 
     }
+
+	public void SendPacket(){
+		ByteValues val = ByteValues.getValue(SavedMode);
+
+		if(SavedData != null){
+			PacketHandler.sendToServer(new DataConstructPacket(this, SavedData, SavedMode), CircuitMod.Utils.channels);
+
+		}else if(val == ByteValues.OnSignal){
+			PacketHandler.sendToServer(new DataConstructPacket(this, "empty", SavedMode), CircuitMod.Utils.channels);
+		}
+
+	}
 
 }

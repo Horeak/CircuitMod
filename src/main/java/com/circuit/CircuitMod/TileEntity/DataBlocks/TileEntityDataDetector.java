@@ -18,16 +18,8 @@ public class TileEntityDataDetector extends TileEntityEventSender {
     public void OnRecived(EventPacket packet) {
         SendPacketTo(packet, dir);
 
-        if(dir == null || dir == ForgeDirection.UNKNOWN || packet.LastSentFrom.getOpposite() == dir){
-            System.err.println("Invalid direction! Send dir: " + dir + " Packet dir: " + packet.LastSentFrom);
-            return;
-        }
-
-
         if(packet != null) {
             SendPacketTo(new EventPacket(-1, ByteValues.OnSignal.Value()), dir);
-        }else{
-            System.err.println("Invalid packet!");
         }
 
     }
@@ -39,7 +31,7 @@ public class TileEntityDataDetector extends TileEntityEventSender {
 
     @Override
     public boolean CanRecive(EventPacket packet) {
-        boolean hasBeen = EventPacket.ContainesVactor(packet, new Vector3d(xCoord, yCoord, zCoord));
+        boolean hasBeen = EventPacket.ContainesVector(packet, new Vector3d(xCoord, yCoord, zCoord));
         return packet instanceof DataPacket && !hasBeen && packet.LastSentFrom != dir;
     }
 

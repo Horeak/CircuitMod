@@ -1,4 +1,4 @@
-package com.circuit.CircuitMod.TileEntity.DataBlocks;
+package com.circuit.CircuitMod.TileEntity.EventReceivers;
 
 import MiscUtils.TileEntity.IBlockInfo;
 import com.circuit.CircuitMod.Main.CircuitMod;
@@ -31,6 +31,7 @@ public class TileEntityDataDelay  extends TileEntityEventSender implements IBloc
 
     public void updateEntity(){
 
+        if(packets != null && packets.size() > 0)
         for(Map.Entry<Integer, EventPacket> ent : packets.entrySet()){
             if(ent.getKey() >= Delay){
                 SendPacketTo(ent.getValue(), dir);
@@ -115,7 +116,6 @@ public class TileEntityDataDelay  extends TileEntityEventSender implements IBloc
 
         Strings.add(EnumChatFormatting.WHITE + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName() + EnumChatFormatting.RESET);
 
-        MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
         int dim = worldObj.provider.dimensionId;
         double worldTps = getTPS(dim);
 
@@ -128,7 +128,7 @@ public class TileEntityDataDelay  extends TileEntityEventSender implements IBloc
      * Copied from: https://github.com/ForgeEssentials/ForgeEssentialsMain/blob/fb6557131180b3ae69c917e0b4a82038c55c3237/src/main/java/com/forgeessentials/util/FunctionHelper.java#L351
      * Will be remade at a later date!
      */
-    private static double getTPS(int dimID)
+    public static double getTPS(int dimID)
     {
         try
         {

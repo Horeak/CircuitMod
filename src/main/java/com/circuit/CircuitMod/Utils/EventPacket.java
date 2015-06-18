@@ -11,7 +11,7 @@ public class EventPacket {
 
     public ArrayList<Vector3d> Postitions = new ArrayList<Vector3d>();
 
-    public static boolean ContainesVactor(EventPacket packet, Vector3d vec){
+    public static boolean ContainesVector(EventPacket packet, Vector3d vec){
         for(Vector3d vecc : packet.Postitions){
             if(vecc.x == vec.x && vecc.y == vec.y && vecc.z == vec.z){
                 return true;

@@ -144,19 +144,12 @@ public class LampModel extends ModelBase
         int g = c.getGreen();
         int b = c.getBlue();
 
-        int Change = 25;
+        int Change = 45;
 
-        if(On){
-
-            r += Change;
-            g += Change;
-            b += Change;
-
-        }
-        else{
-            r -= Change / 4;
-            g -= Change / 4;
-            b -= Change / 4;
+        if(!On){
+            r -= Change;
+            g -= Change;
+            b -= Change;
         }
 
 
@@ -175,17 +168,21 @@ public class LampModel extends ModelBase
         else if(b < 0)
             b = 0;
 
+        GL11.glPushMatrix();
+
         if(On)
         GL11.glDisable(GL11.GL_LIGHTING);
 
         GL11.glColor4f(r / (float)255, g / (float)255, b / (float)255, 1F);
         Shape13.render(f5);
 
-        if(On)
         GL11.glEnable(GL11.GL_LIGHTING);
 
         GL11.glPopMatrix();
         GL11.glPopMatrix();
+        GL11.glPopMatrix();
+
+
 
     }
 

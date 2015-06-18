@@ -23,7 +23,6 @@ public class TileEntityVariable extends TileEntityEventSender implements IBlockI
         EventPacket packet = new EventPacket(-1, StoredNumber > 9 ? ByteValues.MultiDigitNumber.Value() : ByteValues.OneDigitNumber.Value());
         packet.Data = new DataIntegerValue(StoredNumber);
 
-
         for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
             if(dir != dirFrom)
                 SendPacketTo(packet, dir);
@@ -65,8 +64,6 @@ public class TileEntityVariable extends TileEntityEventSender implements IBlockI
         if(packet.ByteValue == ByteValues.MultiDigitNumber.Value() || packet.ByteValue == ByteValues.OneDigitNumber.Value())
             StoredNumber = packet.Data instanceof DataIntegerValue ? ((DataIntegerValue)packet.Data).GetStoredObject() : 0;
             dirFrom = packet.LastSentFrom;
-
-
 
     }
 

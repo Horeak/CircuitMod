@@ -64,6 +64,10 @@ public class Crafting {
         Utils.AddRecipe(new ItemStack(ModBlocks.DataScreen), new Object[]{"III", "ILI", "ICI", 'I', Items.iron_ingot, 'L', ModBlocks.Lamp, 'C', ModBlocks.CircuitCable});
 
         Utils.AddRecipe(new ItemStack(ModBlocks.EntityDetector), new Object[]{"ITI", "BCB", "IOI", 'I', Items.iron_ingot, 'T', ModBlocks.DataTransmitter, 'B', ModBlocks.CircuitBox, 'C', ModBlocks.DataConstructor, 'O', ModBlocks.DataChatOutput});
+        Utils.AddRecipe(new ItemStack(ModBlocks.DataDetector), new Object[]{"III", "CBC", "IPI", 'I', Items.iron_ingot, 'C', ModBlocks.CircuitCable, 'B', ModBlocks.CircuitBox, 'P', Blocks.stone_pressure_plate});
+
+	    Utils.AddRecipe(new ItemStack(ModBlocks.DataDelay), new Object[]{"CTC", "LBL", "CTC", 'C', ModBlocks.CircuitCable, 'T', Blocks.redstone_torch, 'L', ModBlocks.CableConnectionPoint, 'B', ModBlocks.CircuitBox});
+	    Utils.AddRecipe(new ItemStack(ModBlocks.PacketExtender), new Object[]{"CTC", "SBS", "CTC", 'C', ModBlocks.CircuitCable, 'T', Blocks.redstone_torch, 'S', ModBlocks.SignalShortender, 'B', ModBlocks.CircuitBox});
 
 
 

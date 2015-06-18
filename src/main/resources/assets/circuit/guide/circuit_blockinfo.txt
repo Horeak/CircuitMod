@@ -21,6 +21,9 @@ block.info.equals_gate=The equals gate will output a signal if both of its outpu
 block.info.greater_gate=The greater gate will output a signal if its input number 1 is greater then the input number 2.
 block.info.less_gate=The less gate will output a signal if its input number 1 is less then the input number 2.
 block.info.signal_gate=The signal gate is used to control which signal should be let through. It can accept a signal from the red and green side and a redstone data signal to any other side. If it is receiving a redstone data signal it will output the green side through the front and if it is not receiving a redstone data signal it will output the red side.
+block.info.data_delay=The packet delay block is used to delay a incoming signal before passing it through the output so it can be used to make sure one signal is recived before another one. The amount of time it is delayed with is decided by inputting a number into the block from for example a constant.
+block.info.packet_extender=The packet extender extends the period of time a packets signal is active so it can be used to for example keep a redstone signal active longer from a single input. 
+block.info.data_detector=The data detector is a very basic block with that it will detect any data signal (not number or redstone signals) from any of its sides excluding the front side where it will output a redstone packet signal when another signal is detected. 
 
 //MathBlocks
 block.info.addition_gate=The addition component is one of the blocks used to handle numbers it will output the value that it gets by adding the side 1 number together with the side 2 number.

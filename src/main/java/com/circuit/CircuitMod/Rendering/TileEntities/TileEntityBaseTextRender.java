@@ -1,11 +1,11 @@
-package com.circuit.CircuitMod.Rendering.TileEntities.DataBlocks;
+package com.circuit.CircuitMod.Rendering.TileEntities;
 
 import MiscUtils.Render.RenderHelper;
 import MiscUtils.Render.TileEntityBlockInfoRender;
 import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
 
-public class TileEntityDataDelayRender extends TileEntityBlockInfoRender {
+public class TileEntityBaseTextRender extends TileEntityBlockInfoRender {
 
 
 

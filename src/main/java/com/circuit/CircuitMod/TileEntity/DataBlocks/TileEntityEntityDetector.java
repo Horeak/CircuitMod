@@ -1,7 +1,6 @@
 package com.circuit.CircuitMod.TileEntity.DataBlocks;
 
 import com.circuit.CircuitMod.TileEntity.TileEntityEventSender;
-import com.circuit.CircuitMod.Utils.ByteValues;
 import com.circuit.CircuitMod.Utils.DataPacket;
 import com.circuit.CircuitMod.Utils.DataStorage.DataDoubleValue;
 import com.circuit.CircuitMod.Utils.DataStorage.DataIntegerValue;
@@ -47,7 +46,7 @@ public class TileEntityEntityDetector extends TileEntityEventSender {
                 }
 
                 if (!Found) {
-                    DataPacket packet = new DataPacket(-1, ByteValues.DataSignal.Value());
+                    DataPacket packet = new DataPacket(-1);
 
                     String name = null;
 

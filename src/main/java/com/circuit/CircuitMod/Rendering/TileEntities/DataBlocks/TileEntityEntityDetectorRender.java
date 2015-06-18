@@ -37,8 +37,6 @@ public class TileEntityEntityDetectorRender  extends TileEntityBlockInfoRender {
 
             GL11.glPopMatrix();
 
-
-
     }
 }
 

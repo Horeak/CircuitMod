@@ -44,7 +44,9 @@ tile.data_detector.name=Data Detector
 tile.data_encryptor.name=Data Encryption Component
 tile.data_decryptor.name=Data Decryption Component
 
-tile.data_delay.name=Data Delay
+tile.data_delay.name=Packet Delay
+tile.packet_extender.name=Packet Extender
+tile.computer_interface.name=Computer Interface
 
 
 blockinfo.all.shiftchange=Shift-right click to change
@@ -63,12 +65,14 @@ blockinfo.variable.value=Variable Value: $Number
 blockinfo.randomnumbercomponent.posnum=Possible Numbers: $Number
 blockinfo.datadelay.tickDelay=Delay: $delay ticks
 blockinfo.datadelay.secondDelay=Delay: $delays
+blockinfo.packetextender.extended=Extended by: $delay ticks
+blockinfo.packetextender.extendedSecond=Extended by: $delays
 
 gui.mulitidigitconstant.setvalue=Set Value
 gui.datatransmitter.setchannel=Set channel
 gui.datachannel.text=Enter channel id
-gui.dataconstructor.save=Save data Packet
-gui.dataconstructor.construct=Construct data packet
+gui.dataconstructor.save=Store Data
+gui.dataconstructor.construct=Construct data
 gui.dataselector.mode.0=Whitelist
 gui.dataselector.mode.1=Blacklist
 gui.dataselector.save=Save

@@ -44,7 +44,7 @@ public class TileEntityDataTransmitter extends TileEntityEventSender implements 
                                 if (rec.CanRecive(packet)) {
                                     Vector3d vec = new Vector3d(te.xCoord, te.yCoord, te.zCoord);
 
-                                    if (!EventPacket.ContainesVactor(packet, vec)) {
+                                    if (!EventPacket.ContainesVector(packet, vec)) {
 
                                         EventPacket sendPacket = packet.GetInstance();
 

@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataPacket extends EventPacket {
-    public DataPacket(int TimeOut, byte Value) {
-        super(TimeOut, Value);
+    public DataPacket(int TimeOut) {
+        super(TimeOut, ByteValues.DataSignal.Value());
     }
 
     public static final String DEFAULT_DATA_STORAGE = "Data";
@@ -68,7 +68,7 @@ public class DataPacket extends EventPacket {
 
 
     public EventPacket GetInstance(){
-            return new DataPacket(TimeOut, ByteValue);
+            return new DataPacket(TimeOut);
     }
 
 
